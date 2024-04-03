@@ -9,13 +9,13 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="431.0" prefWidth="715.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <PasswordField fx:id="fxid_password_field" layoutX="283.0" layoutY="229.0" promptText="Password" />
-      <TextField fx:id="fxid_username_field" layoutX="283.0" layoutY="177.0" promptText="Username" />
       <Text fill="#0013ff" layoutX="292.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenido">
          <font>
             <Font name="Symbol" size="29.0" />
          </font>
       </Text>
+      <TextField fx:id="fxid_username_field" layoutX="283.0" layoutY="177.0" promptText="Username" />
+      <PasswordField fx:id="fxid_password_field" layoutX="283.0" layoutY="229.0" promptText="Password" />
       <Button fx:id="fxid_login_button" layoutX="313.0" layoutY="281.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="25.0" prefWidth="88.0" stylesheets="@login.css" text="Login" textFill="#105bfc" />
    </children>
 </Pane>

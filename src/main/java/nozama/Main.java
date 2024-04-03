@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import nozama.f00_Login.FrameLogin;
+import nozama.f00_Login.LoginPage;
 import nozama_database.setttingUp.DatabaseLinkTest;
 
 public class Main extends Application {
@@ -20,7 +20,7 @@ public class Main extends Application {
         loader.setLocation(getClass().getResource("/nozama/login/login.fxml"));
 
         // Se crea una instancia del controlador a usar (clase que va a interaccionar con el usuario)
-        FrameLogin controller = new FrameLogin(stage);
+        LoginPage controller = new LoginPage(stage);
 
         // Al loader se le da ese controller (Si simplemente en el FXMLLoader se hace un .load() 
         // se instancia automaticamente buscando un constructor sin parametros)
@@ -33,8 +33,9 @@ public class Main extends Application {
         Scene s = new Scene(login_frame, 700, 400);
 
         stage.setTitle("Nozama Express");
+        stage.centerOnScreen();
         stage.setScene(s);
-
+        
         stage.show();
     }
 
