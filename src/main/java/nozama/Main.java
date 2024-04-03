@@ -5,22 +5,37 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import nozama.f00_Login.FrameLogin;
 import nozama_database.setttingUp.DatabaseLinkTest;
 
 public class Main extends Application {
     @Override
-    public void start(Stage frame) throws Exception {
-
-        // INICAIR BASE DE DATOS
+    public void start(Stage stage) throws Exception {
+        // Link to the database
         DatabaseLinkTest.createDBandTB(3306);
 
-        Parent login_frame = FXMLLoader.load(getClass().getResource("/nozama/login_frame/frame_login.fxml"));
+        // Instancia de FXMLLoader
+        FXMLLoader loader = new FXMLLoader();
+        // Se le da la ubicacion del fxml a usar
+        loader.setLocation(getClass().getResource("/nozama/login/login.fxml"));
+
+        // Se crea una instancia del controlador a usar (clase que va a interaccionar con el usuario)
+        FrameLogin controller = new FrameLogin(stage);
+
+        // Al loader se le da ese controller (Si simplemente en el FXMLLoader se hace un .load() 
+        // se instancia automaticamente buscando un constructor sin parametros)
+        loader.setController(controller);
+
+        // Se crea un parent con el loader predefinido
+        Parent login_frame = loader.load();
+
+        // Se crea una escena con el parent y las dimensiones
         Scene s = new Scene(login_frame, 700, 400);
 
-        frame.setTitle("Nozama Express");
-        frame.setScene(s);
+        stage.setTitle("Nozama Express");
+        stage.setScene(s);
 
-        frame.show();
+        stage.show();
     }
 
     public static void main(String[] args) {
