@@ -10,6 +10,14 @@ import nozama_database.sendRequest.DatabaseRequestManagment;
 import nozama_database.setttingUp.DatabaseLinkTest;
 
 public class Main extends Application {
+    public static double LOGIN_WIDTH;
+    public static double LOGIN_HEIGTH;
+
+    public Main () {
+        LOGIN_WIDTH = 969;
+        LOGIN_HEIGTH = 588;
+    }
+
     @Override
     public void start(Stage stage) throws Exception {
         // Link to the database
@@ -33,7 +41,7 @@ public class Main extends Application {
         Parent login_frame = loader.load();
 
         // Se crea una escena con el parent y las dimensiones
-        Scene s = new Scene(login_frame, 1000, 588);
+        Scene s = new Scene(login_frame, LOGIN_WIDTH, LOGIN_HEIGTH);
 
         stage.setTitle("Nozama Express");
         stage.setResizable(false);;

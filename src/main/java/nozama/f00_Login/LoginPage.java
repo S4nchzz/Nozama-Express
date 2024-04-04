@@ -10,11 +10,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import nozama.Main;
 import nozama.f01_PageAfLog.FrontPage;
 import nozama_database.sendRequest.DatabaseRequestManagment;
 
 public class LoginPage {
     private final Stage stage;
+
     @FXML
     private TextField fxid_username_field;
 
@@ -42,7 +44,7 @@ public class LoginPage {
 
             Parent p = frontPageLoader.load();
 
-            Scene s = new Scene(p, 700, 400);
+            Scene s = new Scene(p, Main.LOGIN_WIDTH, Main.LOGIN_HEIGTH);
             stage.centerOnScreen();
             stage.setTitle("Nozama Express");
             stage.setScene(s);
@@ -57,17 +59,33 @@ public class LoginPage {
     private void handleCreateAccount() throws IOException {
         FXMLLoader singup_loader = new FXMLLoader();
         singup_loader.setLocation(getClass().getResource("/nozama/login/createAccount.fxml"));
-        singup_loader.setController(new CreateAccount(stage));
+        singup_loader.setController(new CreateAccount(stage, this));
 
         Parent p = singup_loader.load();
 
-        Scene s = new Scene(p, 1000, 588);
+        Scene s = new Scene(p, Main.LOGIN_WIDTH, Main.LOGIN_HEIGTH);
         stage.centerOnScreen();
         stage.setTitle("Nozama Express");
         stage.setScene(s);
 
         stage.show();
 
+    }
+
+    @FXML
+    private void handleChangePass() throws IOException {
+        FXMLLoader singup_loader = new FXMLLoader();
+        singup_loader.setLocation(getClass().getResource("/nozama/login/changePassword.fxml"));
+        singup_loader.setController(new ChangePassword(stage, this));
+
+        Parent p = singup_loader.load();
+
+        Scene s = new Scene(p, Main.LOGIN_WIDTH, Main.LOGIN_HEIGTH);
+        stage.centerOnScreen();
+        stage.setTitle("Nozama Express");
+        stage.setScene(s);
+
+        stage.show();
     }
 
     public String getLoginContent() {
