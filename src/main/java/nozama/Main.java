@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import nozama.f00_Login.LoginPage;
+import nozama_database.sendRequest.DatabaseRequestManagment;
 import nozama_database.setttingUp.DatabaseLinkTest;
 
 public class Main extends Application {
@@ -13,6 +14,8 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         // Link to the database
         DatabaseLinkTest.createDBandTB(3306);
+
+        DatabaseRequestManagment.anadir("iyansd", "8445", true, "Iyan Sanchez", "640183448");
 
         // Instancia de FXMLLoader
         FXMLLoader loader = new FXMLLoader();
@@ -30,9 +33,10 @@ public class Main extends Application {
         Parent login_frame = loader.load();
 
         // Se crea una escena con el parent y las dimensiones
-        Scene s = new Scene(login_frame, 700, 400);
+        Scene s = new Scene(login_frame, 1000, 588);
 
         stage.setTitle("Nozama Express");
+        stage.setResizable(false);;
         stage.centerOnScreen();
         stage.setScene(s);
         

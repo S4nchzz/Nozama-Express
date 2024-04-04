@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="588.0" prefWidth="948.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text fill="#0013ff" layoutX="648.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create account" wrappingWidth="293.6328125">
+         <font>
+            <Font name="Symbol" size="40.0" />
+         </font>
+      </Text>
+      <TextField fx:id="fxid_username_field_singup" layoutX="709.0" layoutY="243.0" promptText="Username" />
+      <PasswordField fx:id="fxid_password_field_singup" layoutX="709.0" layoutY="294.0" promptText="Password" />
+      <Button fx:id="fxid_singup_button" layoutX="739.0" layoutY="355.0" mnemonicParsing="false" onAction="#handleSingup" prefHeight="25.0" prefWidth="88.0" text="Sing up" textFill="#105bfc" />
+      <ImageView fx:id="fxid_image_login" fitHeight="588.0" fitWidth="651.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@src/image-icon.png" />
+         </image>
+      </ImageView>
+   </children>
+</Pane>

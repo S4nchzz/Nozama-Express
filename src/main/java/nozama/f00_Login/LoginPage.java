@@ -53,6 +53,23 @@ public class LoginPage {
         }
     }
 
+    @FXML
+    private void handleCreateAccount() throws IOException {
+        FXMLLoader singup_loader = new FXMLLoader();
+        singup_loader.setLocation(getClass().getResource("/nozama/login/createAccount.fxml"));
+        singup_loader.setController(new CreateAccount(stage));
+
+        Parent p = singup_loader.load();
+
+        Scene s = new Scene(p, 1000, 588);
+        stage.centerOnScreen();
+        stage.setTitle("Nozama Express");
+        stage.setScene(s);
+
+        stage.show();
+
+    }
+
     public String getLoginContent() {
         return this.loginContent;
     }
