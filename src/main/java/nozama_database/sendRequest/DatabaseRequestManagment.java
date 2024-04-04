@@ -181,11 +181,11 @@ public class DatabaseRequestManagment {
         return false;
     }
 
-    private static ResultSet getQueryResult(String username) {
+    public static ResultSet getQueryResult(String username) {
         try {
             Connection conn = DriverManager.getConnection(url, "root", "");
 
-            PreparedStatement st = conn.prepareStatement("SELECT ISADMIN FROM USER WHERE USERNAME = ?");
+            PreparedStatement st = conn.prepareStatement("SELECT * FROM USER WHERE USERNAME = ?");
             st.setString(1, username);
 
             ResultSet rs = st.executeQuery();
@@ -205,13 +205,12 @@ public class DatabaseRequestManagment {
 
             if (rs != null) {
                 try {
-                    return rs.getBoolean(1);
+                    return rs.getBoolean(4);
                 } catch (SQLException sqle) {
                     System.out.println(sqle.getMessage());
                 }
             }
         }
-
         return false;
     }
 }
