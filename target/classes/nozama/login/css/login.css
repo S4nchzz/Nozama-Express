@@ -1,3 +1,19 @@
-#fxid_login_button:hover {
-    background-color: black;
+#fxid_login_button {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+}
+
+#fxid_principalLoginPane {
+    -fx-background-color: white;
+}
+
+#fxid_create_acount_text {
+    -fx-cursor: hand;
+}
+
+#fxid_login_button {
+    -fx-background-color: #1F8FE8;
+    -fx-text-fill: white;
+    -fx-border-radius: 1px;
+    -fx-cursor: hand;
 }

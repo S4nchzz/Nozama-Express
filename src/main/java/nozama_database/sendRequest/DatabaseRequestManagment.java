@@ -180,4 +180,38 @@ public class DatabaseRequestManagment {
 
         return false;
     }
+
+    private static ResultSet getQueryResult(String username) {
+        try {
+            Connection conn = DriverManager.getConnection(url, "root", "");
+
+            PreparedStatement st = conn.prepareStatement("SELECT ISADMIN FROM USER WHERE USERNAME = ?");
+            st.setString(1, username);
+
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                return rs;
+            }
+        } catch (SQLException sqle) {
+            
+        }
+        return null;
+    }
+
+    public static boolean isAdmin(String username, String password) {
+        if (acceder(username, password)) {
+            ResultSet rs = getQueryResult(username);
+
+            if (rs != null) {
+                try {
+                    return rs.getBoolean(1);
+                } catch (SQLException sqle) {
+                    System.out.println(sqle.getMessage());
+                }
+            }
+        }
+
+        return false;
+    }
 }

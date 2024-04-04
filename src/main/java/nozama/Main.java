@@ -10,13 +10,8 @@ import nozama_database.sendRequest.DatabaseRequestManagment;
 import nozama_database.setttingUp.DatabaseLinkTest;
 
 public class Main extends Application {
-    public static double LOGIN_WIDTH;
-    public static double LOGIN_HEIGTH;
-
-    public Main () {
-        LOGIN_WIDTH = 969;
-        LOGIN_HEIGTH = 588;
-    }
+    public static double LOGIN_WIDTH = 969;
+    public static double LOGIN_HEIGTH = 588;
 
     @Override
     public void start(Stage stage) throws Exception {

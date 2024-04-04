@@ -1,0 +1,14 @@
+#fxid_pane_createAcc {
+    -fx-background-color: white;
+}
+
+#fxid_username_field_singup, #fxid_password_field_singup, #fxid_fullname_field, #fxid_telf_field {
+    -fx-font-size: 14px;
+}
+
+#fxid_singup_button {
+    -fx-background-color: #1F8FE8;
+    -fx-text-fill: white;
+    -fx-border-radius: 1px;
+    -fx-cursor: hand;
+}

@@ -11,6 +11,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import nozama.Main;
+import nozama.f00_Login.accountCreation.CreateAccount;
+import nozama.f00_Login.passwordChanger.ChangePassword;
 import nozama.f01_PageAfLog.FrontPage;
 import nozama_database.sendRequest.DatabaseRequestManagment;
 
@@ -45,13 +47,12 @@ public class LoginPage {
             Parent p = frontPageLoader.load();
 
             Scene s = new Scene(p, Main.LOGIN_WIDTH, Main.LOGIN_HEIGTH);
-            stage.centerOnScreen();
             stage.setTitle("Nozama Express");
             stage.setScene(s);
 
             stage.show();
         } else {
-            JOptionPane.showMessageDialog(null, "Contraseña invalida");
+            JOptionPane.showMessageDialog(null, "Usuario o contraseña invalidao");
         }
     }
 
@@ -64,8 +65,8 @@ public class LoginPage {
         Parent p = singup_loader.load();
 
         Scene s = new Scene(p, Main.LOGIN_WIDTH, Main.LOGIN_HEIGTH);
-        stage.centerOnScreen();
         stage.setTitle("Nozama Express");
+        stage.requestFocus();
         stage.setScene(s);
 
         stage.show();
@@ -81,8 +82,8 @@ public class LoginPage {
         Parent p = singup_loader.load();
 
         Scene s = new Scene(p, Main.LOGIN_WIDTH, Main.LOGIN_HEIGTH);
-        stage.centerOnScreen();
         stage.setTitle("Nozama Express");
+        stage.requestFocus();
         stage.setScene(s);
 
         stage.show();
