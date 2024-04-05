@@ -98,7 +98,6 @@ public class LoginPage {
     /**
      * Metodo que cuando es llamado se pone en escena
      * el changePass.fxml con su controlador
-     * 
      * @throws IOException
      */
     @FXML
