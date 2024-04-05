@@ -10,7 +10,7 @@ import java.sql.SQLException;
  * y si se encuentra la base de datos nozama_ex, si no esta la crea
  */
 public class DatabaseLinkTest {
-    public static String url; // URL estatica para poder se accesible desde otros metodos
+    public static String url = "jdbc:mariadb://127.0.0.1"; // URL estatica para poder se accesible desde otros metodos
 
     /**
      * Este metodo iniciara una conexion al servidor de mariadb, si hay un
@@ -22,7 +22,7 @@ public class DatabaseLinkTest {
      * @return
      */
     public static boolean createDBandTB(int port) {
-        url = "jdbc:mariadb://127.0.0.1:" + port + "/";
+        url += ":" + port + "/";
         try {
             // Prueba de conexion al SERVIDOR
             Connection dbServer = DriverManager.getConnection(url, "root", "");
@@ -60,9 +60,5 @@ public class DatabaseLinkTest {
             System.out.println("Error while trying establish connection to the database");
             return false;
         }
-    }
-
-    public boolean checkConnection() {
-        
     }
 }

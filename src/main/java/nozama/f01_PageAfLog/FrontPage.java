@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
-import nozama_database.sendRequest.DatabaseRequestManagment;
 
 public class FrontPage {
     @FXML
