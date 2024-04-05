@@ -28,6 +28,11 @@ public class CreateAccount {
     @FXML
     private TextField fxid_telf_field;
 
+    private String username;
+    private String password;
+    private String fullname;
+    private String telf;
+
     private Conditions conditions;
     
     public CreateAccount (Stage s, LoginPage l) {
@@ -38,15 +43,13 @@ public class CreateAccount {
 
     @FXML
     private void handleSingup () throws IOException {
+        setStrings();
         // Se crea una instancia de conditions enviandole los String de cada campo
-        this.conditions = new Conditions(fxid_username_field_singup.getText(), fxid_fullname_field
-                .getText(), fxid_telf_field.getText(), fxid_password_field_singup.getText());
+        this.conditions = new Conditions(username, fullname, telf, password);
 
         // Si todas las condiciones se cumplen añade el usuario
         if (conditions.usernameConditions() && conditions.fullNameConditions() && conditions.telfConditions() && conditions.passwordConditions()) {
-            DatabaseRequestManagment.anadir(fxid_username_field_singup.getText(),
-                    fxid_password_field_singup.getText(), false, fxid_fullname_field.getText(),
-                    fxid_telf_field.getText());
+            DatabaseRequestManagment.anadir(username, password, false, fullname, telf);
 
             loader.setLocation(getClass().getResource("/nozama/login/login.fxml"));
             loader.setController(loginController);
@@ -79,5 +82,12 @@ public class CreateAccount {
 
         Scene s = new Scene(p,NozamaWindowApp.LOGIN_WIDTH,NozamaWindowApp.LOGIN_HEIGTH);
         stage.setScene(s);
+    }
+
+    private void setStrings() {
+        this.username = fxid_username_field_singup.getText();
+        this.password = fxid_password_field_singup.getText();
+        this.fullname = fxid_fullname_field.getText();
+        this.telf = fxid_telf_field.getText();
     }
 }
