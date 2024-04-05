@@ -27,5 +27,10 @@
          </image>
       </ImageView>
       <Text fill="#b2b2b2" layoutX="858.0" layoutY="330.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Optional" />
+      <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="600.0" layoutY="14.0" onMouseClicked="#handleBack" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+         <image>
+            <Image url="@src/back-icon.png" />
+         </image>
+      </ImageView>
    </children>
 </Pane>

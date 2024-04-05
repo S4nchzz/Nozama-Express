@@ -1,20 +1,17 @@
 package nozama.f00_Login.accountCreation;
 
-import javafx.scene.control.TextField;
-
 public class Conditions {
     private final String username;
     private final String fullName;
     private final String telf;
     private final String password;
 
-    public Conditions (TextField username, TextField fullName, TextField telf, TextField pass) {
-        this.username = username.getText();
-        this.fullName = fullName.getText();
-        this.telf = telf.getText();
-        this.password = pass.getText();
+    public Conditions (String username, String fullName, String telf, String pass) {
+        this.username = username;
+        this.fullName = fullName;
+        this.telf = telf;
+        this.password = pass;
     }
-
 
     protected boolean usernameConditions () {
         if (!username.isEmpty() && !username.isBlank()) {
@@ -55,11 +52,14 @@ public class Conditions {
     }
 
     protected boolean passwordConditions () {
-        if (password.length() < 5) {
-            System.out.println("Contraseña pequeña, debe de ser de 5 caracteres o mas");
+        if (!password.isEmpty() && !password.isBlank()) {
+            if (password.length() < 5) {
+                System.out.println("Contraseña invalida debe de ser de 5 caracteres o mas");
+                return false;
+            } 
+        } else {
             return false;
         }
-
         return true;
     }
 

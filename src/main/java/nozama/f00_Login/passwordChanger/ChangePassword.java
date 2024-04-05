@@ -77,4 +77,16 @@ public class ChangePassword {
 
         return false;
     }
+
+    @FXML
+    private void handleBack() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/nozama/login/login.fxml"));
+
+        loader.setController(loginController);
+        Parent p = loader.load();
+
+        Scene s = new Scene(p, NozamaWindowApp.LOGIN_WIDTH, NozamaWindowApp.LOGIN_HEIGTH);
+        stage.setScene(s);
+    }
 }
