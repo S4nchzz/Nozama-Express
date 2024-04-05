@@ -2,8 +2,6 @@ package nozama.f00_Login.accountCreation;
 
 import java.io.IOException;
 
-import javax.swing.JOptionPane;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

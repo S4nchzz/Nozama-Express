@@ -66,6 +66,8 @@ public class ChangePassword {
             } else {
                 JOptionPane.showMessageDialog(null, "Asegurate de que no usas la misma contraseña");
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "El usuario administrador no tiene los permisos suficientes");
         }
     }
 

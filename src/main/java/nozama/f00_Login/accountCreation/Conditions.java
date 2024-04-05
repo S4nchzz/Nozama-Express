@@ -1,8 +1,6 @@
 package nozama.f00_Login.accountCreation;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import javax.swing.JOptionPane;
 
 import nozama_database.sendRequest.DatabaseRequestManagment;
