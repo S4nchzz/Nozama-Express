@@ -12,6 +12,10 @@ import nozama.NozamaWindowApp;
 import nozama.f00_Login.LoginPage;
 import nozama_database.sendRequest.DatabaseRequestManagment;
 
+/**
+ * Clase que crea una cuenta dependiendo de unos 
+ * valores dados por el usuario
+ */
 public class CreateAccount {
     private final Stage stage;
     private final FXMLLoader loader;
@@ -33,12 +37,28 @@ public class CreateAccount {
 
     private Conditions conditions;
     
+    /**
+     * Constructor de la clase que inicializa stage, loginController
+     * y el loader
+     * @param s Stage actual para cambiar la ventana actual en vez de
+     * crear otra nueva
+     * @param l Referencia de la clase LoginPage
+     */
     public CreateAccount (Stage s, LoginPage l) {
         this.stage = s;
         this.loginController = l;
         this.loader = new FXMLLoader();
     }
 
+    /**
+     * Cuando se pulse el boton de crearCuenta se hace una llamada a setStrings()
+     * para poder tener el codigo mas limpio, se crea una instancia de la clase
+     * Conditions con los valores y se comprueba que los valores establecidos
+     * son correctos y no tienen error, una vez se comprueben se añade el usuario
+     * y al loader que se cargo en el constructor se le da una location del fxml
+     * para volver al login y se le da el controlador que se le paso al constructor
+     * @throws IOException
+     */
     @FXML
     private void handleSingup () throws IOException {
         setStrings();
@@ -80,6 +100,9 @@ public class CreateAccount {
         stage.setScene(s);
     }
 
+    /**
+     * Cambio de TextField.getText() a Strings normales 
+     */
     private void setStrings() {
         this.username = fxid_username_field_singup.getText();
         this.password = fxid_password_field_singup.getText();

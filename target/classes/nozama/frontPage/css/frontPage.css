@@ -1,0 +1,15 @@
+#fxid_leftPane {
+    -fx-background-color: white;
+}
+
+#fxid_mainPane {
+    -fx-background-color: rgb(226, 226, 226);
+}
+
+#fxid_paneA, #fxid_paneB, #fxid_paneC, #fxid_paneD, #fxid_paneE {
+    -fx-cursor: hand;
+}
+
+#fxid_paneA:hover, #fxid_paneB:hover, #fxid_paneC:hover, #fxid_paneD:hover, #fxid_paneE:hover {
+    -fx-background-color: rgb(226, 226, 226);
+}

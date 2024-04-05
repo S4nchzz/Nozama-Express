@@ -5,6 +5,9 @@ import javax.swing.JOptionPane;
 
 import nozama_database.sendRequest.DatabaseRequestManagment;
 
+/**
+ * Clase que controla las condiciones de los valores al crear una cuenta
+ */
 public class Conditions {
     private final String username;
     private final String fullName;
@@ -13,6 +16,13 @@ public class Conditions {
 
     private ResultSet rs;
 
+    /**
+     * Constructor de la clase con los parametros de los valores
+     * @param username Usuario
+     * @param fullName Nombre completo del usuario
+     * @param telf Telefono +34
+     * @param pass Contraseña del usuario
+     */
     public Conditions (String username, String fullName, String telf, String pass) {
         this.username = username;
         this.fullName = fullName;
@@ -20,6 +30,18 @@ public class Conditions {
         this.password = pass;
     }
 
+    /**
+     * Condiciones del usuario
+     * 
+     * Condiciones :
+     * - Que no este vacio
+     * - Que no tenga espacios en blanco
+     * - Que el resultado de la query sea null (que no exista el usuario)
+     * - Que la longitud sea mas de 5 caracteres
+     * - Uso solo de letras y numeros
+     * - Que los numeros del usuario no supere los caracteres alfabeticos     * 
+     * @return false si alguna condicion no se cumple
+     */
     protected boolean usernameConditions () {
         if (!username.isEmpty() && !username.isBlank()) {
             this.rs = DatabaseRequestManagment.getQueryResult(username);
@@ -70,6 +92,14 @@ public class Conditions {
         return false;
     }
 
+    /**
+     * Condiciones de la contraseña
+     * 
+     * Condiciones :
+     * - Que no este vacio
+     * - Que no tenga espacios en blanco
+     * @return false si alguna condicion no se cumple
+     */
     protected boolean passwordConditions () {
         if (!password.isEmpty() && !password.isBlank()) {
             if (password.length() < 5) {
@@ -82,6 +112,17 @@ public class Conditions {
         return true;
     }
 
+    /**
+     * Condiciones del nombre completo
+     * 
+     * Condiciones :
+     * - Que no este vacio
+     * - Que no tenga espacios en blanco
+     * - Que sean unicamente caracteres alfabetico
+     * - Que no hayan 2 espacios juntos
+     * 
+     * @return false si alguna condicion no se cumple
+     */
     protected boolean fullNameConditions () {
         int cSpace = 0;
         if (!fullName.isBlank() && !fullName.isEmpty()) {
@@ -104,6 +145,15 @@ public class Conditions {
         return true;
     }
 
+    /**
+     * Condiciones del telefonno
+     * 
+     * Condiciones :
+     * - Que no este vacio
+     * - Que sean unicamente caracteres alfanumericos
+     * - Que sea una longitud exacta de 9 caracteres
+     * @return false si alguna condicion no se cumple
+     */
     protected boolean telfConditions () {
         int cNumbers = 0;
         if (!telf.isBlank()) {
@@ -117,7 +167,7 @@ public class Conditions {
             }
 
             // Menor que el tamaño de un numero en españa +34
-            if (cNumbers < 9) {
+            if (cNumbers != 9) {
                 JOptionPane.showMessageDialog(null, "El numero de telefono tiene que ser de 9 cifras");
                 return false;
             }

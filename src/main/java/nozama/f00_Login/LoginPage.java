@@ -16,6 +16,9 @@ import nozama.f00_Login.passwordChanger.ChangePassword;
 import nozama.f01_PageAfLog.FrontPage;
 import nozama_database.sendRequest.DatabaseRequestManagment;
 
+/**
+ * Clase que permite al usuario loguearse en el sistema
+ */
 public class LoginPage {
     private final Stage stage;
 
@@ -27,11 +30,25 @@ public class LoginPage {
 
     private String loginContent;
     private String passwordContent;
+    FXMLLoader singup_loader;
 
+    /**
+     * Constructor con el Stage a usar
+     * @param stage
+     */
     public LoginPage (Stage stage) {
         this.stage = stage;
+        singup_loader = new FXMLLoader();
     }
 
+    /**
+     * Metodo que cuando es llamado intenta acceder con
+     * el usuario y contraseña elegidos hacieno una llamada
+     * a DatabaseRequestManagement.acceder, si esto se cumple
+     * se carga en escena el frontpage.fxml con el controlador
+     * FrontPage (nueva instancia)
+     * @throws IOException
+     */
     @FXML
     private void handleLogin() throws IOException {
         loginContent = fxid_username_field.getText();
@@ -46,9 +63,10 @@ public class LoginPage {
 
             Parent p = frontPageLoader.load();
 
-            Scene s = new Scene(p,NozamaWindowApp.LOGIN_WIDTH,NozamaWindowApp.LOGIN_HEIGTH);
+            Scene s = new Scene(p);
             stage.setTitle("Nozama Express");
             stage.setScene(s);
+            stage.centerOnScreen();
 
             stage.show();
         } else {
@@ -56,9 +74,13 @@ public class LoginPage {
         }
     }
 
+    /**
+     * Metodo que cuando es llamado se pone en escena
+     * el createAccount.fxml con su controlador
+     * @throws IOException
+     */
     @FXML
     private void handleCreateAccount() throws IOException {
-        FXMLLoader singup_loader = new FXMLLoader();
         singup_loader.setLocation(getClass().getResource("/nozama/login/createAccount.fxml"));
         singup_loader.setController(new CreateAccount(stage, this));
 
@@ -73,9 +95,14 @@ public class LoginPage {
 
     }
 
+    /**
+     * Metodo que cuando es llamado se pone en escena
+     * el changePass.fxml con su controlador
+     * 
+     * @throws IOException
+     */
     @FXML
     private void handleChangePass() throws IOException {
-        FXMLLoader singup_loader = new FXMLLoader();
         singup_loader.setLocation(getClass().getResource("/nozama/login/changePassword.fxml"));
         singup_loader.setController(new ChangePassword(stage, this));
 
@@ -87,13 +114,5 @@ public class LoginPage {
         stage.setScene(s);
 
         stage.show();
-    }
-
-    public String getLoginContent() {
-        return this.loginContent;
-    }
-
-    public String getPasswordContent() {
-        return this.passwordContent;
     }
 }

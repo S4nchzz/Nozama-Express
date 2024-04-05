@@ -1,23 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.gluonhq.charm.glisten.control.Avatar?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="588.0" prefWidth="969.0" stylesheets="@frontPage.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="fxid_mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="755.0" prefWidth="1251.0" stylesheets="@css/frontPage.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane layoutX="801.0" layoutY="14.0" prefHeight="58.0" prefWidth="154.0">
+      <Pane layoutX="1083.0" layoutY="14.0" prefHeight="58.0" prefWidth="154.0">
          <children>
-            <Avatar layoutX="104.0" layoutY="11.0">
+            <Text fx:id="fxid_username_aflog" layoutX="21.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USERNAME" wrappingWidth="76.55859375" />
+            <ImageView fx:id="fxid_avatar_frontPage" fitHeight="37.0" fitWidth="39.0" layoutX="103.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@src/avatar-icon.png" />
                </image>
-            </Avatar>
-            <Text fx:id="fxid_username_aflog" layoutX="21.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USERNAME" wrappingWidth="76.55859375" />
+            </ImageView>
          </children>
       </Pane>
-      <Pane prefHeight="407.0" prefWidth="140.0" stylesheets="@css/leftPane.css" />
+      <Pane fx:id="fxid_leftPane" prefHeight="755.0" prefWidth="270.0" stylesheets="@css/frontPage.css">
+         <children>
+            <VBox layoutX="28.0" layoutY="208.0" prefHeight="303.0" prefWidth="242.0">
+               <children>
+                  <Pane fx:id="fxid_paneA" prefHeight="60.6" prefWidth="189.0">
+                     <children>
+                        <Text fill="#6f6f6f" layoutX="80.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Browse" wrappingWidth="94.98307228088379">
+                           <font>
+                              <Font name="SimSun" size="25.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="37.0" fitWidth="37.0" layoutX="14.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@src/web-icon.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="fxid_paneB" prefHeight="60.6" prefWidth="189.0">
+                     <children>
+                        <ImageView fitHeight="37.0" fitWidth="37.0" layoutX="14.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@src/web-icon.png" />
+                           </image>
+                        </ImageView>
+                        <Text fill="#6f6f6f" layoutX="80.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Store" wrappingWidth="94.98307228088379">
+                           <font>
+                              <Font name="SimSun" size="25.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="fxid_paneC" prefHeight="60.6" prefWidth="189.0">
+                     <children>
+                        <ImageView fitHeight="37.0" fitWidth="37.0" layoutX="14.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@src/web-icon.png" />
+                           </image>
+                        </ImageView>
+                        <Text fill="#6f6f6f" layoutX="80.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Browse" wrappingWidth="94.98307228088379">
+                           <font>
+                              <Font name="SimSun" size="25.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="fxid_paneD" prefHeight="60.6" prefWidth="189.0">
+                     <children>
+                        <Text fill="#6f6f6f" layoutX="80.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Browse" wrappingWidth="94.98307228088379">
+                           <font>
+                              <Font name="SimSun" size="25.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="37.0" fitWidth="37.0" layoutX="14.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@src/web-icon.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="fxid_paneE" prefHeight="60.6" prefWidth="189.0">
+                     <children>
+                        <Text fill="#6f6f6f" layoutX="80.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Browse" wrappingWidth="94.98307228088379">
+                           <font>
+                              <Font name="SimSun" size="25.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="37.0" fitWidth="37.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@src/web-icon.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+               </children></VBox>
+         </children></Pane>
    </children>
 </Pane>

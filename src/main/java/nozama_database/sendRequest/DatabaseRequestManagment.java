@@ -181,6 +181,12 @@ public class DatabaseRequestManagment {
         return false;
     }
 
+    /**
+     *  Metodo que retorna todos los datos del registro
+     * de un usuario concreto
+     * @param username Usuario a buscar
+     * @return ResultSet
+     */
     public static ResultSet getQueryResult(String username) {
         try {
             Connection conn = DriverManager.getConnection(url, "root", "");
@@ -199,6 +205,12 @@ public class DatabaseRequestManagment {
         return null;
     }
 
+    /**
+     * Metodo que comprueba si un usuario es administrador o no
+     * @param username Usuario a buscar
+     * @param password Contraseña del usuario
+     * @return true = admin; false = notAdmin
+     */
     public static boolean isAdmin(String username, String password) {
         if (acceder(username, password)) {
             ResultSet rs = getQueryResult(username);
