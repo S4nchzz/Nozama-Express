@@ -16,7 +16,8 @@ import nozama_database.sendRequest.DatabaseRequestManagment;
 
 public class CreateAccount {
     private final Stage stage;
-    private final LoginPage loginPage;
+    private final FXMLLoader loader;
+    private final LoginPage loginController;
 
     @FXML
     private TextField fxid_username_field_singup;
@@ -26,52 +27,54 @@ public class CreateAccount {
     private TextField fxid_fullname_field;
     @FXML
     private TextField fxid_telf_field;
+
+    private Conditions conditions;
     
     public CreateAccount (Stage s, LoginPage l) {
         this.stage = s;
-        this.loginPage = l;
+        this.loginController = l;
+        this.loader = new FXMLLoader();
     }
 
     @FXML
     private void handleSingup () throws IOException {
-        if ((!fxid_username_field_singup.getText().isEmpty() || !fxid_password_field_singup.getText().isEmpty() 
-                || !fxid_fullname_field.getText().isEmpty()) || (!fxid_username_field_singup.getText().isBlank()
-                || !fxid_password_field_singup.getText().isBlank() || !fxid_fullname_field.getText().isBlank())) {
+        // Se crea una instancia de conditions enviandole los String de cada campo
+        this.conditions = new Conditions(fxid_username_field_singup.getText(), fxid_fullname_field
+                .getText(), fxid_telf_field.getText(), fxid_password_field_singup.getText());
 
-            // Instancia de condiciones que tiene que seguir el controlador CreateAccount (this)
-            Conditions conditions = new Conditions(fxid_username_field_singup, fxid_fullname_field, fxid_telf_field, fxid_password_field_singup);
-            
-            // Si todas las condiciones se cumplen añade el usuario
-            if (conditions.usernameConditions() && conditions.fullNameConditions() && conditions.telfConditions() && conditions.passwordConditions()) {
-                DatabaseRequestManagment.anadir(fxid_username_field_singup.getText(),
-                        fxid_password_field_singup.getText(), false, fxid_fullname_field.getText(),
-                        fxid_telf_field.getText());
+        // Si todas las condiciones se cumplen añade el usuario
+        if (conditions.usernameConditions() && conditions.fullNameConditions() && conditions.telfConditions() && conditions.passwordConditions()) {
+            DatabaseRequestManagment.anadir(fxid_username_field_singup.getText(),
+                    fxid_password_field_singup.getText(), false, fxid_fullname_field.getText(),
+                    fxid_telf_field.getText());
 
-                FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("/nozama/login/login.fxml"));
-                loader.setController(loginPage);
+            loader.setLocation(getClass().getResource("/nozama/login/login.fxml"));
+            loader.setController(loginController);
 
-                Parent p = loader.load();
-                Scene s = new Scene(p,NozamaWindowApp.LOGIN_WIDTH,NozamaWindowApp.LOGIN_HEIGTH);
+            Parent p = loader.load();
+            Scene s = new Scene(p,NozamaWindowApp.LOGIN_WIDTH,NozamaWindowApp.LOGIN_HEIGTH);
 
-                stage.setTitle("Nozama Express");
-                stage.setScene(s);
+            stage.setTitle("Nozama Express");
+            stage.setScene(s);
 
-                stage.show();
-            } else {
-                JOptionPane.showMessageDialog(null, "Usuario invalido");
-            }  
+            stage.show();
         } else {
-            JOptionPane.showMessageDialog(null, "Compruebe que los campos no estan vacios a excepcion de Telf");
-        }
+            JOptionPane.showMessageDialog(null, "Usuario invalido");
+        }  
     }
 
+    /**
+     * Metodo que carga un nuevo loader con su controlador 
+     * y archivo dependiendo de lo que se quiera conseguir,
+     * cuando se pulse el boton que tiene como id OnClick handleBack
+     * ira a login, Login es una referencia ya inicializada en el constructor
+     * @throws IOException
+     */
     @FXML
-    private void handleBack () throws IOException {
-        FXMLLoader loader = new FXMLLoader();
+    private void handleBack () throws IOException  {
         loader.setLocation(getClass().getResource("/nozama/login/login.fxml"));
 
-        loader.setController(loginPage);
+        loader.setController(loginController);
         Parent p = loader.load();
 
         Scene s = new Scene(p,NozamaWindowApp.LOGIN_WIDTH,NozamaWindowApp.LOGIN_HEIGTH);

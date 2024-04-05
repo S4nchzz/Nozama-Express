@@ -23,7 +23,6 @@ public class DatabaseLinkTest {
      */
     public static boolean createDBandTB(int port) {
         url = "jdbc:mariadb://127.0.0.1:" + port + "/";
-
         try {
             // Prueba de conexion al SERVIDOR
             Connection dbServer = DriverManager.getConnection(url, "root", "");
@@ -61,5 +60,9 @@ public class DatabaseLinkTest {
             System.out.println("Error while trying establish connection to the database");
             return false;
         }
+    }
+
+    public boolean checkConnection() {
+        
     }
 }

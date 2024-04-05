@@ -15,6 +15,7 @@ import nozama.f00_Login.accountCreation.CreateAccount;
 import nozama.f00_Login.passwordChanger.ChangePassword;
 import nozama.f01_PageAfLog.FrontPage;
 import nozama_database.sendRequest.DatabaseRequestManagment;
+import nozama_database.setttingUp.DatabaseLinkTest;
 
 public class LoginPage {
     private final Stage stage;
