@@ -10,16 +10,14 @@ public class FrontPage {
     @FXML
     private Text fxid_username_aflog;
 
-    private final ResultSet rs;
-    private final String username;
+    private ResultSet rs;
 
-    public FrontPage (String username) {
-        this.username = username;
-        rs = DatabaseRequestManagment.getQueryResult(username);
+    public FrontPage () {
+        
     }
 
     @FXML
     public void modifyUserNameText() {
-        fxid_username_aflog.setText(username);
+    
     }
 }
