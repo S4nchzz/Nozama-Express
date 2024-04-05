@@ -10,7 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import nozama.Main;
+import nozama.NozamaWindowApp;
 import nozama.f00_Login.LoginPage;
 import nozama_database.sendRequest.DatabaseRequestManagment;
 
@@ -57,7 +57,7 @@ public class ChangePassword {
                 loader.setController(loginController);
     
                 Parent p = loader.load();
-                Scene s = new Scene(p, Main.LOGIN_WIDTH, Main.LOGIN_HEIGTH);
+                Scene s = new Scene(p,NozamaWindowApp.LOGIN_WIDTH,NozamaWindowApp.LOGIN_HEIGTH);
     
                 stage.setTitle("Nozama Express");
                 stage.setScene(s);

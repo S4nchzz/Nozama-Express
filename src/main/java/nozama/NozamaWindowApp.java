@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 import nozama.f00_Login.LoginPage;
 import nozama_database.setttingUp.DatabaseLinkTest;
 
-public class Main extends Application {
+public class NozamaWindowApp extends Application {
     public static double LOGIN_WIDTH = 969;
     public static double LOGIN_HEIGTH = 588;
 

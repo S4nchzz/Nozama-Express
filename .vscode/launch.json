@@ -2,25 +2,11 @@
     "configurations": [
         {
             "type": "java",
-            "name": "App",
+            "name": "NozamaWindowApp",
             "request": "launch",
-            "mainClass": "nozama.App",
-            "projectName": "nozama_ex"
-        },
-        {
-            "type": "java",
-            "name": "Main",
-            "request": "launch",
-            "mainClass": "Main",
-            "projectName": "nozama_ex"
-        },
-        {
-            "name": "Launch JavaFX Application",
-            "type": "java",
-            "request": "launch",
-            "mainClass": "nozama.Main",
+            "mainClass": "nozama.NozamaWindowApp",
+            "projectName": "nozama_ex",
             "vmArgs": "--module-path \"C:\\Program Files\\Java\\javafx-sdk-22\\lib\" --add-modules javafx.controls,javafx.fxml",
-            "projectName": "nozama_ex"
-        }
+        },
     ]
 }
