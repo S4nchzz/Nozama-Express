@@ -16,8 +16,8 @@
             <Font name="Ink Free" size="40.0" />
          </font>
       </Text>
-      <TextField fx:id="fxid_username_field" layoutX="709.0" layoutY="243.0" promptText="Username" />
-      <PasswordField fx:id="fxid_password_field" layoutX="709.0" layoutY="294.0" promptText="Password" />
+      <TextField fx:id="fxid_username_field" layoutX="709.0" layoutY="243.0" onAction="#handleLogin" promptText="Username" />
+      <PasswordField fx:id="fxid_password_field" layoutX="709.0" layoutY="294.0" onAction="#handleLogin" promptText="Password" />
       <Button fx:id="fxid_login_button" layoutX="739.0" layoutY="355.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="25.0" prefWidth="88.0" stylesheets="@css/login.css" text="Login" textFill="#105bfc" />
       <ImageView fx:id="fxid_image_login" fitHeight="588.0" fitWidth="651.0" pickOnBounds="true" preserveRatio="true">
          <image>
