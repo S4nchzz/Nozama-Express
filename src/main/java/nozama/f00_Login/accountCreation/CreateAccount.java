@@ -61,9 +61,7 @@ public class CreateAccount {
             stage.setScene(s);
 
             stage.show();
-        } else {
-            JOptionPane.showMessageDialog(null, "Usuario invalido");
-        }  
+        }
     }
 
     /**

@@ -58,7 +58,7 @@ public class DatabaseLinkTest {
             return true;
         } catch (SQLException sqle) {
             System.out.println("Error while trying establish connection to the database");
-            return false;
+            return false; 
         }
     }
 }
