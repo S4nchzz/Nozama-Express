@@ -1,9 +1,10 @@
 #fxid_leftPane {
     -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 1), 20, 0, 0, 0);
 }
 
 #fxid_mainPane {
-    -fx-background-color: rgb(255, 255, 255);
+    -fx-background-color: #F3F3F3;
 }
 
 #fxid_paneA, #fxid_paneB, #fxid_paneC, #fxid_paneD, #fxid_paneE, #fxid_logoutElement {
@@ -12,5 +13,5 @@
 
 #fxid_paneA:hover, #fxid_paneB:hover, #fxid_paneC:hover, #fxid_paneD:hover, #fxid_paneE:hover, #fxid_logoutElement:hover {
     -fx-background-color: rgb(255, 255, 255);
-    -fx-translate-x: 5;
+    -fx-translate-x: 4;
 }

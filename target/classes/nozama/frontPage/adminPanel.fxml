@@ -1,24 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.HBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="920.0" stylesheets="@css/adminPanel.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox layoutX="14.0" layoutY="14.0" prefHeight="55.0" prefWidth="892.0">
-         <children>
-            <Pane fx:id="fxid_gestionUsuarios" onMouseClicked="#handleGestionUsuarios" prefHeight="29.0" prefWidth="179.0" stylesheets="@css/adminPanel.css">
-               <children>
-                  <Text layoutX="20.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gestion de usuarios">
-                     <font>
-                        <Font name="Microsoft Sans Serif" size="16.0" />
-                     </font>
-                  </Text>
-               </children>
-            </Pane>
-         </children>
-      </HBox>
+      <Pane fx:id="fxid_gestionUsuarios" layoutX="42.0" layoutY="150.0" onMouseClicked="#handleGestionUsuarios" prefHeight="54.0" prefWidth="54.0" stylesheets="@css/adminPanel.css">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <effect>
+            <Bloom threshold="0.35" />
+         </effect>
+      </Pane>
+      <Pane fx:id="fxid_soporte" layoutX="42.0" layoutY="226.0" onMouseClicked="#handleGestionUsuarios" prefHeight="54.0" prefWidth="54.0" stylesheets="@css/adminPanel.css">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <effect>
+            <Bloom threshold="0.35" />
+         </effect>
+      </Pane>
+      <Pane fx:id="fxid_restockInfo" layoutX="42.0" layoutY="300.0" onMouseClicked="#handleGestionUsuarios" prefHeight="54.0" prefWidth="54.0" stylesheets="@css/adminPanel.css">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <effect>
+            <Bloom threshold="0.35" />
+         </effect>
+      </Pane>
+      <Pane fx:id="fxid_otro" layoutX="42.0" layoutY="379.0" onMouseClicked="#handleGestionUsuarios" prefHeight="54.0" prefWidth="54.0" stylesheets="@css/adminPanel.css">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <effect>
+            <Bloom threshold="0.35" />
+         </effect>
+      </Pane>
    </children>
 </Pane>
