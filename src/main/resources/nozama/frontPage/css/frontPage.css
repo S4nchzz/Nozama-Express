@@ -7,11 +7,11 @@
     -fx-background-color: #F3F3F3;
 }
 
-#fxid_paneA, #fxid_paneB, #fxid_paneC, #fxid_paneD, #fxid_paneE, #fxid_logoutElement {
+#fxid_paneA, #fxid_paneB, #fxid_paneC, #fxid_paneD, #fxid_paneE, #fxid_logoutElement, #fxid_logof {
     -fx-cursor: hand;
 }
 
-#fxid_paneA:hover, #fxid_paneB:hover, #fxid_paneC:hover, #fxid_paneD:hover, #fxid_paneE:hover, #fxid_logoutElement:hover {
+#fxid_paneA:hover, #fxid_paneB:hover, #fxid_paneC:hover, #fxid_paneD:hover, #fxid_paneE:hover, #fxid_logoutElement:hover, #fxid_logof:hover {
     -fx-background-color: rgb(255, 255, 255);
     -fx-translate-x: 4;
 }

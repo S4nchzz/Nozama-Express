@@ -15,7 +15,7 @@
          <children>
             <ImageView fx:id="fxid_avatarIcon" fitHeight="37.0" fitWidth="39.0" layoutX="14.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@src/avatar-icon.png" />
+                  <Image url="@src/frontPageIcons/avatar-icon.png" />
                </image>
             </ImageView>
             <Text fx:id="fxid_usernameAv" layoutX="63.0" layoutY="34.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="USERNAME" wrappingWidth="76.98307228088379" />
@@ -96,20 +96,17 @@
                      </children>
                   </Pane>
                </children></VBox>
-            <ImageView fx:id="fxid_adminElement" fitHeight="45.0" fitWidth="45.0" layoutX="237.0" layoutY="700.0" onMouseClicked="#handleEnterAdminStage" pickOnBounds="true" preserveRatio="true" visible="false">
+            <Pane fx:id="fxid_logoutElement" layoutX="28.0" layoutY="618.0" onMouseClicked="#handleLogof" prefHeight="72.0" prefWidth="63.0" stylesheets="@css/frontPage.css" />
+            <ImageView fx:id="fxid_logof" fitHeight="37.0" fitWidth="37.0" layoutX="245.0" layoutY="704.0" onMouseClicked="#handleLogof" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@src/adminConfig-icon.png" />
+                  <Image url="@src/frontPageIcons/logout-icon.png" />
                </image>
             </ImageView>
-            <Pane fx:id="fxid_logoutElement" layoutX="228.0" layoutY="664.0" onMouseClicked="#handleLogof" prefHeight="72.0" prefWidth="63.0" stylesheets="@css/frontPage.css">
-               <children>
-                  <ImageView fitHeight="37.0" fitWidth="37.0" layoutX="16.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@src/logout-icon.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Pane>
+            <ImageView fx:id="fxid_adminElement" fitHeight="45.0" fitWidth="45.0" layoutX="14.0" layoutY="702.0" onMouseClicked="#handleEnterAdminStage" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@src/frontPageIcons/adminConfig-icon.png" />
+               </image>
+            </ImageView>
          </children></Pane>
       <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="349.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
          <image>
