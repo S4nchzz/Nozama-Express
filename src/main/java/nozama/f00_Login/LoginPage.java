@@ -30,7 +30,6 @@ public class LoginPage {
 
     private String loginContent;
     private String passwordContent;
-    FXMLLoader singup_loader;
 
     /**
      * Constructor con el Stage a usar
@@ -38,7 +37,6 @@ public class LoginPage {
      */
     public LoginPage (Stage stage) {
         this.stage = stage;
-        singup_loader = new FXMLLoader();
     }
 
     /**
@@ -58,7 +56,7 @@ public class LoginPage {
             FXMLLoader frontPageLoader = new FXMLLoader();
             frontPageLoader.setLocation(getClass().getResource("/nozama/frontPage/frontPage.fxml"));
 
-            FrontPage controller = new FrontPage();
+            FrontPage controller = new FrontPage(DatabaseRequestManagment.getQueryResult(loginContent));
             frontPageLoader.setController(controller);
 
             Parent p = frontPageLoader.load();
@@ -81,6 +79,7 @@ public class LoginPage {
      */
     @FXML
     private void handleCreateAccount() throws IOException {
+        FXMLLoader singup_loader = new FXMLLoader();
         singup_loader.setLocation(getClass().getResource("/nozama/login/createAccount.fxml"));
         singup_loader.setController(new CreateAccount(stage, this));
 
@@ -102,6 +101,7 @@ public class LoginPage {
      */
     @FXML
     private void handleChangePass() throws IOException {
+        FXMLLoader singup_loader = new FXMLLoader();
         singup_loader.setLocation(getClass().getResource("/nozama/login/changePassword.fxml"));
         singup_loader.setController(new ChangePassword(stage, this));
 

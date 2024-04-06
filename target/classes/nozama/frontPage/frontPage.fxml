@@ -11,12 +11,12 @@
    <children>
       <Pane layoutX="1083.0" layoutY="14.0" prefHeight="58.0" prefWidth="154.0">
          <children>
-            <Text fx:id="fxid_username_aflog" layoutX="21.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USERNAME" wrappingWidth="76.55859375" />
-            <ImageView fx:id="fxid_avatar_frontPage" fitHeight="37.0" fitWidth="39.0" layoutX="103.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="fxid_avatarIcon" fitHeight="37.0" fitWidth="39.0" layoutX="14.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@src/avatar-icon.png" />
                </image>
             </ImageView>
+            <Text fx:id="fxid_usernameAv" layoutX="63.0" layoutY="34.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="USERNAME" wrappingWidth="76.98307228088379" />
          </children>
       </Pane>
       <Pane fx:id="fxid_leftPane" prefHeight="755.0" prefWidth="270.0" stylesheets="@css/frontPage.css">
@@ -25,12 +25,12 @@
                <children>
                   <Pane fx:id="fxid_paneA" prefHeight="60.6" prefWidth="189.0">
                      <children>
-                        <Text fill="#6f6f6f" layoutX="80.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Browse" wrappingWidth="94.98307228088379">
+                        <Text fx:id="fxid_leftTextAnimation" fill="#6f6f6f" layoutX="80.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Browse" wrappingWidth="94.98307228088379">
                            <font>
                               <Font name="SimSun" size="25.0" />
                            </font>
                         </Text>
-                        <ImageView fitHeight="37.0" fitWidth="37.0" layoutX="14.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="fxid_browseImageAnimation" fitHeight="37.0" fitWidth="37.0" layoutX="14.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@src/web-icon.png" />
                            </image>
@@ -39,7 +39,7 @@
                   </Pane>
                   <Pane fx:id="fxid_paneB" prefHeight="60.6" prefWidth="189.0">
                      <children>
-                        <ImageView fitHeight="37.0" fitWidth="37.0" layoutX="14.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="37.0" fitWidth="37.0" layoutX="14.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@src/carrito-icon.png" />
                            </image>
@@ -55,10 +55,10 @@
                      <children>
                         <ImageView fitHeight="37.0" fitWidth="37.0" layoutX="14.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@src/web-icon.png" />
+                              <Image url="@src/news-icon.png" />
                            </image>
                         </ImageView>
-                        <Text fill="#6f6f6f" layoutX="80.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Browse" wrappingWidth="94.98307228088379">
+                        <Text fill="#6f6f6f" layoutX="80.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="News" wrappingWidth="94.98307228088379">
                            <font>
                               <Font name="SimSun" size="25.0" />
                            </font>
@@ -86,7 +86,7 @@
                               <Font name="SimSun" size="25.0" />
                            </font>
                         </Text>
-                        <ImageView fitHeight="37.0" fitWidth="37.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="37.0" fitWidth="37.0" layoutX="14.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@src/tech-support.png" />
                            </image>

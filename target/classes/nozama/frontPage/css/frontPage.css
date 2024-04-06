@@ -12,4 +12,5 @@
 
 #fxid_paneA:hover, #fxid_paneB:hover, #fxid_paneC:hover, #fxid_paneD:hover, #fxid_paneE:hover {
     -fx-background-color: rgb(226, 226, 226);
+    -fx-translate-x: 5;
 }
