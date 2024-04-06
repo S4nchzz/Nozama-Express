@@ -25,12 +25,12 @@
                <children>
                   <Pane fx:id="fxid_paneA" prefHeight="60.6" prefWidth="189.0">
                      <children>
-                        <Text fx:id="fxid_leftTextAnimation" fill="#6f6f6f" layoutX="80.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Browse" wrappingWidth="94.98307228088379">
+                        <Text fill="#6f6f6f" layoutX="80.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Browse" wrappingWidth="94.98307228088379">
                            <font>
                               <Font name="SimSun" size="25.0" />
                            </font>
                         </Text>
-                        <ImageView fx:id="fxid_browseImageAnimation" fitHeight="37.0" fitWidth="37.0" layoutX="14.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="37.0" fitWidth="37.0" layoutX="14.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@src/web-icon.png" />
                            </image>

@@ -3,25 +3,12 @@ package nozama.f01_PageAfLog;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
 
 public class FrontPage {
     @FXML
     private Text fxid_usernameAv;
-
-    @FXML
-    private Pane fxid_leftPane;
-
-    @FXML
-    private Text fxid_leftTextAnimation;
-
-    @FXML
-    private ImageView fxid_browseImageAnimation;
 
     private final ResultSet rs;
 
