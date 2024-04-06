@@ -1,0 +1,9 @@
+#fxid_gestionUsuarios {
+    -fx-background-color: rgb(19, 169, 255);
+}
+
+#fxid_gestionUsuarios:hover {
+    -fx-background-color: rgb(19, 169, 255);
+    -fx-cursor: hand;
+    -fx-translate-y: -5;
+}
