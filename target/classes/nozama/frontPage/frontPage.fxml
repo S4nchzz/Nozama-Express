@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
@@ -9,6 +10,7 @@
 
 <Pane fx:id="fxid_mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="755.0" prefWidth="1251.0" stylesheets="@css/frontPage.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
+      <TextField fx:id="fxid_searchField" layoutX="342.0" layoutY="31.0" prefHeight="37.0" prefWidth="281.0" promptText="              Search" />
       <Pane layoutX="1083.0" layoutY="14.0" prefHeight="58.0" prefWidth="154.0">
          <children>
             <ImageView fx:id="fxid_avatarIcon" fitHeight="37.0" fitWidth="39.0" layoutX="14.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
@@ -19,9 +21,14 @@
             <Text fx:id="fxid_usernameAv" layoutX="63.0" layoutY="34.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="USERNAME" wrappingWidth="76.98307228088379" />
          </children>
       </Pane>
-      <Pane fx:id="fxid_leftPane" prefHeight="755.0" prefWidth="270.0" stylesheets="@css/frontPage.css">
+      <Pane fx:id="fxid_leftPane" prefHeight="755.0" prefWidth="296.0" stylesheets="@css/frontPage.css">
          <children>
-            <VBox layoutX="28.0" layoutY="208.0" prefHeight="303.0" prefWidth="242.0">
+            <ImageView fitHeight="755.0" fitWidth="309.0" layoutX="-4.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@src/lateralPane.png" />
+               </image>
+            </ImageView>
+            <VBox layoutX="28.0" layoutY="208.0" prefHeight="303.0" prefWidth="264.0">
                <children>
                   <Pane fx:id="fxid_paneA" prefHeight="60.6" prefWidth="189.0">
                      <children>
@@ -94,6 +101,30 @@
                      </children>
                   </Pane>
                </children></VBox>
+            <Pane fx:id="fxid_logoutElement" layoutX="-7.0" layoutY="684.0" onMouseClicked="#handleLogof" prefHeight="72.0" prefWidth="154.0" stylesheets="@css/frontPage.css">
+               <children>
+                  <ImageView fitHeight="37.0" fitWidth="37.0" layoutX="14.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@src/logout-icon.png" />
+                     </image>
+                  </ImageView>
+                  <Text fill="#6f6f6f" layoutX="57.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Logout" wrappingWidth="76.98307228088379">
+                     <font>
+                        <Font name="SimSun" size="25.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+            <ImageView fx:id="fxid_adminElement" fitHeight="45.0" fitWidth="45.0" layoutX="237.0" layoutY="700.0" onMouseClicked="#handleEnterAdminStage" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@src/adminConfig-icon.png" />
+               </image>
+            </ImageView>
          </children></Pane>
+      <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="348.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@src/search-icon.png" />
+         </image>
+      </ImageView>
    </children>
 </Pane>

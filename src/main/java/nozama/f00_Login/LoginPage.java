@@ -56,7 +56,7 @@ public class LoginPage {
             FXMLLoader frontPageLoader = new FXMLLoader();
             frontPageLoader.setLocation(getClass().getResource("/nozama/frontPage/frontPage.fxml"));
 
-            FrontPage controller = new FrontPage(DatabaseRequestManagment.getQueryResult(loginContent));
+            FrontPage controller = new FrontPage(DatabaseRequestManagment.getQueryResult(loginContent), stage, DatabaseRequestManagment.isAdmin(loginContent, passwordContent));
             frontPageLoader.setController(controller);
 
             Parent p = frontPageLoader.load();
