@@ -88,7 +88,6 @@ public class FrontPage {
             System.out.println(sqle.getMessage());
         }
 
-
         if (isAdmin) {
             fxid_adminElement.setVisible(true);
         }
