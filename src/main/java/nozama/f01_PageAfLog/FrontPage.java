@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,7 +12,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import nozama.NozamaWindowApp;
 import nozama.f00_Login.LoginPage;
 import nozama.f01_PageAfLog.adminPanel.AdminPanel;
@@ -76,6 +74,7 @@ public class FrontPage {
             Scene s = new Scene(p);
             stage.setTitle("Nozama Express");
             stage.setScene(s);
+            stage.setResizable(false);
             stage.centerOnScreen();
             stage.show();
         } catch (IOException e) {

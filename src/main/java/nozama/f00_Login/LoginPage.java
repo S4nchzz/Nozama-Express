@@ -64,6 +64,7 @@ public class LoginPage {
             Scene s = new Scene(p);
             stage.setTitle("Nozama Express");
             stage.setScene(s);
+            stage.setResizable(false);
             stage.centerOnScreen();
 
             stage.show();
