@@ -59,7 +59,7 @@ public class AdminPanel {
     }
 
     @FXML
-    private void goBackAction () {
+    private void handleLogof () {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/nozama/login/login.fxml"));
         loader.setController(new LoginPage(stage));
@@ -78,7 +78,7 @@ public class AdminPanel {
     }
 
     @FXML
-    private void handleLogof () {
+    private void goBackAction () {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/nozama/frontPage/frontPage.fxml"));
         loader.setController(this.stageControllerFP);
@@ -92,7 +92,7 @@ public class AdminPanel {
             stage.centerOnScreen();
             stage.show();
         } catch (IOException e) {
-            
+
         }
     }
 

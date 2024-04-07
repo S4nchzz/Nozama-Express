@@ -84,7 +84,6 @@
          </children></Pane>
       <TableView fx:id="fxid_databaseAdmin" layoutX="160.0" layoutY="101.0" prefHeight="551.0" prefWidth="1011.0">
         <columns>
-          <TableColumn fx:id="fxid_tableID" prefWidth="75.0" text="ID" />
           <TableColumn fx:id="fxid_tableUsername" prefWidth="75.0" text="USERNAME" />
             <TableColumn fx:id="fxid_tableSalt" prefWidth="75.0" text="SALT" />
             <TableColumn fx:id="fxid_tablePass" prefWidth="75.0" text="PASS" />
