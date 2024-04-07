@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import nozama.NozamaWindowApp;
@@ -19,7 +20,10 @@ public class AdminPanel {
 
     @FXML
     private Text fxid_usernameAv;
-    
+
+    @FXML
+    private ImageView fxid_logoIcon;
+
     public AdminPanel (Stage s, FrontPage stageControllerFP, String username) {
         this.stage = s;
         this.stageControllerFP = stageControllerFP;
@@ -46,7 +50,7 @@ public class AdminPanel {
     }
 
     @FXML
-    private void goBackLogoAction () {
+    private void logofAction () {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/nozama/frontPage/frontPage.fxml"));
         loader.setController(this.stageControllerFP);
