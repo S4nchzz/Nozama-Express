@@ -26,5 +26,10 @@
       </ImageView>
       <Text fx:id="fxid_lostPass" fill="#9e9393" layoutX="709.0" layoutY="332.0" onMouseClicked="#handleChangePass" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="Contraeña olvidada" />
       <Text fill="#9e9393" layoutX="601.0" layoutY="27.0" onMouseClicked="#handleCreateAccount" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-cursor: hand;" text="Crear cuenta" />
+      <ImageView fitHeight="126.0" fitWidth="114.0" layoutX="726.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../nozamaIcons/logo-icon-icon.png" />
+         </image>
+      </ImageView>
    </children>
 </Pane>

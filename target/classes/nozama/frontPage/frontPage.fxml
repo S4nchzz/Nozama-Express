@@ -102,9 +102,14 @@
                   <Image url="@src/frontPageIcons/logout-icon.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="fxid_adminElement" fitHeight="45.0" fitWidth="45.0" layoutX="14.0" layoutY="702.0" onMouseClicked="#handleEnterAdminStage" pickOnBounds="true" preserveRatio="true" visible="false">
+            <ImageView fx:id="fxid_adminElement" fitHeight="45.0" fitWidth="45.0" layoutX="14.0" layoutY="702.0" onMouseClicked="#handleEnterAdminPanel" pickOnBounds="true" preserveRatio="true" visible="false">
                <image>
                   <Image url="@src/frontPageIcons/adminConfig-icon.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="fxid_logoIcon" fitHeight="174.0" fitWidth="252.0" layoutX="26.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../nozamaIcons/logo-icon-all.png" />
                </image>
             </ImageView>
          </children></Pane>

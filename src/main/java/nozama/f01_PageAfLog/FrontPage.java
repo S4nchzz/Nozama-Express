@@ -4,13 +4,16 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import nozama.NozamaWindowApp;
 import nozama.f00_Login.LoginPage;
 import nozama.f01_PageAfLog.adminPanel.AdminPanel;
@@ -24,6 +27,17 @@ public class FrontPage {
 
     @FXML
     private ImageView fxid_adminElement;
+
+    @FXML
+    private Pane fxid_paneA;
+    @FXML
+    private Pane fxid_paneB;
+    @FXML
+    private Pane fxid_paneC;
+    @FXML
+    private Pane fxid_paneD;
+    @FXML
+    private Pane fxid_paneE;
 
 
     public FrontPage (ResultSet rs, Stage s, boolean isAdmin) {
@@ -52,7 +66,7 @@ public class FrontPage {
     }
 
     @FXML
-    private void handleEnterAdminStage () {
+    private void handleEnterAdminPanel () {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/nozama/frontPage/adminPanel.fxml"));
         loader.setController(new AdminPanel());
