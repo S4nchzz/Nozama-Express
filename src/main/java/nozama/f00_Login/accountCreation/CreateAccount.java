@@ -94,11 +94,21 @@ public class CreateAccount {
         }
     }
 
+    /**
+     * Cuando este metodo sea llamado se establecera dependiendo 
+     * del boton pulsado en el grupo de botones de genero M || W
+     * ademas se le cambiara el color del fondo del boton para que
+     * sea mas sencillo ver la opcion seleccionada
+     */
     @FXML
     private void handleGender () {
         if (fxid_manButton.isSelected()) {
+            fxid_manButton.setStyle("-fx-background-color: rgb(196, 195, 195);");
+            fxid_womanButton.setStyle("-fx-background-color: white;");
             this.gender = "M";
         } else if (fxid_womanButton.isSelected()) {
+            fxid_womanButton.setStyle("-fx-background-color: rgb(196, 195, 195);");
+            fxid_manButton.setStyle("-fx-background-color: white;");
             this.gender = "W";
         }
     }

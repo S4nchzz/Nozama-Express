@@ -12,3 +12,23 @@
     -fx-border-radius: 1px;
     -fx-cursor: hand;
 }
+
+#fxid_manButton, #fxid_womanButton {
+    -fx-cursor: hand;
+    -fx-border-color: #CBCBCB;
+    -fx-background-color: white;
+}
+
+#fxid_manButton {
+    -fx-border-width: 1px 1px 1px 0px;
+}
+
+#fxid_womanButton {
+    -fx-border-width: 1px 0px 1px 1px;
+}
+
+#fxid_manButton:hover, #fxid_womanButton:hover {
+    -fx-cursor: hand;
+    -fx-border-color: #CBCBCB;
+    -fx-background-color: rgb(196, 195, 195);
+}

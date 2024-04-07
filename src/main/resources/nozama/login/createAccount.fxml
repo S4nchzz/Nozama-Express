@@ -34,7 +34,7 @@
             <Image url="@src/back-icon.png" />
          </image>
       </ImageView>
-      <ToggleButtonGroup fx:id="fxid_genderSelection" layoutX="738.0" layoutY="325.0" selectionType="SINGLE">
+      <ToggleButtonGroup fx:id="fxid_genderSelection" layoutX="738.0" layoutY="325.0" selectionType="SINGLE" stylesheets="@css/createAccount.css">
           <toggles>
               <ToggleButton fx:id="fxid_womanButton" onMouseClicked="#handleGender">
                <graphic>
