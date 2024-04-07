@@ -18,7 +18,10 @@ public class QueryConditions {
     }
 
     private boolean select () {
-        if (!this.query.contains("SELECT *")) {
+        if (this.query.contains("SELECT USERNAME") || !this.query.contains("SELECT SALT") || !this.query
+                .contains("SELECT PASS") || !this.query.contains("SELECT ISADMIN") || !this.query
+                        .contains("SELECT NAME") || !this.query.contains("SELECT TELF") ||
+                        !this.query.contains("SELECT GENDER")) {
             JOptionPane.showMessageDialog(null, "Funcion de seleccion de campo unico aun no implementada");
             return false;
         }

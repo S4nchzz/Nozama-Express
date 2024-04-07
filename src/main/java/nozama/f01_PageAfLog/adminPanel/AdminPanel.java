@@ -147,10 +147,10 @@ public class AdminPanel {
         if (qc.conditions()) {
             if (fxid_queryInjection.getText() != null) {
                 // Retorno de tipo Object para comparar doble tipo de retorno
-                Object ob = db.injectCustomQuery(fxid_queryInjection.getText());
+                Object obj = db.injectCustomQuery(fxid_queryInjection.getText());
 
-                if (ob instanceof ResultSet) {
-                    this.rs = (ResultSet)ob;
+                if (obj instanceof ResultSet) {
+                    this.rs = (ResultSet)obj;
                     if (rs != null) {
                         fxid_databaseAdmin.getItems().clear();
                         try {
@@ -165,8 +165,8 @@ public class AdminPanel {
                             System.out.println(sqle.getMessage());
                         }
                     }
-                } else if (ob instanceof String) {
-                    fxid_errorDatabase.setText((String)ob);
+                } else if (obj instanceof String) {
+                    fxid_errorDatabase.setText((String)obj);
                 }
             }
         }
