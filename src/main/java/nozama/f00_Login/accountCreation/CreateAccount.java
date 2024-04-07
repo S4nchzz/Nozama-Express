@@ -2,11 +2,14 @@ package nozama.f00_Login.accountCreation;
 
 import java.io.IOException;
 
+import javax.swing.JOptionPane;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.stage.Stage;
 import nozama.NozamaWindowApp;
 import nozama.f00_Login.LoginPage;
@@ -29,11 +32,16 @@ public class CreateAccount {
     private TextField fxid_fullname_field;
     @FXML
     private TextField fxid_telf_field;
+    @FXML
+    private ToggleButton fxid_womanButton;
+    @FXML
+    private ToggleButton fxid_manButton;
 
     private String username;
     private String password;
     private String fullname;
     private String telf;
+    private String gender;
 
     private Conditions conditions;
     
@@ -67,18 +75,31 @@ public class CreateAccount {
 
         // Si todas las condiciones se cumplen añade el usuario
         if (conditions.usernameConditions() && conditions.fullNameConditions() && conditions.telfConditions() && conditions.passwordConditions()) {
-            DatabaseRequestManagment.anadir(username, password, false, fullname, telf);
+            if (gender != null) {
+                DatabaseRequestManagment.anadir(username, password, false, fullname, telf, gender);
+    
+                loader.setLocation(getClass().getResource("/nozama/login/login.fxml"));
+                loader.setController(loginController);
+    
+                Parent p = loader.load();
+                Scene s = new Scene(p,NozamaWindowApp.LOGIN_WIDTH,NozamaWindowApp.LOGIN_HEIGTH);
+    
+                stage.setTitle("Nozama Express");
+                stage.setScene(s);
+    
+                stage.show();
+            } else {
+                JOptionPane.showMessageDialog(null, "Elije un genero");
+            }
+        }
+    }
 
-            loader.setLocation(getClass().getResource("/nozama/login/login.fxml"));
-            loader.setController(loginController);
-
-            Parent p = loader.load();
-            Scene s = new Scene(p,NozamaWindowApp.LOGIN_WIDTH,NozamaWindowApp.LOGIN_HEIGTH);
-
-            stage.setTitle("Nozama Express");
-            stage.setScene(s);
-
-            stage.show();
+    @FXML
+    private void handleGender () {
+        if (fxid_manButton.isSelected()) {
+            this.gender = "M";
+        } else if (fxid_womanButton.isSelected()) {
+            this.gender = "W";
         }
     }
 

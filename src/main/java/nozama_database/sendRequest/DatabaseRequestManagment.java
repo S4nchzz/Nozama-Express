@@ -27,7 +27,7 @@ public class DatabaseRequestManagment {
      * @param pass contraseña del usuario a añadir en la base de datos
      * @return true si se añadio correctamente false si hubo un error
      */
-    public static boolean anadir(String name, String pass, boolean isAdmin, String fullName, String telf) {
+    public static boolean anadir(String name, String pass, boolean isAdmin, String fullName, String telf, String gender) {
         String salt = PasswordComplexity.saltGenerator();
         String passwordAndSalt = salt + pass;
 
@@ -37,7 +37,7 @@ public class DatabaseRequestManagment {
             // Statement para dar ejecutar la consulta en la base de datos si se realiza con
             // exito la conexion
             PreparedStatement st = conn.prepareStatement(
-                    "INSERT INTO USER (USERNAME, SALT, PASS, ISADMIN, NAME, TELF) VALUES (?, ?, ?, ?,? ,? );");
+                    "INSERT INTO USER (USERNAME, SALT, PASS, ISADMIN, NAME, TELF, GENDER) VALUES (?, ?, ?, ?, ?, ?, ?);");
 
             st.setString(1, name);
             st.setString(2, salt);
@@ -48,13 +48,14 @@ public class DatabaseRequestManagment {
 
             st.setString(5, fullName);
             st.setString(6, telf);
+            st.setString(7, gender);
             
             st.executeUpdate();
             st.close();
             
             return true;
         } catch (SQLException sqle) {
-            
+            System.out.println(sqle.getMessage());
         }
 
         return false;

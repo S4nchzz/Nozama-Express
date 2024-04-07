@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
@@ -80,5 +82,16 @@
                </image>
             </ImageView>
          </children></Pane>
+      <TableView layoutX="160.0" layoutY="101.0" prefHeight="551.0" prefWidth="1011.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="ID" />
+          <TableColumn prefWidth="75.0" text="USERNAME" />
+            <TableColumn prefWidth="75.0" text="SALT" />
+            <TableColumn prefWidth="75.0" text="PASS" />
+            <TableColumn prefWidth="75.0" text="ISADMIN" />
+            <TableColumn prefWidth="75.0" text="NAME" />
+            <TableColumn prefWidth="75.0" text="TELF" />
+        </columns>
+      </TableView>
    </children>
 </Pane>

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.gluonhq.charm.glisten.control.ToggleButtonGroup?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
@@ -20,7 +22,7 @@
       <PasswordField fx:id="fxid_password_field_singup" layoutX="646.0" layoutY="283.0" prefHeight="25.0" prefWidth="108.0" promptText="Password" stylesheets="@css/createAccount.css" />
       <TextField fx:id="fxid_fullname_field" layoutX="804.0" layoutY="234.0" prefHeight="25.0" prefWidth="108.0" promptText="Full Name" stylesheets="@css/createAccount.css" />
       <TextField fx:id="fxid_telf_field" layoutX="804.0" layoutY="283.0" prefHeight="25.0" prefWidth="108.0" promptText="Telf +34" stylesheets="@css/createAccount.css" />
-      <Button fx:id="fxid_singup_button" layoutX="737.0" layoutY="325.0" mnemonicParsing="false" onAction="#handleSingup" prefHeight="32.0" prefWidth="88.0" stylesheets="@css/createAccount.css" text="Sing up" textFill="#105bfc" />
+      <Button fx:id="fxid_singup_button" layoutX="739.0" layoutY="375.0" mnemonicParsing="false" onAction="#handleSingup" prefHeight="32.0" prefWidth="88.0" stylesheets="@css/createAccount.css" text="Sing up" textFill="#105bfc" />
       <ImageView fx:id="fxid_image_login" fitHeight="588.0" fitWidth="651.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@src/image-icon.png" />
@@ -32,5 +34,27 @@
             <Image url="@src/back-icon.png" />
          </image>
       </ImageView>
+      <ToggleButtonGroup fx:id="fxid_genderSelection" layoutX="738.0" layoutY="325.0" selectionType="SINGLE">
+          <toggles>
+              <ToggleButton fx:id="fxid_womanButton" onMouseClicked="#handleGender">
+               <graphic>
+                  <ImageView fitHeight="34.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@src/woman-icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+              </ToggleButton>
+              <ToggleButton fx:id="fxid_manButton" onMouseClicked="#handleGender">
+               <graphic>
+                  <ImageView fitHeight="38.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@src/hombre.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+              </ToggleButton>
+          </toggles>
+      </ToggleButtonGroup>
    </children>
 </Pane>
