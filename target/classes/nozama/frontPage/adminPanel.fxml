@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
@@ -82,7 +83,7 @@
                </image>
             </ImageView>
          </children></Pane>
-      <TableView fx:id="fxid_databaseAdmin" layoutX="160.0" layoutY="101.0" prefHeight="551.0" prefWidth="1011.0">
+      <TableView fx:id="fxid_databaseAdmin" editable="true" layoutX="160.0" layoutY="101.0" prefHeight="551.0" prefWidth="1011.0">
         <columns>
           <TableColumn fx:id="fxid_tableUsername" prefWidth="75.0" text="USERNAME" />
             <TableColumn fx:id="fxid_tableSalt" prefWidth="75.0" text="SALT" />
@@ -93,5 +94,12 @@
             <TableColumn fx:id="fxid_tableGender" prefWidth="75.0" text="GENDER" />
         </columns>
       </TableView>
+      <TextField fx:id="fxid_queryInjection" layoutX="160.0" layoutY="683.0" onAction="#sendAdminQuery" prefHeight="26.0" prefWidth="243.0" promptText="Query" />
+      <ImageView fx:id="fxid_searchQueryIcon" fitHeight="26.0" fitWidth="28.0" layoutX="413.0" layoutY="683.0" onMouseClicked="#sendAdminQueryIconSearch" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+         <image>
+            <Image url="@src/adminPanelIcons/search-icon.png" />
+         </image>
+      </ImageView>
+      <Text fx:id="fxid_errorDatabase" fill="RED" layoutX="160.0" layoutY="729.0" strokeType="OUTSIDE" strokeWidth="0.0" />
    </children>
 </Pane>

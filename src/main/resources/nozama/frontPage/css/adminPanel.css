@@ -1,0 +1,9 @@
+#fxid_databaseAdmin, #fxid_tableUsername, #fxid_tableSalt, #fxid_tablePass, #fxid_tableisAdmin, #fxid_tableName, #fxid_tableTelf, #fxid_tableGender {
+    -fx-background-color: white;
+    -fx-border-width: 0px 0px 0px 0px;
+    -fx-border-color: white;
+}
+
+#fxid_searchQueryIcon {
+    -fx-cursor: hand;
+}

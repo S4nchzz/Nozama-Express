@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
@@ -33,6 +34,10 @@ public class AdminPanel {
     private ImageView fxid_logoIcon;
     @FXML
     private ImageView fxid_databaseAdminIcon;
+    @FXML
+    private TextField fxid_queryInjection;
+    @FXML
+    private Text fxid_errorDatabase;
 
     @FXML
     private TableView<TableData> fxid_databaseAdmin;
@@ -119,6 +124,50 @@ public class AdminPanel {
                 allInserted = true;
             } catch (SQLException sqle) {
                 System.out.println(sqle.getMessage());
+            }
+        }
+    }
+
+    @FXML
+    private void sendAdminQueryIconSearch () {
+        sendAdminQuery();
+    }
+
+    @FXML
+    private void sendAdminQuery () {
+        DatabaseRequestManagment db = new DatabaseRequestManagment();
+
+        if (fxid_queryInjection.getText().isEmpty()) {
+            fxid_databaseAdmin.getItems().clear();
+            insertRegistersOnTable();
+        }
+
+        QueryConditions qc = new QueryConditions(fxid_queryInjection.getText());
+
+        if (qc.conditions()) {
+            if (fxid_queryInjection.getText() != null) {
+                // Retorno de tipo Object para comparar doble tipo de retorno
+                Object ob = db.injectCustomQuery(fxid_queryInjection.getText());
+
+                if (ob instanceof ResultSet) {
+                    this.rs = (ResultSet)ob;
+                    if (rs != null) {
+                        fxid_databaseAdmin.getItems().clear();
+                        try {
+                            while (rs.next()) {
+                                TableData td = new TableData(rs.getString(1), rs.getString(2), rs.getString(3),
+                                        rs.getBoolean(4),
+                                        rs.getString(5), rs.getString(6), rs.getString(7));
+        
+                                fxid_databaseAdmin.getItems().add(td);
+                            }
+                        } catch (SQLException sqle) {
+                            System.out.println(sqle.getMessage());
+                        }
+                    }
+                } else if (ob instanceof String) {
+                    fxid_errorDatabase.setText((String)ob);
+                }
             }
         }
     }

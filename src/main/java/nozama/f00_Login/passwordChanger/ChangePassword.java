@@ -67,20 +67,23 @@ public class ChangePassword {
 
         if (checkFieldSyntax() && DatabaseRequestManagment.isAdmin(userAdmin, passAdmin)) {
             if (!DatabaseRequestManagment.acceder(user, pass)) {
-
-                DatabaseRequestManagment.cambiarContrasena(user, pass);
-    
-                FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("/nozama/login/login.fxml"));
-                loader.setController(loginController);
-    
-                Parent p = loader.load();
-                Scene s = new Scene(p,NozamaWindowApp.LOGIN_WIDTH,NozamaWindowApp.LOGIN_HEIGTH);
-    
-                stage.setTitle("Nozama Express");
-                stage.setScene(s);
-    
-                stage.show();
+                if (pass.length() > 5) {
+                    DatabaseRequestManagment.cambiarContrasena(user, pass);
+                    
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(getClass().getResource("/nozama/login/login.fxml"));
+                    loader.setController(loginController);
+                    
+                    Parent p = loader.load();
+                    Scene s = new Scene(p,NozamaWindowApp.LOGIN_WIDTH,NozamaWindowApp.LOGIN_HEIGTH);
+                    
+                    stage.setTitle("Nozama Express");
+                    stage.setScene(s);
+                    
+                    stage.show();
+                } else {
+                    JOptionPane.showMessageDialog(null, "La constraseña no puede tener menos de 5 caracteres");
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Asegurate de que no usas la misma contraseña");
             }
