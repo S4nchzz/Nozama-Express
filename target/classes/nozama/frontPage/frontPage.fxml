@@ -96,7 +96,6 @@
                      </children>
                   </Pane>
                </children></VBox>
-            <Pane fx:id="fxid_logoutElement" layoutX="28.0" layoutY="618.0" onMouseClicked="#handleLogof" prefHeight="72.0" prefWidth="63.0" stylesheets="@css/frontPage.css" />
             <ImageView fx:id="fxid_logof" fitHeight="37.0" fitWidth="37.0" layoutX="245.0" layoutY="704.0" onMouseClicked="#handleLogof" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@src/frontPageIcons/logout-icon.png" />

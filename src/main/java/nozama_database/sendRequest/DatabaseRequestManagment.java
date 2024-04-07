@@ -206,6 +206,19 @@ public class DatabaseRequestManagment {
         return null;
     }
 
+    public static ResultSet getAllRegisters () {
+        try {
+            Connection conn = DriverManager.getConnection(url, "root", "");
+            PreparedStatement st = conn.prepareStatement("SELECT * FROM USER");
+
+            return st.executeQuery();
+        } catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+        }
+
+        return null;
+    }
+
     /**
      * Metodo que comprueba si un usuario es administrador o no
      * @param username Usuario a buscar
@@ -226,4 +239,5 @@ public class DatabaseRequestManagment {
         }
         return false;
     }
+
 }

@@ -26,7 +26,7 @@
                <children>
                   <Pane fx:id="fxid_paneA" prefHeight="59.0" prefWidth="450.0">
                      <children>
-                        <ImageView fx:id="fxid_databaseAdmin" fitHeight="37.0" fitWidth="37.0" layoutX="14.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="fxid_databaseAdminIcon" fitHeight="37.0" fitWidth="37.0" layoutX="14.0" layoutY="12.0" onMouseClicked="#showDatabaseAction" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@src/adminPanelIcons/database-icon.png" />
                            </image>
@@ -76,21 +76,22 @@
                   <Image url="@src/frontPageIcons/logout-icon.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="fxid_logoIcon" fitHeight="90.0" fitWidth="77.0" layoutX="21.0" layoutY="54.0" onMouseClicked="#logofAction" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+            <ImageView fx:id="fxid_logoIcon" fitHeight="90.0" fitWidth="77.0" layoutX="21.0" layoutY="54.0" onMouseClicked="#goBackAction" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
                <image>
                   <Image url="@../nozamaIcons/logo-icon-icon.png" />
                </image>
             </ImageView>
          </children></Pane>
-      <TableView layoutX="160.0" layoutY="101.0" prefHeight="551.0" prefWidth="1011.0">
+      <TableView fx:id="fxid_databaseAdmin" layoutX="160.0" layoutY="101.0" prefHeight="551.0" prefWidth="1011.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="ID" />
-          <TableColumn prefWidth="75.0" text="USERNAME" />
-            <TableColumn prefWidth="75.0" text="SALT" />
-            <TableColumn prefWidth="75.0" text="PASS" />
-            <TableColumn prefWidth="75.0" text="ISADMIN" />
-            <TableColumn prefWidth="75.0" text="NAME" />
-            <TableColumn prefWidth="75.0" text="TELF" />
+          <TableColumn fx:id="fxid_tableID" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="fxid_tableUsername" prefWidth="75.0" text="USERNAME" />
+            <TableColumn fx:id="fxid_tableSalt" prefWidth="75.0" text="SALT" />
+            <TableColumn fx:id="fxid_tablePass" prefWidth="75.0" text="PASS" />
+            <TableColumn fx:id="fxid_tableisAdmin" prefWidth="75.0" text="ISADMIN" />
+            <TableColumn fx:id="fxid_tableName" prefWidth="75.0" text="NAME" />
+            <TableColumn fx:id="fxid_tableTelf" prefWidth="75.0" text="TELF" />
+            <TableColumn fx:id="fxid_tableGender" prefWidth="75.0" text="GENDER" />
         </columns>
       </TableView>
    </children>
