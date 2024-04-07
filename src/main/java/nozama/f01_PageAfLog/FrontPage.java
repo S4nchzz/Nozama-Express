@@ -67,7 +67,7 @@ public class FrontPage {
     private void handleEnterAdminPanel () {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/nozama/frontPage/adminPanel.fxml"));
-        loader.setController(new AdminPanel(this.stage, this));
+        loader.setController(new AdminPanel(this.stage, this, fxid_usernameAv.getText()));
 
         try {
             Parent p = loader.load();

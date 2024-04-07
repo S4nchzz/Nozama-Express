@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import nozama.NozamaWindowApp;
 import nozama.f00_Login.LoginPage;
@@ -14,10 +15,15 @@ import nozama.f01_PageAfLog.FrontPage;
 public class AdminPanel {
     private final Stage stage;
     private final FrontPage stageControllerFP;
+    private final String username;
+
+    @FXML
+    private Text fxid_usernameAv;
     
-    public AdminPanel (Stage s, FrontPage stageControllerFP) {
+    public AdminPanel (Stage s, FrontPage stageControllerFP, String username) {
         this.stage = s;
         this.stageControllerFP = stageControllerFP;
+        this.username = username;
     }
 
     @FXML
@@ -56,5 +62,10 @@ public class AdminPanel {
         } catch (IOException e) {
             
         }
+    }
+
+    @FXML
+    public void initialize() {
+        fxid_usernameAv.setText(username);
     }
 }
