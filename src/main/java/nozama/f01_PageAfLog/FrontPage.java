@@ -69,19 +69,17 @@ public class FrontPage {
     private void handleEnterAdminPanel () {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/nozama/frontPage/adminPanel.fxml"));
-        loader.setController(new AdminPanel());
+        loader.setController(new AdminPanel(this.stage, this));
 
         try {
             Parent p = loader.load();
             Scene s = new Scene(p);
-            
-            Stage adminStage = new Stage();
-            adminStage.setTitle("Nozama Express");
-            adminStage.setScene(s);
-            adminStage.centerOnScreen();
-            adminStage.show();
+            stage.setTitle("Nozama Express");
+            stage.setScene(s);
+            stage.centerOnScreen();
+            stage.show();
         } catch (IOException e) {
-
+            System.out.println(e.getMessage());
         }
     }
 

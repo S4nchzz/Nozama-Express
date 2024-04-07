@@ -4,9 +4,3 @@
     -fx-border-color: rgb(255, 255, 255);
     -fx-background-radius: 200px;
 }
-
-#fxid_gestionUsuarios:hover {
-    -fx-background-color: rgb(19, 169, 255);
-    -fx-cursor: hand;
-    -fx-translate-y: -5;
-}

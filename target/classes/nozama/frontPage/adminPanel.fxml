@@ -1,42 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="920.0" stylesheets="@css/adminPanel.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="fxid_mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="755.0" prefWidth="1251.0" stylesheets="@css/frontPage.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane fx:id="fxid_gestionUsuarios" layoutX="42.0" layoutY="150.0" onMouseClicked="#handleGestionUsuarios" prefHeight="54.0" prefWidth="54.0" stylesheets="@css/adminPanel.css">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <effect>
-            <Bloom threshold="0.35" />
-         </effect>
+      <Pane layoutX="1083.0" layoutY="14.0" prefHeight="58.0" prefWidth="154.0">
+         <children>
+            <ImageView fx:id="fxid_avatarIcon" fitHeight="37.0" fitWidth="39.0" layoutX="14.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@src/frontPageIcons/avatar-icon.png" />
+               </image>
+            </ImageView>
+            <Text fx:id="fxid_usernameAv" layoutX="63.0" layoutY="34.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="USERNAME" wrappingWidth="76.98307228088379" />
+         </children>
       </Pane>
-      <Pane fx:id="fxid_soporte" layoutX="42.0" layoutY="226.0" onMouseClicked="#handleGestionUsuarios" prefHeight="54.0" prefWidth="54.0" stylesheets="@css/adminPanel.css">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <effect>
-            <Bloom threshold="0.35" />
-         </effect>
-      </Pane>
-      <Pane fx:id="fxid_restockInfo" layoutX="42.0" layoutY="300.0" onMouseClicked="#handleGestionUsuarios" prefHeight="54.0" prefWidth="54.0" stylesheets="@css/adminPanel.css">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <effect>
-            <Bloom threshold="0.35" />
-         </effect>
-      </Pane>
-      <Pane fx:id="fxid_otro" layoutX="42.0" layoutY="379.0" onMouseClicked="#handleGestionUsuarios" prefHeight="54.0" prefWidth="54.0" stylesheets="@css/adminPanel.css">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <effect>
-            <Bloom threshold="0.35" />
-         </effect>
-      </Pane>
+      <Pane fx:id="fxid_leftPane" prefHeight="755.0" prefWidth="118.0" stylesheets="@css/frontPage.css">
+         <children>
+            <VBox layoutX="28.0" layoutY="208.0" prefHeight="303.0" prefWidth="63.0">
+               <children>
+                  <Pane fx:id="fxid_paneA" prefHeight="59.0" prefWidth="450.0">
+                     <children>
+                        <ImageView fitHeight="37.0" fitWidth="37.0" layoutX="14.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@src/frontPageIcons/web-icon.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="fxid_paneB" prefHeight="60.6" prefWidth="189.0">
+                     <children>
+                        <ImageView fitHeight="37.0" fitWidth="37.0" layoutX="14.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@src/frontPageIcons/carrito-icon.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="fxid_paneC" prefHeight="60.6" prefWidth="189.0">
+                     <children>
+                        <ImageView fitHeight="37.0" fitWidth="37.0" layoutX="14.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@src/frontPageIcons/news-icon.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="fxid_paneD" prefHeight="60.6" prefWidth="189.0">
+                     <children>
+                        <ImageView fitHeight="37.0" fitWidth="37.0" layoutX="14.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@src/frontPageIcons/comunidad-icon.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="fxid_paneE" prefHeight="60.6" prefWidth="189.0">
+                     <children>
+                        <ImageView fitHeight="37.0" fitWidth="37.0" layoutX="14.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@src/frontPageIcons/tech-support.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+               </children></VBox>
+            <Pane fx:id="fxid_logoutElement" layoutX="28.0" layoutY="618.0" onMouseClicked="#handleLogof" prefHeight="72.0" prefWidth="63.0" stylesheets="@css/frontPage.css" />
+            <ImageView fx:id="fxid_logof" fitHeight="37.0" fitWidth="37.0" layoutX="41.0" layoutY="704.0" onMouseClicked="#handleLogof" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@src/frontPageIcons/logout-icon.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="fxid_logoIcon" fitHeight="90.0" fitWidth="77.0" layoutX="21.0" layoutY="54.0" onMouseClicked="#goBackLogoAction" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+               <image>
+                  <Image url="@../nozamaIcons/logo-icon-icon.png" />
+               </image>
+            </ImageView>
+         </children></Pane>
    </children>
 </Pane>
