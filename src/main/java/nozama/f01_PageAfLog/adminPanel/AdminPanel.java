@@ -159,7 +159,6 @@ public class AdminPanel {
 
         if (fxid_queryInjection.getText().isEmpty()) {
             fxid_databaseAdmin.getItems().clear();
-            insertRegistersOnTable();
         }
 
         QueryConditions qc = new QueryConditions(fxid_queryInjection.getText());
