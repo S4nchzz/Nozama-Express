@@ -274,7 +274,7 @@ public class DatabaseRequestManagment {
                     posToContinue = i;
                     break;
                 }
-            } 
+            }
 
             for (int i = posToContinue + 1; i < sqle.getMessage().length(); i++) {
                 sb.append(sqle.getMessage().charAt(i));

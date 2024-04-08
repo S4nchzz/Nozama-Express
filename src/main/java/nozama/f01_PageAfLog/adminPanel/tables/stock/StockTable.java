@@ -59,7 +59,6 @@ public class StockTable implements Tables {
                 }
             }
         }
-
         return null;
     }
 }
