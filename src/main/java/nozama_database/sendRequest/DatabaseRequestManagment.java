@@ -264,17 +264,23 @@ public class DatabaseRequestManagment {
         try {
             Connection conn = DriverManager.getConnection(url, "root", "");
             PreparedStatement st = conn.prepareStatement(query);
-            if (query.startsWith("DELETE FROM USER")) {
+            
+            if (query.startsWith("DELETE FROM")) {
+                StringBuilder sb = new StringBuilder();
+                for (int charPos = 12; charPos < query.length(); charPos++) {
+                    if (query.charAt(charPos) != ' ') {
+                        sb.append(query.charAt(charPos));
+                    } else {
+                        break;
+                    }
+                }
+
                 st.executeQuery();
-                PreparedStatement resultAfterDelete = conn.prepareStatement("SELECT * FROM USER");
-                return resultAfterDelete.executeQuery();
-            } else if (query.startsWith("DELETE FROM STOCK")) {
-                st.executeQuery();
-                PreparedStatement resultAfterDelete = conn.prepareStatement("SELECT * FROM STOCK");
+                PreparedStatement resultAfterDelete = conn.prepareStatement("SELECT * FROM " + sb.toString());
                 return resultAfterDelete.executeQuery();
             }
-
             return st.executeQuery();
+
         } catch (SQLException sqle) {
             StringBuilder sb = new StringBuilder();
             

@@ -47,8 +47,8 @@ public class StockTable implements Tables {
             if (rs != null) {
                 try {
                     while (rs.next()) {
-                        tdS = new TableDataStock(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getDouble(4),
-                                rs.getInt(5));
+                        tdS = new TableDataStock(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4),
+                                rs.getDouble(5), rs.getInt(6));
 
                         fxid_databaseStock.getItems().add(tdS);
                     }

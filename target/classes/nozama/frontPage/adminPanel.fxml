@@ -105,13 +105,14 @@
             <TextField fx:id="fxid_queryInjection" layoutY="11.0" onAction="#sendAdminQuery" prefHeight="26.0" prefWidth="243.0" promptText="Query" />
          </children>
       </Pane>
-      <TableView fx:id="fxid_databaseStock" layoutX="160.0" layoutY="101.0" prefHeight="551.0" prefWidth="1011.0" visible="false">
+      <TableView fx:id="fxid_databaseStock" layoutX="160.0" layoutY="101.0" prefHeight="551.0" prefWidth="1011.0">
         <columns>
           <TableColumn fx:id="fxid_stockId" prefWidth="75.0" text="STOCK_ID" />
+            <TableColumn fx:id="fxid_itemType" prefWidth="75.0" text="ITEM_TYPE" />
           <TableColumn fx:id="fxid_product" prefWidth="75.0" text="PRODUCT" />
-            <TableColumn fx:id="fxid_stockAmount" prefWidth="75.0" text="STOCK_AMOUNT" />
-            <TableColumn fx:id="fxid_itemPrice" prefWidth="75.0" text="ITEM_PRICE" />
-            <TableColumn fx:id="fxid_discount" prefWidth="75.0" text="DISCOUNT" />
+            <TableColumn fx:id="fxid_stockAmount" prefWidth="120.0" text="STOCK_AMOUNT" />
+            <TableColumn fx:id="fxid_itemPrice" prefWidth="83.0" text="ITEM_PRICE" />
+            <TableColumn fx:id="fxid_discount" prefWidth="82.0" text="DISCOUNT" />
         </columns>
       </TableView>
    </children>

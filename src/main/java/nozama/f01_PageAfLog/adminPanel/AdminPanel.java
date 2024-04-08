@@ -75,6 +75,8 @@ public class AdminPanel {
     @FXML
     private TableColumn<TableDataStock, String> fxid_stockId;
     @FXML
+    private TableColumn<TableDataStock, String> fxid_itemType;
+    @FXML
     private TableColumn<TableDataStock, String> fxid_product;
     @FXML
     private TableColumn<TableDataStock, String> fxid_stockAmount;
@@ -163,10 +165,6 @@ public class AdminPanel {
         DatabaseRequestManagment db = new DatabaseRequestManagment();
         Object obj = null;
 
-<<<<<<< HEAD
-        if (fxid_queryInjection.getText().isEmpty()) {
-            fxid_databaseAdmin.getItems().clear();
-=======
         this.query = fxid_queryInjection.getText().toUpperCase();
         obj = db.injectCustomQuery(query);
 
@@ -180,7 +178,7 @@ public class AdminPanel {
                 fxid_databaseUser.getItems().clear();
                 this.fxid_databaseStock = tS.insertRegistersOnTableUser();
             }
->>>>>>> 60b1aaa2b7392c137786df2a9d7f9aeadb6d3cfd
+
         }
                 
         if (obj instanceof ResultSet) {
@@ -206,8 +204,8 @@ public class AdminPanel {
                     this.fxid_errorDatabase.setText("");
                     try {
                         while (rs.next()) {
-                            tdS = new TableDataStock(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getDouble(4),
-                                    rs.getInt(5));
+                            tdS = new TableDataStock(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getDouble(5),
+                                    rs.getInt(6));
                             fxid_databaseStock.getItems().add(tdS);
                         }
                     } catch (SQLException sqle) {
@@ -232,6 +230,7 @@ public class AdminPanel {
         fxid_tableGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
 
         fxid_stockId.setCellValueFactory(new PropertyValueFactory<>("stock_id"));
+        fxid_itemType.setCellValueFactory(new PropertyValueFactory<>("itemType"));
         fxid_product.setCellValueFactory(new PropertyValueFactory<>("product"));
         fxid_stockAmount.setCellValueFactory(new PropertyValueFactory<>("stock_amount"));
         fxid_itemPrice.setCellValueFactory(new PropertyValueFactory<>("item_price"));
