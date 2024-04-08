@@ -19,16 +19,24 @@ import javafx.stage.Stage;
 import nozama.NozamaWindowApp;
 import nozama.f00_Login.LoginPage;
 import nozama.f01_PageAfLog.FrontPage;
+import nozama.f01_PageAfLog.adminPanel.queryInjection.QueryConditions;
+import nozama.f01_PageAfLog.adminPanel.tables.stock.StockTable;
+import nozama.f01_PageAfLog.adminPanel.tables.stock.TableDataStock;
+import nozama.f01_PageAfLog.adminPanel.tables.users.TableDataUsers;
+import nozama.f01_PageAfLog.adminPanel.tables.users.UserTable;
+import nozama.f01_PageAfLog.adminPanel.tables.Tables;
 import nozama_database.sendRequest.DatabaseRequestManagment;
 
 public class AdminPanel {
     private final Stage stage;
     private final FrontPage stageControllerFP;
     private final String username;
-    private boolean showDatabase = true;
+    private boolean showDatabaseUser = true;
+    private boolean showDatabaseStock = true;
     private ResultSet rs;
     private boolean allInserted;
-    private TableData td;
+    private TableDataUsers tdU;
+    private TableDataStock tdS;
 
     @FXML
     private Text fxid_usernameAv;
@@ -44,21 +52,34 @@ public class AdminPanel {
     private ToggleButton fxid_deleteUser;
 
     @FXML
-    private TableView<TableData> fxid_databaseAdmin;
+    private TableView<TableDataUsers> fxid_databaseAdmin;
     @FXML
-    private TableColumn<TableData, String> fxid_tableUsername;
+    private TableColumn<TableDataUsers, String> fxid_tableUsername;
     @FXML
-    private TableColumn<TableData, String> fxid_tableSalt;
+    private TableColumn<TableDataUsers, String> fxid_tableSalt;
     @FXML
-    private TableColumn<TableData, String> fxid_tablePass;
+    private TableColumn<TableDataUsers, String> fxid_tablePass;
     @FXML
-    private TableColumn<TableData, String> fxid_tableisAdmin;
+    private TableColumn<TableDataUsers, String> fxid_tableisAdmin;
     @FXML
-    private TableColumn<TableData, String> fxid_tableName;
+    private TableColumn<TableDataUsers, String> fxid_tableName;
     @FXML
-    private TableColumn<TableData, String> fxid_tableTelf;
+    private TableColumn<TableDataUsers, String> fxid_tableTelf;
     @FXML
-    private TableColumn<TableData, String> fxid_tableGender;
+    private TableColumn<TableDataUsers, String> fxid_tableGender;
+
+    @FXML
+    private TableView<TableDataStock> fxid_databaseStock;
+    @FXML
+    private TableColumn<TableDataStock, String> fxid_stockId;
+    @FXML
+    private TableColumn<TableDataStock, String> fxid_product;
+    @FXML
+    private TableColumn<TableDataStock, String> fxid_stockAmount;
+    @FXML
+    private TableColumn<TableDataStock, String> fxid_itemPrice;
+    @FXML
+    private TableColumn<TableDataStock, String> fxid_discount;
 
     public AdminPanel (Stage s, FrontPage stageControllerFP, String username) {
         this.stage = s;
@@ -106,30 +127,25 @@ public class AdminPanel {
     }
 
     @FXML
-    private void showDatabaseAction () {
-        fxid_databaseAdmin.setVisible(showDatabase);
+    private void showDatabaseUsers () {
+        fxid_databaseAdmin.setVisible(showDatabaseUser);
         if (!allInserted) {
-            insertRegistersOnTable();
+            Tables t = new UserTable(fxid_databaseAdmin, fxid_tableUsername, fxid_tableSalt, fxid_tablePass, fxid_tableisAdmin, fxid_tableName, fxid_tableTelf, fxid_tableGender);
+            this.fxid_databaseAdmin = t.insertRegistersOnTableUser();
+            allInserted = true;
         }
-        showDatabase = !showDatabase;
+        showDatabaseUser = !showDatabaseUser;
     }
 
-    private void insertRegistersOnTable () {
-        this.rs = DatabaseRequestManagment.getAllRegisters();
-        if (rs != null) {
-            try {                
-                while (rs.next()) {
-                    td = new TableData(rs.getString(1), rs.getString(2), rs.getString(3), rs.getBoolean(4),
-                            rs.getString(5), rs.getString(6), rs.getString(7));
-
-                    fxid_databaseAdmin.getItems().add(td);
-                }
-
-                allInserted = true;
-            } catch (SQLException sqle) {
-                System.out.println(sqle.getMessage());
-            }
+    @FXML
+    private void showDatabaseStock() {
+        fxid_databaseStock.setVisible(showDatabaseUser);
+        if (!allInserted) {
+            Tables t = new StockTable(fxid_databaseStock, fxid_stockId, fxid_product, fxid_stockAmount, fxid_itemPrice, fxid_discount);
+            t.insertRegistersOnTableUser();
+            allInserted = true;
         }
+        showDatabaseStock = !showDatabaseStock;
     }
 
     @FXML
@@ -159,11 +175,11 @@ public class AdminPanel {
                         fxid_databaseAdmin.getItems().clear();
                         try {
                             while (rs.next()) {
-                                td = new TableData(rs.getString(1), rs.getString(2), rs.getString(3),
+                                tdU = new TableDataUsers(rs.getString(1), rs.getString(2), rs.getString(3),
                                         rs.getBoolean(4),
                                         rs.getString(5), rs.getString(6), rs.getString(7));
         
-                                fxid_databaseAdmin.getItems().add(td);
+                                fxid_databaseAdmin.getItems().add(tdU);
                             }
                         } catch (SQLException sqle) {
                             System.out.println(sqle.getMessage());
@@ -177,17 +193,6 @@ public class AdminPanel {
     }
 
     @FXML
-    private void deleteUserAction () {
-    
-    }
-
-    /**
-     * Metood que es llamado cuando se cargan todos los elementos
-     * de javafx, este metodo cambiara el nombre del usuario al lado
-     * del avatar y por cada columna obtendra la propiedad del valor
-     * a mostrar
-     */
-    @FXML
     public void initialize() {
         fxid_usernameAv.setText(username);
         fxid_tableUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
@@ -197,5 +202,11 @@ public class AdminPanel {
         fxid_tableName.setCellValueFactory(new PropertyValueFactory<>("name"));
         fxid_tableTelf.setCellValueFactory(new PropertyValueFactory<>("telf"));
         fxid_tableGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
+
+        fxid_stockId.setCellValueFactory(new PropertyValueFactory<>("stock_id"));
+        fxid_product.setCellValueFactory(new PropertyValueFactory<>("product"));
+        fxid_stockAmount.setCellValueFactory(new PropertyValueFactory<>("stock_amount"));
+        fxid_itemPrice.setCellValueFactory(new PropertyValueFactory<>("item_price"));
+        fxid_discount.setCellValueFactory(new PropertyValueFactory<>("discount"));
     }
 }

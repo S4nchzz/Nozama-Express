@@ -27,7 +27,7 @@
                <children>
                   <Pane fx:id="fxid_paneA" prefHeight="59.0" prefWidth="450.0">
                      <children>
-                        <ImageView fx:id="fxid_databaseAdminIcon" fitHeight="37.0" fitWidth="37.0" layoutX="14.0" layoutY="12.0" onMouseClicked="#showDatabaseAction" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="fxid_databaseAdminIcon" fitHeight="37.0" fitWidth="37.0" layoutX="14.0" layoutY="12.0" onMouseClicked="#showDatabaseUsers" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@src/adminPanelIcons/database-icon.png" />
                            </image>
@@ -36,7 +36,7 @@
                   </Pane>
                   <Pane fx:id="fxid_paneB" prefHeight="60.6" prefWidth="189.0">
                      <children>
-                        <ImageView fx:id="fxid_stockAdmin" fitHeight="37.0" fitWidth="37.0" layoutX="14.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="fxid_stockAdmin" fitHeight="37.0" fitWidth="37.0" layoutX="14.0" layoutY="12.0" onMouseClicked="#showDatabaseStock" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@src/adminPanelIcons/stock-icon.png" />
                            </image>
@@ -94,12 +94,25 @@
             <TableColumn fx:id="fxid_tableGender" prefWidth="75.0" text="GENDER" />
         </columns>
       </TableView>
-      <TextField fx:id="fxid_queryInjection" layoutX="160.0" layoutY="683.0" onAction="#sendAdminQuery" prefHeight="26.0" prefWidth="243.0" promptText="Query" />
-      <ImageView fx:id="fxid_searchQueryIcon" fitHeight="26.0" fitWidth="28.0" layoutX="413.0" layoutY="683.0" onMouseClicked="#sendAdminQueryIconSearch" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
-         <image>
-            <Image url="@src/adminPanelIcons/search-icon.png" />
-         </image>
-      </ImageView>
       <Text fx:id="fxid_errorDatabase" fill="RED" layoutX="160.0" layoutY="729.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Pane layoutX="150.0" layoutY="673.0" prefHeight="47.0" prefWidth="299.0">
+         <children>
+            <ImageView fx:id="fxid_searchQueryIcon" fitHeight="26.0" fitWidth="28.0" layoutX="259.0" layoutY="11.0" onMouseClicked="#sendAdminQueryIconSearch" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+               <image>
+                  <Image url="@src/adminPanelIcons/search-icon.png" />
+               </image>
+            </ImageView>
+            <TextField fx:id="fxid_queryInjection" layoutY="11.0" onAction="#sendAdminQuery" prefHeight="26.0" prefWidth="243.0" promptText="Query" />
+         </children>
+      </Pane>
+      <TableView fx:id="fxid_databaseStock" layoutX="160.0" layoutY="101.0" prefHeight="551.0" prefWidth="1011.0" visible="false">
+        <columns>
+          <TableColumn fx:id="fxid_stockId" prefWidth="75.0" text="STOCK_ID" />
+          <TableColumn fx:id="fxid_product" prefWidth="75.0" text="PRODUCT" />
+            <TableColumn fx:id="fxid_stockAmount" prefWidth="75.0" text="STOCK_AMOUNT" />
+            <TableColumn fx:id="fxid_itemPrice" prefWidth="75.0" text="ITEM_PRICE" />
+            <TableColumn fx:id="fxid_discount" prefWidth="75.0" text="DISCOUNT" />
+        </columns>
+      </TableView>
    </children>
 </Pane>

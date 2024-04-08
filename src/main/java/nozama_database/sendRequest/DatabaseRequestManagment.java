@@ -206,16 +206,36 @@ public class DatabaseRequestManagment {
         return null;
     }
 
-    public static ResultSet getAllRegisters () {
-        try {
-            Connection conn = DriverManager.getConnection(url, "root", "");
-            PreparedStatement st = conn.prepareStatement("SELECT * FROM USER");
+    /**
+     * 1 for user
+     * 2 for stock
+     * @param table
+     * @return
+     */
+    public static ResultSet getAllRegisters (int table) {
+        switch (table) {
+            case 1:
+                try {
+                    Connection conn = DriverManager.getConnection(url, "root", "");
+                    PreparedStatement st = conn.prepareStatement("SELECT * FROM USER");
 
-            return st.executeQuery();
-        } catch (SQLException sqle) {
-            System.out.println(sqle.getMessage());
+                    return st.executeQuery();
+                } catch (SQLException sqle) {
+                    System.out.println(sqle.getMessage());
+                }
+            break;
+
+            case 2:
+                try {
+                    Connection conn = DriverManager.getConnection(url, "root", "");
+                    PreparedStatement st = conn.prepareStatement("SELECT * FROM STOCK");
+
+                    return st.executeQuery();
+                } catch (SQLException sqle) {
+                    System.out.println(sqle.getMessage());
+                }
+            break;
         }
-
         return null;
     }
 

@@ -1,4 +1,4 @@
-package nozama.f01_PageAfLog.adminPanel;
+package nozama.f01_PageAfLog.adminPanel.queryInjection;
 
 import javax.swing.JOptionPane;
 
@@ -9,7 +9,7 @@ public class QueryConditions {
         this.query = query;
     }
 
-    protected boolean conditions () {
+    public boolean conditions () {
         if (deleteFromCondition() && alterTableCondition() && dropDatabaseCondition() && dropTableCondition() && createProcedure() && select()) {
             return true;
         }

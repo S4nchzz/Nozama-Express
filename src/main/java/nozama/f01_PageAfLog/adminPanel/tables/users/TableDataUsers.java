@@ -1,9 +1,9 @@
-package nozama.f01_PageAfLog.adminPanel;
+package nozama.f01_PageAfLog.adminPanel.tables.users;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-public class TableData {
+public class TableDataUsers {
     private final SimpleStringProperty username;
     private final SimpleStringProperty salt;
     private final SimpleStringProperty pass;
@@ -12,7 +12,7 @@ public class TableData {
     private final SimpleStringProperty telf;
     private final SimpleStringProperty gender;
 
-    public TableData(String username, String salt, String pass, boolean isAdmin, String name, String telf,
+    public TableDataUsers(String username, String salt, String pass, boolean isAdmin, String name, String telf,
             String gender) {
         this.username = new SimpleStringProperty(username);
         this.salt = new SimpleStringProperty(salt);
