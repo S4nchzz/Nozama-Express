@@ -22,7 +22,6 @@ import nozama.f01_PageAfLog.adminPanel.tables.stock.StockTable;
 import nozama.f01_PageAfLog.adminPanel.tables.stock.TableDataStock;
 import nozama.f01_PageAfLog.adminPanel.tables.users.TableDataUsers;
 import nozama.f01_PageAfLog.adminPanel.tables.users.UserTable;
-import nozama.f01_PageAfLog.adminPanel.queryInjection.QueryConditions;
 import nozama.f01_PageAfLog.adminPanel.tables.Tables;
 import nozama_database.sendRequest.DatabaseRequestManagment;
 
@@ -40,7 +39,6 @@ public class AdminPanel {
     private Tables tS;
     private Tables tU;
     private String query;
-    private QueryConditions qc;
 
     @FXML
     private Text fxid_usernameAv;
@@ -166,7 +164,7 @@ public class AdminPanel {
         Object obj = null;
 
         this.query = fxid_queryInjection.getText().toUpperCase();
-        obj = db.injectCustomQuery(query);
+        obj = db.injectCustomSelectQuery(query);
 
         if (fxid_databaseUser.isVisible()) {
             if (fxid_queryInjection.getText().isEmpty() || query.isBlank()) {
@@ -177,6 +175,23 @@ public class AdminPanel {
             if (fxid_queryInjection.getText().isEmpty() || query.isBlank()) {
                 fxid_databaseUser.getItems().clear();
                 this.fxid_databaseStock = tS.insertRegistersOnTableUser();
+            }
+        }
+        
+        Object deleteFrom = db.injectCustomSelectQuery(query);
+
+        if (deleteFrom instanceof ResultSet) {
+            try {
+                this.rs = (ResultSet)deleteFrom;
+                fxid_databaseStock.getItems().clear();
+                this.fxid_errorDatabase.setText("");
+                while (rs.next()) {
+                    tdS = new TableDataStock(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getDouble(4),
+                            rs.getInt(5));
+                    fxid_databaseStock.getItems().add(tdS);
+                }
+            } catch (SQLException q) {
+
             }
         }
         
