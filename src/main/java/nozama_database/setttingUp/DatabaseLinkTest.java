@@ -44,13 +44,18 @@ public class DatabaseLinkTest {
                 PreparedStatement createTableUser = dbServer.prepareStatement(
                         "CREATE TABLE user (USERNAME VARCHAR(15) PRIMARY KEY, SALT VARCHAR(16) NOT NULL, PASS BINARY(32) NOT NULL, ISADMIN BOOLEAN NOT NULL, NAME VARCHAR(20) NOT NULL, TELF VARCHAR(9), GENDER VARCHAR(1) NOT NULL );");
 
+                PreparedStatement itemStock = dbServer.prepareStatement(
+                    "CREATE TABLE stock (STOCK_ID INTEGER PRIMARY KEY AUTO_INCREMENT, PRODUCT VARCHAR(20) NOT NULL, STOCK_AMOUNT INTEGER NOT NULL, ITEM_PRICE DOUBLE NOT NULL, DISCOUNT INTEGER)");
+
                 setUpDatabase.executeQuery();
                 useDatabase.executeQuery();
                 createTableUser.executeQuery();
+                itemStock.executeQuery();
 
                 setUpDatabase.close();
                 useDatabase.close();
                 createTableUser.close();
+                itemStock.close();
                 dbServer.close();
             }
 

@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
@@ -27,6 +28,7 @@ public class AdminPanel {
     private boolean showDatabase = true;
     private ResultSet rs;
     private boolean allInserted;
+    private TableData td;
 
     @FXML
     private Text fxid_usernameAv;
@@ -38,6 +40,8 @@ public class AdminPanel {
     private TextField fxid_queryInjection;
     @FXML
     private Text fxid_errorDatabase;
+    @FXML
+    private ToggleButton fxid_deleteUser;
 
     @FXML
     private TableView<TableData> fxid_databaseAdmin;
@@ -115,7 +119,7 @@ public class AdminPanel {
         if (rs != null) {
             try {                
                 while (rs.next()) {
-                    TableData td = new TableData(rs.getString(1), rs.getString(2), rs.getString(3), rs.getBoolean(4),
+                    td = new TableData(rs.getString(1), rs.getString(2), rs.getString(3), rs.getBoolean(4),
                             rs.getString(5), rs.getString(6), rs.getString(7));
 
                     fxid_databaseAdmin.getItems().add(td);
@@ -155,7 +159,7 @@ public class AdminPanel {
                         fxid_databaseAdmin.getItems().clear();
                         try {
                             while (rs.next()) {
-                                TableData td = new TableData(rs.getString(1), rs.getString(2), rs.getString(3),
+                                td = new TableData(rs.getString(1), rs.getString(2), rs.getString(3),
                                         rs.getBoolean(4),
                                         rs.getString(5), rs.getString(6), rs.getString(7));
         
@@ -170,6 +174,11 @@ public class AdminPanel {
                 }
             }
         }
+    }
+
+    @FXML
+    private void deleteUserAction () {
+    
     }
 
     /**
