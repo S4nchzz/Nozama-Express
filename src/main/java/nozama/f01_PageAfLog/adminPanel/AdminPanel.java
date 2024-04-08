@@ -164,7 +164,7 @@ public class AdminPanel {
         Object obj = null;
 
         this.query = fxid_queryInjection.getText().toUpperCase();
-        obj = db.injectCustomSelectQuery(query);
+        obj = db.injectCustomQuery(query);
 
         if (fxid_databaseUser.isVisible()) {
             if (fxid_queryInjection.getText().isEmpty() || query.isBlank()) {
@@ -177,24 +177,7 @@ public class AdminPanel {
                 this.fxid_databaseStock = tS.insertRegistersOnTableUser();
             }
         }
-        
-        Object deleteFrom = db.injectCustomSelectQuery(query);
-
-        if (deleteFrom instanceof ResultSet) {
-            try {
-                this.rs = (ResultSet)deleteFrom;
-                fxid_databaseStock.getItems().clear();
-                this.fxid_errorDatabase.setText("");
-                while (rs.next()) {
-                    tdS = new TableDataStock(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getDouble(4),
-                            rs.getInt(5));
-                    fxid_databaseStock.getItems().add(tdS);
-                }
-            } catch (SQLException q) {
-
-            }
-        }
-        
+                
         if (obj instanceof ResultSet) {
             this.rs = (ResultSet) obj;
             if (rs != null && query.contains("FROM USER")) {

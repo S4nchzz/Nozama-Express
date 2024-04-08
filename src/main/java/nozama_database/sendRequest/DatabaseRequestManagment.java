@@ -260,7 +260,7 @@ public class DatabaseRequestManagment {
         return false;
     }
 
-    public Object injectCustomSelectQuery (String query) {
+    public Object injectCustomQuery (String query) {
         try {
             Connection conn = DriverManager.getConnection(url, "root", "");
             PreparedStatement st = conn.prepareStatement(query);
@@ -278,29 +278,6 @@ public class DatabaseRequestManagment {
         } catch (SQLException sqle) {
             StringBuilder sb = new StringBuilder();
             
-            int posToContinue = 0;
-            for (int i = 0; i < sqle.getMessage().length(); i++) {
-                if (sqle.getMessage().charAt(i) == ')') {
-                    posToContinue = i;
-                    break;
-                }
-            }
-
-            for (int i = posToContinue + 1; i < sqle.getMessage().length(); i++) {
-                sb.append(sqle.getMessage().charAt(i));
-            }
-            return sb.toString();
-        }
-    }
-
-    public Object injectCustomDeleteQuery (String query) {
-        try {
-            Connection conn = DriverManager.getConnection(url, "root", "");
-            PreparedStatement st = conn.prepareStatement(query);
-            return st.executeQuery();
-        } catch (SQLException sqle) {
-            StringBuilder sb = new StringBuilder();
-
             int posToContinue = 0;
             for (int i = 0; i < sqle.getMessage().length(); i++) {
                 if (sqle.getMessage().charAt(i) == ')') {
