@@ -63,7 +63,7 @@ This software uses the following open source packages:
 - [MariaDB Connector/J](https://mariadb.com/kb/en/about-mariadb-connector-j/)
 - [XAMPP](https://www.apachefriends.org/es/download.html)
 - [HeidiSQL](https://www.heidisql.com/)
-- [JavFX](https://openjfx.io/)
+- [JavaFX](https://openjfx.io/)
 
 ## Credits
 > GitHub [@s4nchzz](https://github.com/S4nchzz) &nbsp;&middot;&nbsp;
