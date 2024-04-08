@@ -95,7 +95,7 @@
         </columns>
       </TableView>
       <Text fx:id="fxid_errorDatabase" fill="RED" layoutX="160.0" layoutY="729.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Pane layoutX="150.0" layoutY="673.0" prefHeight="47.0" prefWidth="299.0">
+      <Pane fx:id="fxid_queryPane" blendMode="SRC_ATOP" layoutX="150.0" layoutY="673.0" prefHeight="47.0" prefWidth="299.0" visible="false">
          <children>
             <ImageView fx:id="fxid_searchQueryIcon" fitHeight="26.0" fitWidth="28.0" layoutX="259.0" layoutY="11.0" onMouseClicked="#sendAdminQueryIconSearch" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
                <image>
@@ -105,7 +105,7 @@
             <TextField fx:id="fxid_queryInjection" layoutY="11.0" onAction="#sendAdminQuery" prefHeight="26.0" prefWidth="243.0" promptText="Query" />
          </children>
       </Pane>
-      <TableView fx:id="fxid_databaseStock" layoutX="160.0" layoutY="101.0" prefHeight="551.0" prefWidth="1011.0">
+      <TableView fx:id="fxid_databaseStock" layoutX="160.0" layoutY="101.0" prefHeight="551.0" prefWidth="1011.0" visible="false">
         <columns>
           <TableColumn fx:id="fxid_stockId" prefWidth="75.0" text="STOCK_ID" />
             <TableColumn fx:id="fxid_itemType" prefWidth="75.0" text="ITEM_TYPE" />
@@ -115,5 +115,10 @@
             <TableColumn fx:id="fxid_discount" prefWidth="82.0" text="DISCOUNT" />
         </columns>
       </TableView>
+      <ImageView fitHeight="146.0" fitWidth="423.0" layoutX="454.0" layoutY="-23.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../nozamaIcons/logo-SL.png" />
+         </image>
+      </ImageView>
    </children>
 </Pane>

@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import nozama.NozamaWindowApp;
@@ -57,6 +58,8 @@ public class AdminPanel {
     private Text fxid_errorDatabase;
     @FXML
     private ToggleButton fxid_deleteUser;
+    @FXML
+    private Pane fxid_queryPane;
 
     @FXML
     private TableView<TableDataUsers> fxid_databaseUser;
@@ -138,6 +141,7 @@ public class AdminPanel {
 
     @FXML
     private void showDatabaseUsers () {
+        fxid_queryPane.setVisible(true);
         fxid_databaseUser.setVisible(true);
         fxid_databaseStock.setVisible(false);
         if (!allInsertedUser) {
@@ -150,6 +154,7 @@ public class AdminPanel {
 
     @FXML
     private void showDatabaseStock() {
+        fxid_queryPane.setVisible(true);
         fxid_databaseStock.setVisible(true);
         fxid_databaseUser.setVisible(false);
         if (!allInsertedStock && tS == null) {
