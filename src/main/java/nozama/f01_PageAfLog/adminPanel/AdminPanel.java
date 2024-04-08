@@ -3,6 +3,9 @@ package nozama.f01_PageAfLog.adminPanel;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import javax.swing.JOptionPane;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,6 +25,7 @@ import nozama.f01_PageAfLog.adminPanel.tables.stock.StockTable;
 import nozama.f01_PageAfLog.adminPanel.tables.stock.TableDataStock;
 import nozama.f01_PageAfLog.adminPanel.tables.users.TableDataUsers;
 import nozama.f01_PageAfLog.adminPanel.tables.users.UserTable;
+import nozama.f01_PageAfLog.adminPanel.queryInjection.QueryConditions;
 import nozama.f01_PageAfLog.adminPanel.tables.Tables;
 import nozama_database.sendRequest.DatabaseRequestManagment;
 
@@ -39,6 +43,7 @@ public class AdminPanel {
     private Tables tS;
     private Tables tU;
     private String query;
+    private QueryConditions qc;
 
     @FXML
     private Text fxid_usernameAv;
@@ -164,57 +169,62 @@ public class AdminPanel {
     private void sendAdminQuery () {
         DatabaseRequestManagment db = new DatabaseRequestManagment();
         Object obj = null;
-
+        
         this.query = fxid_queryInjection.getText().toUpperCase();
-        obj = db.injectCustomQuery(query);
-
+        
         if (fxid_databaseUser.isVisible()) {
-            if (fxid_queryInjection.getText().isEmpty() || query.isBlank()) {
+            if (query.isEmpty() || query.isBlank()) {
                 fxid_databaseUser.getItems().clear();
                 this.fxid_databaseUser = tU.insertRegistersOnTableUser();
             }
-        } else if (fxid_databaseUser.isVisible()) {
-            if (fxid_queryInjection.getText().isEmpty() || query.isBlank()) {
-                fxid_databaseUser.getItems().clear();
+        } else if (fxid_databaseStock.isVisible()) {
+            if (query.isEmpty() || query.isBlank()) {
+                fxid_databaseStock.getItems().clear();
                 this.fxid_databaseStock = tS.insertRegistersOnTableUser();
             }
-
+            
         }
-                
-        if (obj instanceof ResultSet) {
-            this.rs = (ResultSet) obj;
-            if (rs != null && query.contains("FROM USER")) {
-                fxid_databaseUser.getItems().clear();
-                this.fxid_errorDatabase.setText("");
-                try {
-                    while (rs.next()) {
-                        tdU = new TableDataUsers(rs.getString(1), rs.getString(2), rs.getString(3),
-                                rs.getBoolean(4),
-                                rs.getString(5), rs.getString(6), rs.getString(7));
-    
-                        fxid_databaseUser.getItems().add(tdU);
-                    }
-                } catch (SQLException sqle) {
-                    System.out.println(sqle.getMessage());
-                }
-            } else if (rs != null && query.contains("FROM STOCK")) {
+
+        obj = db.injectCustomQuery(query);
+        qc = new QueryConditions(query);
+        if (qc.conditions()) {
+            if (obj instanceof ResultSet) {
                 this.rs = (ResultSet) obj;
-                if (rs != null) {
-                    fxid_databaseStock.getItems().clear();
+                if (rs != null && query.contains("FROM USER")) {
+                    fxid_databaseUser.getItems().clear();
                     this.fxid_errorDatabase.setText("");
                     try {
                         while (rs.next()) {
-                            tdS = new TableDataStock(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getDouble(5),
-                                    rs.getInt(6));
-                            fxid_databaseStock.getItems().add(tdS);
+                            tdU = new TableDataUsers(rs.getString(1), rs.getString(2), rs.getString(3),
+                                    rs.getBoolean(4),
+                                    rs.getString(5), rs.getString(6), rs.getString(7));
+        
+                            fxid_databaseUser.getItems().add(tdU);
                         }
                     } catch (SQLException sqle) {
                         System.out.println(sqle.getMessage());
                     }
+                } else if (rs != null && query.contains("FROM STOCK")) {
+                    this.rs = (ResultSet) obj;
+                    if (rs != null) {
+                        fxid_databaseStock.getItems().clear();
+                        this.fxid_errorDatabase.setText("");
+                        try {
+                            while (rs.next()) {
+                                tdS = new TableDataStock(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getDouble(5),
+                                        rs.getInt(6));
+                                fxid_databaseStock.getItems().add(tdS);
+                            }
+                        } catch (SQLException sqle) {
+                            System.out.println(sqle.getMessage());
+                        }
+                    }
                 }
+            } else if (obj instanceof String) {
+                this.fxid_errorDatabase.setText((String)obj);
             }
-        } else if (obj instanceof String) {
-            this.fxid_errorDatabase.setText((String)obj);
+        } else {
+            JOptionPane.showMessageDialog(null, "Instruccion SQL no permitida");
         }
     }
 

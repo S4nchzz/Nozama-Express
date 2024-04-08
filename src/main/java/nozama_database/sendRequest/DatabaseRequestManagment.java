@@ -260,6 +260,14 @@ public class DatabaseRequestManagment {
         return false;
     }
 
+    /**
+     * Metodo que retornara un objeto de tipo ResultSet
+     * si la consulta se realiza correctamente, si no
+     * devolvera un String con el error reflejado ocultando
+     * (con=xxx)
+     * @param query Query a analizar
+     * @return Object
+     */
     public Object injectCustomQuery (String query) {
         try {
             Connection conn = DriverManager.getConnection(url, "root", "");

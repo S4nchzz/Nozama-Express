@@ -1,7 +1,5 @@
 package nozama.f01_PageAfLog.adminPanel.queryInjection;
 
-import javax.swing.JOptionPane;
-
 public class QueryConditions {
     private final String query;
 
@@ -10,27 +8,16 @@ public class QueryConditions {
     }
 
     public boolean conditions () {
-        if (deleteFromCondition() && alterTableCondition() && dropDatabaseCondition() && dropTableCondition() && createProcedure() && select()) {
+        if (alterTableCondition() && dropDatabaseCondition() && dropTableCondition() && createProcedure()) {
             return true;
         }
 
         return false;
     }
 
-    private boolean select () {
-        if (this.query.contains("SELECT USERNAME") || !this.query.contains("SELECT SALT") || !this.query
-                .contains("SELECT PASS") || !this.query.contains("SELECT ISADMIN") || !this.query
-                        .contains("SELECT NAME") || !this.query.contains("SELECT TELF") ||
-                        !this.query.contains("SELECT GENDER")) {
-            JOptionPane.showMessageDialog(null, "Funcion de seleccion de campo unico aun no implementada");
-            return false;
-        }
-
-        return true;
-    }
-
     private boolean createProcedure () {
-        if (this.query.contains("CREATE PROCEDURE") || this.query.contains("CREATE FUNCTION")) {
+        if (this.query.contains("CREATE PROCEDURE") || this.query.contains("CREATE FUNCTION") || this.query
+                .contains("CREATE OR REPLACE PROCEDURE") || this.query.contains("CREATE OR REPLACE FUNCTION")) {
             return false;
         }
 
@@ -55,14 +42,6 @@ public class QueryConditions {
 
     private boolean alterTableCondition () {
         if (this.query.contains("ALTER TABLE")) {
-            return false;
-        }
-
-        return true;
-    }
-
-    private boolean deleteFromCondition () {
-        if (this.query.contains("DELETE FROM")) {
             return false;
         }
 

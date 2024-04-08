@@ -8,7 +8,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import nozama.f00_Login.LoginPage;
-import nozama_database.sendRequest.DatabaseRequestManagment;
 import nozama_database.setttingUp.DatabaseLinkTest;
 
 public class NozamaWindowApp extends Application {
