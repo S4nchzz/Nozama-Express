@@ -40,6 +40,7 @@ public class StockTable implements Tables {
         this.fxid_discount = fxid_discount;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public TableView<TableDataStock> insertRegistersOnTableUser() {
         if (fxid_databaseStock.isVisible()) {

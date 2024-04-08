@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import nozama.f01_PageAfLog.adminPanel.tables.Tables;
 import nozama_database.sendRequest.DatabaseRequestManagment;
 
@@ -47,6 +46,7 @@ public class UserTable implements Tables {
 
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public TableView<TableDataUsers> insertRegistersOnTableUser() {
         if (fxid_databaseAdmin.isVisible()) {
