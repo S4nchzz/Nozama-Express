@@ -48,7 +48,7 @@
 * Comunidad de usuarios, ventana con una lista de todos los usuarios de la base de datos
 * Interaccion entre usuarios (Add friend, Follow, Message...)
 * En la store se veran reflejados los productos de la base de datos
-* Personalizacion de perfila avanzada
+* Personalizacion de perfil avanzada
 * Administradores podran crear registros de usuarios y de productos desde us propio menu
 * Mucho mas...
 
