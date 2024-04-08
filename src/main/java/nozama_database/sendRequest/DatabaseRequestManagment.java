@@ -264,6 +264,16 @@ public class DatabaseRequestManagment {
         try {
             Connection conn = DriverManager.getConnection(url, "root", "");
             PreparedStatement st = conn.prepareStatement(query);
+            if (query.startsWith("DELETE FROM USER")) {
+                st.executeQuery();
+                PreparedStatement resultAfterDelete = conn.prepareStatement("SELECT * FROM USER");
+                return resultAfterDelete.executeQuery();
+            } else if (query.startsWith("DELETE FROM STOCK")) {
+                st.executeQuery();
+                PreparedStatement resultAfterDelete = conn.prepareStatement("SELECT * FROM STOCK");
+                return resultAfterDelete.executeQuery();
+            }
+
             return st.executeQuery();
         } catch (SQLException sqle) {
             StringBuilder sb = new StringBuilder();
@@ -274,7 +284,7 @@ public class DatabaseRequestManagment {
                     posToContinue = i;
                     break;
                 }
-            } 
+            }
 
             for (int i = posToContinue + 1; i < sqle.getMessage().length(); i++) {
                 sb.append(sqle.getMessage().charAt(i));

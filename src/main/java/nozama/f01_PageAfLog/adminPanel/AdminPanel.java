@@ -3,7 +3,6 @@ package nozama.f01_PageAfLog.adminPanel;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,7 +18,6 @@ import javafx.stage.Stage;
 import nozama.NozamaWindowApp;
 import nozama.f00_Login.LoginPage;
 import nozama.f01_PageAfLog.FrontPage;
-import nozama.f01_PageAfLog.adminPanel.queryInjection.QueryConditions;
 import nozama.f01_PageAfLog.adminPanel.tables.stock.StockTable;
 import nozama.f01_PageAfLog.adminPanel.tables.stock.TableDataStock;
 import nozama.f01_PageAfLog.adminPanel.tables.users.TableDataUsers;
@@ -34,9 +32,13 @@ public class AdminPanel {
     private boolean showDatabaseUser = true;
     private boolean showDatabaseStock = true;
     private ResultSet rs;
-    private boolean allInserted;
+    private boolean allInsertedUser;
+    private boolean allInsertedStock;
     private TableDataUsers tdU;
     private TableDataStock tdS;
+    private Tables tS;
+    private Tables tU;
+    private String query;
 
     @FXML
     private Text fxid_usernameAv;
@@ -52,7 +54,7 @@ public class AdminPanel {
     private ToggleButton fxid_deleteUser;
 
     @FXML
-    private TableView<TableDataUsers> fxid_databaseAdmin;
+    private TableView<TableDataUsers> fxid_databaseUser;
     @FXML
     private TableColumn<TableDataUsers, String> fxid_tableUsername;
     @FXML
@@ -85,7 +87,8 @@ public class AdminPanel {
         this.stage = s;
         this.stageControllerFP = stageControllerFP;
         this.username = username;
-        this.allInserted = false;
+        this.allInsertedUser = false;
+        this.allInsertedStock = false;
     }
 
     @FXML
@@ -128,22 +131,24 @@ public class AdminPanel {
 
     @FXML
     private void showDatabaseUsers () {
-        fxid_databaseAdmin.setVisible(showDatabaseUser);
-        if (!allInserted) {
-            Tables t = new UserTable(fxid_databaseAdmin, fxid_tableUsername, fxid_tableSalt, fxid_tablePass, fxid_tableisAdmin, fxid_tableName, fxid_tableTelf, fxid_tableGender);
-            this.fxid_databaseAdmin = t.insertRegistersOnTableUser();
-            allInserted = true;
+        fxid_databaseUser.setVisible(true);
+        fxid_databaseStock.setVisible(false);
+        if (!allInsertedUser) {
+            tU = new UserTable(fxid_databaseUser, fxid_tableUsername, fxid_tableSalt, fxid_tablePass, fxid_tableisAdmin, fxid_tableName, fxid_tableTelf, fxid_tableGender);
+            this.fxid_databaseUser = tU.insertRegistersOnTableUser();
+            allInsertedUser = true;
         }
         showDatabaseUser = !showDatabaseUser;
     }
 
     @FXML
     private void showDatabaseStock() {
-        fxid_databaseStock.setVisible(showDatabaseUser);
-        if (!allInserted) {
-            Tables t = new StockTable(fxid_databaseStock, fxid_stockId, fxid_product, fxid_stockAmount, fxid_itemPrice, fxid_discount);
-            t.insertRegistersOnTableUser();
-            allInserted = true;
+        fxid_databaseStock.setVisible(true);
+        fxid_databaseUser.setVisible(false);
+        if (!allInsertedStock && tS == null) {
+            tS = new StockTable(fxid_databaseStock, fxid_stockId, fxid_product, fxid_stockAmount, fxid_itemPrice, fxid_discount);
+            this.fxid_databaseStock = tS.insertRegistersOnTableUser();
+            allInsertedStock = true;
         }
         showDatabaseStock = !showDatabaseStock;
     }
@@ -156,38 +161,62 @@ public class AdminPanel {
     @FXML
     private void sendAdminQuery () {
         DatabaseRequestManagment db = new DatabaseRequestManagment();
+        Object obj = null;
 
+<<<<<<< HEAD
         if (fxid_queryInjection.getText().isEmpty()) {
             fxid_databaseAdmin.getItems().clear();
+=======
+        this.query = fxid_queryInjection.getText().toUpperCase();
+        obj = db.injectCustomQuery(query);
+
+        if (fxid_databaseUser.isVisible()) {
+            if (fxid_queryInjection.getText().isEmpty() || query.isBlank()) {
+                fxid_databaseUser.getItems().clear();
+                this.fxid_databaseUser = tU.insertRegistersOnTableUser();
+            }
+        } else if (fxid_databaseUser.isVisible()) {
+            if (fxid_queryInjection.getText().isEmpty() || query.isBlank()) {
+                fxid_databaseUser.getItems().clear();
+                this.fxid_databaseStock = tS.insertRegistersOnTableUser();
+            }
+>>>>>>> 60b1aaa2b7392c137786df2a9d7f9aeadb6d3cfd
         }
-
-        QueryConditions qc = new QueryConditions(fxid_queryInjection.getText());
-
-        if (qc.conditions()) {
-            if (fxid_queryInjection.getText() != null) {
-                // Retorno de tipo Object para comparar doble tipo de retorno
-                Object obj = db.injectCustomQuery(fxid_queryInjection.getText());
-
-                if (obj instanceof ResultSet) {
-                    this.rs = (ResultSet)obj;
-                    if (rs != null) {
-                        fxid_databaseAdmin.getItems().clear();
-                        try {
-                            while (rs.next()) {
-                                tdU = new TableDataUsers(rs.getString(1), rs.getString(2), rs.getString(3),
-                                        rs.getBoolean(4),
-                                        rs.getString(5), rs.getString(6), rs.getString(7));
-        
-                                fxid_databaseAdmin.getItems().add(tdU);
-                            }
-                        } catch (SQLException sqle) {
-                            System.out.println(sqle.getMessage());
-                        }
+                
+        if (obj instanceof ResultSet) {
+            this.rs = (ResultSet) obj;
+            if (rs != null && query.contains("FROM USER")) {
+                fxid_databaseUser.getItems().clear();
+                this.fxid_errorDatabase.setText("");
+                try {
+                    while (rs.next()) {
+                        tdU = new TableDataUsers(rs.getString(1), rs.getString(2), rs.getString(3),
+                                rs.getBoolean(4),
+                                rs.getString(5), rs.getString(6), rs.getString(7));
+    
+                        fxid_databaseUser.getItems().add(tdU);
                     }
-                } else if (obj instanceof String) {
-                    fxid_errorDatabase.setText((String)obj);
+                } catch (SQLException sqle) {
+                    System.out.println(sqle.getMessage());
+                }
+            } else if (rs != null && query.contains("FROM STOCK")) {
+                this.rs = (ResultSet) obj;
+                if (rs != null) {
+                    fxid_databaseStock.getItems().clear();
+                    this.fxid_errorDatabase.setText("");
+                    try {
+                        while (rs.next()) {
+                            tdS = new TableDataStock(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getDouble(4),
+                                    rs.getInt(5));
+                            fxid_databaseStock.getItems().add(tdS);
+                        }
+                    } catch (SQLException sqle) {
+                        System.out.println(sqle.getMessage());
+                    }
                 }
             }
+        } else if (obj instanceof String) {
+            this.fxid_errorDatabase.setText((String)obj);
         }
     }
 

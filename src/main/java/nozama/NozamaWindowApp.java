@@ -17,7 +17,7 @@ public class NozamaWindowApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         // Check connectivity
-        if (DatabaseLinkTest.createDBandTB(3306)) {
+        if (DatabaseLinkTest.createDBandTB(3310)) {
             // Link to the database    
             // Instancia de FXMLLoader
             FXMLLoader loader = new FXMLLoader();
