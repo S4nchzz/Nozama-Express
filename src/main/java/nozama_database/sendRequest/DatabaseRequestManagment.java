@@ -273,7 +273,7 @@ public class DatabaseRequestManagment {
             Connection conn = DriverManager.getConnection(url, "root", "");
             PreparedStatement st = conn.prepareStatement(query);
             
-            if (query.startsWith("DELETE FROM")) {
+            if (query.startsWith("DELETE FROM") ||query.startsWith("INSERT INTO")) {
                 StringBuilder sb = new StringBuilder();
                 for (int charPos = 12; charPos < query.length(); charPos++) {
                     if (query.charAt(charPos) != ' ') {

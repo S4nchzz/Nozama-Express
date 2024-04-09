@@ -195,7 +195,7 @@ public class AdminPanel {
         if (qc.conditions()) {
             if (obj instanceof ResultSet) {
                 this.rs = (ResultSet) obj;
-                if (rs != null && query.contains("FROM USER")) {
+                if (rs != null && query.contains("FROM USER") || query.contains("INTO USER")) {
                     fxid_databaseUser.getItems().clear();
                     this.fxid_errorDatabase.setText("");
                     try {
@@ -209,7 +209,7 @@ public class AdminPanel {
                     } catch (SQLException sqle) {
                         System.out.println(sqle.getMessage());
                     }
-                } else if (rs != null && query.contains("FROM STOCK")) {
+                } else if (rs != null && query.contains("FROM STOCK") || query.contains("INTO STOCK")) {
                     this.rs = (ResultSet) obj;
                     if (rs != null) {
                         fxid_databaseStock.getItems().clear();
