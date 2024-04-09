@@ -235,6 +235,17 @@ public class DatabaseRequestManagment {
                     System.out.println(sqle.getMessage());
                 }
             break;
+
+            case 3:
+                try {
+                    Connection conn = DriverManager.getConnection(url, "root", "");
+                    PreparedStatement st = conn.prepareStatement("SELECT * FROM ITEM_TYPE");
+
+                    return st.executeQuery();
+                } catch (SQLException sqle) {
+                    System.out.println(sqle.getMessage());
+                }
+            break;
         }
         return null;
     }

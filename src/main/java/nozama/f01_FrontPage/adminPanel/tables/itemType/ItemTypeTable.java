@@ -32,7 +32,7 @@ public class ItemTypeTable implements Tables {
     @Override
     public TableView<TableDataItemType> insertRegistersOnTable() {
         if (fxid_databaseItemType.isVisible()) {
-            this.rs = DatabaseRequestManagment.getAllRegisters(2);
+            this.rs = DatabaseRequestManagment.getAllRegisters(3);
             if (rs != null) {
                 try {
                     while (rs.next()) {

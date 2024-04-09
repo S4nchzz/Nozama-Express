@@ -44,22 +44,26 @@ public class DatabaseLinkTest {
                 PreparedStatement createTableUser = dbServer.prepareStatement(
                         "CREATE TABLE user (USERNAME VARCHAR(15) PRIMARY KEY, SALT VARCHAR(16) NOT NULL, PASS BINARY(32) NOT NULL, ISADMIN BOOLEAN NOT NULL, NAME VARCHAR(20) NOT NULL, TELF VARCHAR(9), GENDER VARCHAR(1) NOT NULL );");
 
-                PreparedStatement itemClass = dbServer.prepareStatement(
-                        "CREATE TABLE itemType (ITEM_TYPE VARCHAR(10) PRIMARY KEY, DESCRIPTION VARCHAR(100) NOT NULL);");
+                PreparedStatement itemtype = dbServer.prepareStatement(
+                        "CREATE TABLE item_Type (ITEM_TYPE VARCHAR(10) PRIMARY KEY, DESCRIPTION VARCHAR(100) NOT NULL);");
                 PreparedStatement itemStock = dbServer.prepareStatement(
                         "CREATE TABLE stock (STOCK_ID INT AUTO_INCREMENT PRIMARY KEY, ITEM_TYPE VARCHAR(10) REFERENCES itemType(ITEM_TYPE), PRODUCT VARCHAR(20) NOT NULL, STOCK_AMOUNT INTEGER NOT NULL, ITEM_PRICE DOUBLE NOT NULL, DISCOUNT INTEGER NOT NULL)");
 
+                PreparedStatement supportTickets = dbServer.prepareStatement(
+                            "CREATE TABLE support_Tickets (TICKET_ID INTEGER PRIMARY KEY, SOLICITANTE_ID VARCHAR(15) REFERENCES user(USERNAME), RESPONDENTE_ID VARCHAR(20)REFERENCES user(USERNAME), PROBLEM_DESC VARCHAR(200) NOT NULL)");
                 setUpDatabase.executeQuery();
                 useDatabase.executeQuery();
                 createTableUser.executeQuery();
-                itemClass.executeQuery();
+                itemtype.executeQuery();
                 itemStock.executeQuery();
+                supportTickets.executeQuery();
                 
-                setUpDatabase.close();
-                useDatabase.close();
+                supportTickets.close();
                 itemStock.close();
-                itemClass.close();
+                itemtype.close();
                 createTableUser.close();
+                useDatabase.close();
+                setUpDatabase.close();
                 dbServer.close();
             }
 

@@ -43,6 +43,7 @@ public class AdminPanel {
     private boolean allInsertedStock;
     private TableDataUsers tdU;
     private TableDataStock tdS;
+    private TableDataItemType tdIT;
     private Tables tS;
     private Tables tU;
     private Tables tIT;
@@ -208,7 +209,9 @@ public class AdminPanel {
                 fxid_databaseStock.getItems().clear();
                 this.fxid_databaseStock = tS.insertRegistersOnTable();
             }
-            
+        } else if (fxid_databaseItemType.isVisible()) {
+            fxid_databaseItemType.getItems().clear();
+            this.fxid_databaseItemType = tIT.insertRegistersOnTable();
         }
 
         obj = db.injectCustomQuery(query);
@@ -218,7 +221,7 @@ public class AdminPanel {
                 this.rs = (ResultSet) obj;
                 if (rs != null && query.contains("FROM USER") || query.contains("INTO USER")) {
                     fxid_databaseUser.getItems().clear();
-                    this.fxid_errorDatabase.setText("");
+                    this.fxid_errorDatabase.setText("");   
                     try {
                         while (rs.next()) {
                             tdU = new TableDataUsers(rs.getString(1), rs.getString(2), rs.getString(3),
@@ -244,6 +247,17 @@ public class AdminPanel {
                         } catch (SQLException sqle) {
                             System.out.println(sqle.getMessage());
                         }
+                    }
+                } else if (rs != null && query.contains("FROM ITEM_TYPE") || query.contains("INTO ITEM_TYPE")) {
+                    fxid_databaseItemType.getItems().clear();
+                    this.fxid_errorDatabase.setText("");
+                    try {
+                        while (rs.next()) {
+                            tdIT = new TableDataItemType(rs.getString(1), rs.getString(2));
+                            fxid_databaseItemType.getItems().add(tdIT);
+                        }
+                    } catch (SQLException sqle) {
+                        System.out.println(sqle.getMessage());
                     }
                 }
             } else if (obj instanceof String) {
