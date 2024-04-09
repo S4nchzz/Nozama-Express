@@ -16,9 +16,14 @@
     -fx-background-color: white;
 }
 
-#fxid_toggleButtonSupportA:hover, #fxid_toggleButtonSupportB:hover, #fxid_toggleButtonSupportC:hover, #fxid_toggleButtonSupportD:hover, #fxid_toggleButtonSupportE:hover {
+#fxid_toggleButtonSupportA:hover, #fxid_toggleButtonSupportB:hover, #fxid_toggleButtonSupportC:hover, #fxid_toggleButtonSupportD:hover, #fxid_toggleButtonSupportE:hover, #fxid_sendSupport:hover {
     -fx-cursor: hand;
     -fx-border-color: #CBCBCB;
     -fx-background-color: rgb(196, 195, 195);
     -fx-cursor: hand;
+}
+
+#fxid_sendSupport {
+    -fx-border-color: #CBCBCB;
+    -fx-background-color: white;
 }

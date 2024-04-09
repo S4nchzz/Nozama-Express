@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.gluonhq.charm.glisten.control.ToggleButtonGroup?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
@@ -164,6 +165,7 @@
             <Text fill="#979797" layoutX="492.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="A que problema se enfrenta" />
             <TextArea layoutX="14.0" layoutY="143.0" prefHeight="244.0" prefWidth="469.0" promptText="Problema..." />
             <Text fill="#979797" layoutX="14.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Denos informacion sobre el problema que presenta" />
+            <Button fx:id="fxid_sendSupport" layoutX="14.0" layoutY="406.0" mnemonicParsing="false" stylesheets="@css/supportPanel.css" text="Enviar" />
          </children>
       </Pane>
    </children>
