@@ -158,7 +158,7 @@ public class AdminPanel {
         fxid_databaseStock.setVisible(true);
         fxid_databaseUser.setVisible(false);
         if (!allInsertedStock && tS == null) {
-            tS = new StockTable(fxid_databaseStock, fxid_stockId, fxid_product, fxid_stockAmount, fxid_itemPrice, fxid_discount);
+            tS = new StockTable(fxid_databaseStock, fxid_itemType,fxid_stockId, fxid_product, fxid_stockAmount, fxid_itemPrice, fxid_discount);
             this.fxid_databaseStock = tS.insertRegistersOnTableUser();
             allInsertedStock = true;
         }

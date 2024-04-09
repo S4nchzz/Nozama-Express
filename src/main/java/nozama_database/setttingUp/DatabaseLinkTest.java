@@ -52,14 +52,14 @@ public class DatabaseLinkTest {
                 setUpDatabase.executeQuery();
                 useDatabase.executeQuery();
                 createTableUser.executeQuery();
-                itemStock.executeQuery();
                 itemClass.executeQuery();
+                itemStock.executeQuery();
                 
                 setUpDatabase.close();
                 useDatabase.close();
-                createTableUser.close();
                 itemStock.close();
                 itemClass.close();
+                createTableUser.close();
                 dbServer.close();
             }
 

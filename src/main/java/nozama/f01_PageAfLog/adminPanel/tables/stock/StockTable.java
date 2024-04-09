@@ -18,6 +18,8 @@ public class StockTable implements Tables {
     @FXML
     private TableColumn<TableDataStock, String> fxid_stockId;
     @FXML
+    private TableColumn<TableDataStock, String> fxid_itemType;
+    @FXML
     private TableColumn<TableDataStock, String> fxid_product;
     @FXML
     private TableColumn<TableDataStock, String> fxid_stockAmount;
@@ -28,12 +30,14 @@ public class StockTable implements Tables {
 
     public StockTable(TableView<TableDataStock> fxid_databaseStock,
                       TableColumn<TableDataStock, String> fxid_stockId,
+                      TableColumn<TableDataStock, String> fxid_itemType,
                       TableColumn<TableDataStock, String> fxid_product,
                       TableColumn<TableDataStock, String> fxid_stockAmount,
                       TableColumn<TableDataStock, String> fxid_itemPrice,
                       TableColumn<TableDataStock, String> fxid_discount) {
         this.fxid_databaseStock = fxid_databaseStock;
         this.fxid_stockId = fxid_stockId;
+        this.fxid_itemType = fxid_itemType;
         this.fxid_product = fxid_product;
         this.fxid_stockAmount = fxid_stockAmount;
         this.fxid_itemPrice = fxid_itemPrice;

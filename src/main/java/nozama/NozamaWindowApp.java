@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import nozama.f00_Login.LoginPage;
+import nozama_database.sendRequest.DatabaseRequestManagment;
 import nozama_database.setttingUp.DatabaseLinkTest;
 
 public class NozamaWindowApp extends Application {
@@ -17,7 +18,13 @@ public class NozamaWindowApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         // Check connectivity
-        if (DatabaseLinkTest.createDBandTB(3306)) {
+        if (DatabaseLinkTest.createDBandTB(3310)) {
+            DatabaseRequestManagment.anadir("a", "a", true, "Iyan", "1", "M");
+            DatabaseRequestManagment.anadir("b", "a", true, "Iyan", "1", "M");
+            DatabaseRequestManagment.anadir("c", "a", true, "Iyan", "1", "M");
+            DatabaseRequestManagment.anadir("d", "a", true, "Iyan", "1", "M");
+            DatabaseRequestManagment.anadir("e", "a", true, "Iyan", "1", "M");
+            DatabaseRequestManagment.anadir("f", "a", true, "Iyan", "1", "M");
             // Link to the database    
             // Instancia de FXMLLoader
             FXMLLoader loader = new FXMLLoader();
