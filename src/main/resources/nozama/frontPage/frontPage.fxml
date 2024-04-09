@@ -119,7 +119,7 @@
             <Image url="@src/frontPageIcons/search-icon.png" />
          </image>
       </ImageView>
-      <Pane fx:id="fxid_supportPane" layoutX="321.0" layoutY="106.0" prefHeight="620.0" prefWidth="900.0" visible="false">
+      <Pane fx:id="fxid_supportPane" layoutX="321.0" layoutY="106.0" prefHeight="620.0" prefWidth="900.0">
          <children>
             <Text layoutX="2.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Soporte y ayuda">
                <font>
@@ -131,29 +131,29 @@
                   <Font size="15.0" />
                </font>
             </Text>
-            <ToggleButtonGroup layoutX="14.0" layoutY="83.0" selectionType="SINGLE">
+            <ToggleButtonGroup fx:id="fxid_supportToggleButtons" layoutX="14.0" layoutY="83.0" selectionType="SINGLE">
                 <toggles>
-                    <ToggleButton>
+                    <ToggleButton fx:id="fxid_toggleButtonSupportA" onMouseClicked="#handleToggleSupport" stylesheets="@css/supportPanel.css">
                      <graphic>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cuenta" />
                      </graphic>
                     </ToggleButton>
-                  <ToggleButton>
+                  <ToggleButton fx:id="fxid_toggleButtonSupportB" onMouseClicked="#handleToggleSupport" stylesheets="@css/supportPanel.css">
                      <graphic>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Me han hackeado" />
                      </graphic>
                   </ToggleButton>
-                    <ToggleButton>
+                    <ToggleButton fx:id="fxid_toggleButtonSupportC" onMouseClicked="#handleToggleSupport" stylesheets="@css/supportPanel.css">
                      <graphic>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Devoluciones y Reembolsos" />
                      </graphic>
                     </ToggleButton>
-                  <ToggleButton>
+                  <ToggleButton fx:id="fxid_toggleButtonSupportD" onMouseClicked="#handleToggleSupport" stylesheets="@css/supportPanel.css">
                      <graphic>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sugerencias" />
                      </graphic>
                   </ToggleButton>
-                  <ToggleButton>
+                  <ToggleButton fx:id="fxid_toggleButtonSupportE" onMouseClicked="#handleToggleSupport" stylesheets="@css/supportPanel.css">
                      <graphic>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Otro" />
                      </graphic>

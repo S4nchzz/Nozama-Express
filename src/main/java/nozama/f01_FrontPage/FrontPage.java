@@ -4,10 +4,14 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.gluonhq.charm.glisten.control.ToggleButtonGroup;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -38,6 +42,9 @@ public class FrontPage {
     private Pane fxid_paneD;
     @FXML
     private Pane fxid_paneE;
+
+    @FXML
+    private ToggleButtonGroup fxid_supportToggleButtons;
     
     @FXML
     private Pane fxid_supportPane;
@@ -92,6 +99,17 @@ public class FrontPage {
     private void handleSupportAction () {
         fxid_supportPane.setVisible(visibleSupport);
         visibleSupport = !visibleSupport;
+    }
+
+    @FXML
+    private void handleToggleSupport () {
+        for (Toggle toggle: fxid_supportToggleButtons.getToggles()) {
+            if (toggle.isSelected()) {
+                ((ToggleButton) toggle).setStyle("-fx-background-color: rgb(196, 195, 195);");
+            } else {
+                ((ToggleButton) toggle).setStyle("-fx-background-color: white;");
+            }
+        }
     }
 
     /**
