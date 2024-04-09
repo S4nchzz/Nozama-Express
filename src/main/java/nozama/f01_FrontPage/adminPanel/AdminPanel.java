@@ -66,6 +66,10 @@ public class AdminPanel {
     private Pane fxid_queryPane;
     @FXML
     private Text fxid_textReference;
+    @FXML
+    private Pane fxid_stockPane;
+    @FXML
+    private Pane fxid_paneUser;
 
     @FXML
     private TableView<TableDataUsers> fxid_databaseUser;
@@ -155,26 +159,21 @@ public class AdminPanel {
     @FXML
     private void showDatabaseUsers () {
         fxid_queryPane.setVisible(true);
-        fxid_databaseUser.setVisible(true);
-        fxid_databaseStock.setVisible(false);
-        fxid_textReference.setVisible(false);
-        fxid_databaseItemType.setVisible(false);
+        fxid_paneUser.setVisible(true);
+        fxid_stockPane.setVisible(false);
 
         if (!allInsertedUser) {
             tU = new UserTable(fxid_databaseUser, fxid_tableUsername, fxid_tableSalt, fxid_tablePass, fxid_tableisAdmin, fxid_tableName, fxid_tableTelf, fxid_tableGender);
             this.fxid_databaseUser = tU.insertRegistersOnTable();
             allInsertedUser = true;
         }
-        showDatabaseUser = !showDatabaseUser;
     }
 
     @FXML
     private void showDatabaseStock() {
         fxid_queryPane.setVisible(true);
-        fxid_databaseStock.setVisible(true);
-        fxid_databaseItemType.setVisible(true);
-        fxid_textReference.setVisible(true);
-        fxid_databaseUser.setVisible(false);
+        fxid_paneUser.setVisible(false);
+        fxid_stockPane.setVisible(true);
 
         if (!allInsertedStock && tS == null) {
             tS = new StockTable(fxid_databaseStock, fxid_itemType,fxid_stockId, fxid_product, fxid_stockAmount, fxid_itemPrice, fxid_discount);
@@ -184,7 +183,6 @@ public class AdminPanel {
             this.fxid_databaseItemType = tIT.insertRegistersOnTable();
             allInsertedStock = true;
         }
-        showDatabaseStock = !showDatabaseStock;
     }
 
     @FXML

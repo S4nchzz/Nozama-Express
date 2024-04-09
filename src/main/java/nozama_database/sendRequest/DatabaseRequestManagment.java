@@ -252,7 +252,7 @@ public class DatabaseRequestManagment {
 
     /**
      * Metodo que comprueba si un usuario es administrador o no
-     * @param username Usuario a buscar
+     * @param username Usuario a buscarf
      * @param password Contraseña del usuario
      * @return true = admin; false = notAdmin
      */
