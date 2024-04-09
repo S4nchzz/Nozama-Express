@@ -15,7 +15,6 @@ import javafx.stage.Stage;
 import nozama.NozamaWindowApp;
 import nozama.f00_Login.LoginPage;
 import nozama.f01_FrontPage.adminPanel.AdminPanel;
-import nozama.f01_FrontPage.navigationMenu.TicketSupport;
 
 public class FrontPage {
     private final Stage stage;
