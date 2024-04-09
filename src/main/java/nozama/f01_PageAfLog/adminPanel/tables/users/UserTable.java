@@ -48,7 +48,7 @@ public class UserTable implements Tables {
 
     @SuppressWarnings("unchecked")
     @Override
-    public TableView<TableDataUsers> insertRegistersOnTableUser() {
+    public TableView<TableDataUsers> insertRegistersOnTable() {
         if (fxid_databaseAdmin.isVisible()) {
             this.rs = DatabaseRequestManagment.getAllRegisters(1);
             if (rs != null) {

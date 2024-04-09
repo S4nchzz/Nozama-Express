@@ -7,6 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <Pane fx:id="fxid_mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="755.0" prefWidth="1251.0" stylesheets="@css/frontPage.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
@@ -105,7 +106,7 @@
             <TextField fx:id="fxid_queryInjection" layoutY="11.0" onAction="#sendAdminQuery" prefHeight="26.0" prefWidth="243.0" promptText="Query" />
          </children>
       </Pane>
-      <TableView fx:id="fxid_databaseStock" layoutX="160.0" layoutY="101.0" prefHeight="551.0" prefWidth="1011.0" visible="false">
+      <TableView fx:id="fxid_databaseStock" layoutX="160.0" layoutY="101.0" prefHeight="551.0" prefWidth="758.0" visible="false">
         <columns>
           <TableColumn fx:id="fxid_stockId" prefWidth="75.0" text="STOCK_ID" />
             <TableColumn fx:id="fxid_itemType" prefWidth="75.0" text="ITEM_TYPE" />
@@ -120,5 +121,16 @@
             <Image url="@../nozamaIcons/logo-SL.png" />
          </image>
       </ImageView>
+      <TableView fx:id="fxid_databaseItemType" layoutX="945.0" layoutY="101.0" prefHeight="551.0" prefWidth="279.0" visible="false">
+        <columns>
+          <TableColumn fx:id="fxid_itemTypeColumnExternal" prefWidth="100.33331298828125" text="ITEM_TYPE" />
+          <TableColumn fx:id="fxid_descriptionColumnExternal" prefWidth="177.66668701171875" text="DESCRIPTION" />
+        </columns>
+      </TableView>
+      <Text fx:id="fxid_textReference" fill="#808080" layoutX="976.0" layoutY="672.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tabla referenciada por ITEM_TYPE" visible="false" wrappingWidth="243.469970703125">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
    </children>
 </Pane>

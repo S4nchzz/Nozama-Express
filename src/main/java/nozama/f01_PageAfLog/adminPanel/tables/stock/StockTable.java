@@ -46,7 +46,7 @@ public class StockTable implements Tables {
 
     @SuppressWarnings("unchecked")
     @Override
-    public TableView<TableDataStock> insertRegistersOnTableUser() {
+    public TableView<TableDataStock> insertRegistersOnTable() {
         if (fxid_databaseStock.isVisible()) {
             this.rs = DatabaseRequestManagment.getAllRegisters(2);
             if (rs != null) {

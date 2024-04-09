@@ -28,6 +28,8 @@ import nozama.f01_PageAfLog.adminPanel.tables.users.TableDataUsers;
 import nozama.f01_PageAfLog.adminPanel.tables.users.UserTable;
 import nozama.f01_PageAfLog.adminPanel.queryInjection.QueryConditions;
 import nozama.f01_PageAfLog.adminPanel.tables.Tables;
+import nozama.f01_PageAfLog.adminPanel.tables.itemType.ItemTypeTable;
+import nozama.f01_PageAfLog.adminPanel.tables.itemType.TableDataItemType;
 import nozama_database.sendRequest.DatabaseRequestManagment;
 
 public class AdminPanel {
@@ -43,6 +45,7 @@ public class AdminPanel {
     private TableDataStock tdS;
     private Tables tS;
     private Tables tU;
+    private Tables tIT;
     private String query;
     private QueryConditions qc;
 
@@ -60,6 +63,8 @@ public class AdminPanel {
     private ToggleButton fxid_deleteUser;
     @FXML
     private Pane fxid_queryPane;
+    @FXML
+    private Text fxid_textReference;
 
     @FXML
     private TableView<TableDataUsers> fxid_databaseUser;
@@ -92,6 +97,13 @@ public class AdminPanel {
     private TableColumn<TableDataStock, String> fxid_itemPrice;
     @FXML
     private TableColumn<TableDataStock, String> fxid_discount;
+
+    @FXML
+    private TableView<TableDataItemType> fxid_databaseItemType;
+    @FXML
+    private TableColumn<TableDataItemType, String> fxid_itemTypeColumnExternal;
+    @FXML
+    private TableColumn<TableDataItemType, String> fxid_descriptionColumnExternal;
 
     public AdminPanel (Stage s, FrontPage stageControllerFP, String username) {
         this.stage = s;
@@ -144,9 +156,12 @@ public class AdminPanel {
         fxid_queryPane.setVisible(true);
         fxid_databaseUser.setVisible(true);
         fxid_databaseStock.setVisible(false);
+        fxid_textReference.setVisible(false);
+        fxid_databaseItemType.setVisible(false);
+
         if (!allInsertedUser) {
             tU = new UserTable(fxid_databaseUser, fxid_tableUsername, fxid_tableSalt, fxid_tablePass, fxid_tableisAdmin, fxid_tableName, fxid_tableTelf, fxid_tableGender);
-            this.fxid_databaseUser = tU.insertRegistersOnTableUser();
+            this.fxid_databaseUser = tU.insertRegistersOnTable();
             allInsertedUser = true;
         }
         showDatabaseUser = !showDatabaseUser;
@@ -156,10 +171,16 @@ public class AdminPanel {
     private void showDatabaseStock() {
         fxid_queryPane.setVisible(true);
         fxid_databaseStock.setVisible(true);
+        fxid_databaseItemType.setVisible(true);
+        fxid_textReference.setVisible(true);
         fxid_databaseUser.setVisible(false);
+
         if (!allInsertedStock && tS == null) {
             tS = new StockTable(fxid_databaseStock, fxid_itemType,fxid_stockId, fxid_product, fxid_stockAmount, fxid_itemPrice, fxid_discount);
-            this.fxid_databaseStock = tS.insertRegistersOnTableUser();
+            this.fxid_databaseStock = tS.insertRegistersOnTable();
+
+            tIT = new ItemTypeTable(fxid_databaseItemType, fxid_itemTypeColumnExternal, fxid_descriptionColumnExternal);
+            this.fxid_databaseItemType = tIT.insertRegistersOnTable();
             allInsertedStock = true;
         }
         showDatabaseStock = !showDatabaseStock;
@@ -180,12 +201,12 @@ public class AdminPanel {
         if (fxid_databaseUser.isVisible()) {
             if (query.isEmpty() || query.isBlank()) {
                 fxid_databaseUser.getItems().clear();
-                this.fxid_databaseUser = tU.insertRegistersOnTableUser();
+                this.fxid_databaseUser = tU.insertRegistersOnTable();
             }
         } else if (fxid_databaseStock.isVisible()) {
             if (query.isEmpty() || query.isBlank()) {
                 fxid_databaseStock.getItems().clear();
-                this.fxid_databaseStock = tS.insertRegistersOnTableUser();
+                this.fxid_databaseStock = tS.insertRegistersOnTable();
             }
             
         }
@@ -250,5 +271,8 @@ public class AdminPanel {
         fxid_stockAmount.setCellValueFactory(new PropertyValueFactory<>("stock_amount"));
         fxid_itemPrice.setCellValueFactory(new PropertyValueFactory<>("item_price"));
         fxid_discount.setCellValueFactory(new PropertyValueFactory<>("discount"));
+
+        fxid_itemTypeColumnExternal.setCellValueFactory(new PropertyValueFactory<>("item_type"));
+        fxid_descriptionColumnExternal.setCellValueFactory(new PropertyValueFactory<>("description"));
     }
 }
