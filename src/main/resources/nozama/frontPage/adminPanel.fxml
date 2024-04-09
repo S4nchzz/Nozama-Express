@@ -100,7 +100,7 @@
             <Image url="@../nozamaIcons/logo-SL.png" />
          </image>
       </ImageView>
-      <Pane fx:id="fxid_stockPane" layoutX="143.0" layoutY="72.0" prefHeight="613.0" prefWidth="1091.0" visible="false">
+      <Pane fx:id="fxid_stockPane" layoutX="143.0" layoutY="72.0" prefHeight="613.0" prefWidth="1091.0">
          <children>
             <Text fx:id="fxid_textReference" fill="#808080" layoutX="807.0" layoutY="605.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tabla referenciada por ITEM_TYPE" wrappingWidth="243.469970703125">
                <font>
@@ -109,7 +109,7 @@
             </Text>
             <TableView fx:id="fxid_databaseItemType" layoutX="789.0" layoutY="31.0" prefHeight="551.0" prefWidth="279.0">
               <columns>
-                <TableColumn fx:id="fxid_itemTypeColumnExternal" prefWidth="100.33331298828125" text="ITEM_TYPE" />
+                <TableColumn fx:id="fxid_itemTypeColumnExternal" prefWidth="100.33331298828125" text="TYPE" />
                 <TableColumn fx:id="fxid_descriptionColumnExternal" prefWidth="177.66668701171875" text="DESCRIPTION" />
               </columns>
             </TableView>

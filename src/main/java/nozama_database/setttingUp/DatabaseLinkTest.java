@@ -42,25 +42,26 @@ public class DatabaseLinkTest {
 
                 PreparedStatement useDatabase = dbServer.prepareStatement("USE nozama_ex;");
                 PreparedStatement createTableUser = dbServer.prepareStatement(
-                        "CREATE TABLE user (USERNAME VARCHAR(15) PRIMARY KEY, SALT VARCHAR(16) NOT NULL, PASS BINARY(32) NOT NULL, ISADMIN BOOLEAN NOT NULL, NAME VARCHAR(20) NOT NULL, TELF VARCHAR(9), GENDER VARCHAR(1) NOT NULL );");
+                        "CREATE TABLE user (USERNAME VARCHAR(15) PRIMARY KEY, SALT VARCHAR(16) NOT NULL, PASS BINARY(32) NOT NULL, ISADMIN BOOLEAN NOT NULL, NAME VARCHAR(20) NOT NULL, TELF VARCHAR(9), GENDER VARCHAR(1) NOT NULL);");
 
                 PreparedStatement itemtype = dbServer.prepareStatement(
-                        "CREATE TABLE item_Type (ITEM_TYPE VARCHAR(10) PRIMARY KEY, DESCRIPTION VARCHAR(100) NOT NULL);");
+                        "CREATE TABLE item_Type (TYPE VARCHAR(10) PRIMARY KEY, DESCRIPTION VARCHAR(100) NOT NULL);");
                 PreparedStatement itemStock = dbServer.prepareStatement(
-                        "CREATE TABLE stock (STOCK_ID INT AUTO_INCREMENT PRIMARY KEY, ITEM_TYPE VARCHAR(10) REFERENCES itemType(ITEM_TYPE), PRODUCT VARCHAR(20) NOT NULL, STOCK_AMOUNT INTEGER NOT NULL, ITEM_PRICE DOUBLE NOT NULL, DISCOUNT INTEGER NOT NULL)");
+                        "CREATE TABLE stock (STOCK_ID INT AUTO_INCREMENT PRIMARY KEY, ITEM_TYPE VARCHAR(10), PRODUCT VARCHAR(20) NOT NULL, STOCK_AMOUNT INTEGER NOT NULL, ITEM_PRICE DOUBLE NOT NULL, DISCOUNT INTEGER NOT NULL, FOREIGN KEY (item_type) REFERENCES item_type(type))");
 
                 PreparedStatement supportTickets = dbServer.prepareStatement(
-                            "CREATE TABLE support_Tickets (TICKET_ID INTEGER PRIMARY KEY, SOLICITANTE_ID VARCHAR(15) REFERENCES user(USERNAME), RESPONDENTE_ID VARCHAR(20)REFERENCES user(USERNAME), PROBLEM_DESC VARCHAR(200) NOT NULL)");
-                setUpDatabase.executeQuery();
-                useDatabase.executeQuery();
-                createTableUser.executeQuery();
-                itemtype.executeQuery();
-                itemStock.executeQuery();
-                supportTickets.executeQuery();
+                        "CREATE TABLE support_Tickets (TICKET_ID INTEGER PRIMARY KEY, SOLICITANTE_ID VARCHAR(15), RESPONDENTE_ID VARCHAR(20), PROBLEM_DESC VARCHAR(200) NOT NULL, FOREIGN KEY (SOLICITANTE_ID) REFERENCES user(username), FOREIGN KEY (RESPONDENTE_ID) REFERENCES user(username))");
+
+                setUpDatabase.executeUpdate();
+                useDatabase.executeUpdate();
+                createTableUser.executeUpdate();
+                itemtype.executeUpdate();
+                itemStock.executeUpdate();
+                supportTickets.executeUpdate();
                 
-                supportTickets.close();
                 itemStock.close();
                 itemtype.close();
+                supportTickets.close();
                 createTableUser.close();
                 useDatabase.close();
                 setUpDatabase.close();

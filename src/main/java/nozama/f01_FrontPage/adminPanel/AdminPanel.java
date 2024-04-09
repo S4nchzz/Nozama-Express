@@ -36,8 +36,6 @@ public class AdminPanel {
     private final Stage stage;
     private final FrontPage stageControllerFP;
     private final String username;
-    private boolean showDatabaseUser = true;
-    private boolean showDatabaseStock = true;
     private ResultSet rs;
     private boolean allInsertedUser;
     private boolean allInsertedStock;
@@ -284,7 +282,7 @@ public class AdminPanel {
         fxid_itemPrice.setCellValueFactory(new PropertyValueFactory<>("item_price"));
         fxid_discount.setCellValueFactory(new PropertyValueFactory<>("discount"));
 
-        fxid_itemTypeColumnExternal.setCellValueFactory(new PropertyValueFactory<>("item_type"));
+        fxid_itemTypeColumnExternal.setCellValueFactory(new PropertyValueFactory<>("type"));
         fxid_descriptionColumnExternal.setCellValueFactory(new PropertyValueFactory<>("description"));
     }
 }
