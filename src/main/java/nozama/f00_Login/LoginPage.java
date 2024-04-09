@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 import nozama.NozamaWindowApp;
 import nozama.f00_Login.accountCreation.CreateAccount;
 import nozama.f00_Login.passwordChanger.ChangePassword;
-import nozama.f01_PageAfLog.FrontPage;
+import nozama.f01_FrontPage.FrontPage;
 import nozama_database.sendRequest.DatabaseRequestManagment;
 
 /**

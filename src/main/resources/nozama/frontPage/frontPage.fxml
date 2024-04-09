@@ -83,12 +83,12 @@
                   </Pane>
                   <Pane fx:id="fxid_paneE" prefHeight="60.6" prefWidth="189.0">
                      <children>
-                        <Text fill="#dd8f3b" layoutX="80.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Support" wrappingWidth="94.98307228088379">
+                        <Text fill="#dd8f3b" layoutX="80.0" layoutY="41.0" onMouseClicked="#handleSupportAction" strokeType="OUTSIDE" strokeWidth="0.0" text="Support" wrappingWidth="94.98307228088379">
                            <font>
                               <Font name="Kollektif" size="25.0" />
                            </font>
                         </Text>
-                        <ImageView fitHeight="37.0" fitWidth="37.0" layoutX="15.5" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="37.0" fitWidth="37.0" layoutX="15.5" layoutY="14.0" onMouseClicked="#handleSupportAction" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@src/frontPageIcons/tech-support.png" />
                            </image>
@@ -117,5 +117,19 @@
             <Image url="@src/frontPageIcons/search-icon.png" />
          </image>
       </ImageView>
+      <Pane fx:id="fxid_supportPane" layoutX="321.0" layoutY="106.0" prefHeight="620.0" prefWidth="900.0">
+         <children>
+            <Text layoutX="2.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Soporte y ayuda">
+               <font>
+                  <Font name="Eras Demi ITC" size="37.0" />
+               </font>
+            </Text>
+            <Text fill="#979797" layoutX="14.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rellene este formulario y un administrador se pondra en contacto con usted lo antes posible.">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
    </children>
 </Pane>
