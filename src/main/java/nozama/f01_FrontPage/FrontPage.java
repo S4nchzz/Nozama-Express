@@ -20,6 +20,7 @@ public class FrontPage {
     private final Stage stage;
     private final ResultSet rs;
     private final boolean isAdmin;
+    private boolean visibleSupport;
 
     @FXML
     private Text fxid_usernameAv;
@@ -37,11 +38,16 @@ public class FrontPage {
     private Pane fxid_paneD;
     @FXML
     private Pane fxid_paneE;
+    
+    @FXML
+    private Pane fxid_supportPane;
 
     public FrontPage (ResultSet rs, Stage s, boolean isAdmin) {
         this.rs = rs;
         this.stage = s;
         this.isAdmin = isAdmin;
+        
+        this.visibleSupport = true;
     }
 
     @FXML
@@ -84,7 +90,8 @@ public class FrontPage {
 
     @FXML
     private void handleSupportAction () {
-        
+        fxid_supportPane.setVisible(visibleSupport);
+        visibleSupport = !visibleSupport;
     }
 
     /**

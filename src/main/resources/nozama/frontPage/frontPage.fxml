@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.gluonhq.charm.glisten.control.ToggleButtonGroup?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
@@ -117,7 +119,7 @@
             <Image url="@src/frontPageIcons/search-icon.png" />
          </image>
       </ImageView>
-      <Pane fx:id="fxid_supportPane" layoutX="321.0" layoutY="106.0" prefHeight="620.0" prefWidth="900.0">
+      <Pane fx:id="fxid_supportPane" layoutX="321.0" layoutY="106.0" prefHeight="620.0" prefWidth="900.0" visible="false">
          <children>
             <Text layoutX="2.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Soporte y ayuda">
                <font>
@@ -129,6 +131,35 @@
                   <Font size="15.0" />
                </font>
             </Text>
+            <ToggleButtonGroup layoutX="14.0" layoutY="83.0" selectionType="SINGLE">
+                <toggles>
+                    <ToggleButton>
+                     <graphic>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cuenta" />
+                     </graphic>
+                    </ToggleButton>
+                  <ToggleButton>
+                     <graphic>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Me han hackeado" />
+                     </graphic>
+                  </ToggleButton>
+                    <ToggleButton>
+                     <graphic>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Devoluciones y Reembolsos" />
+                     </graphic>
+                    </ToggleButton>
+                  <ToggleButton>
+                     <graphic>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sugerencias" />
+                     </graphic>
+                  </ToggleButton>
+                  <ToggleButton>
+                     <graphic>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Otro" />
+                     </graphic>
+                  </ToggleButton>
+                </toggles>
+            </ToggleButtonGroup>
          </children>
       </Pane>
    </children>
