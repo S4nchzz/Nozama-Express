@@ -1,22 +1,22 @@
-#fxid_toggleButtonSupportB, #fxid_toggleButtonSupportC, #fxid_toggleButtonSupportD {
+#fxid_IveBeenHacked, #fxid_Refounds, #fxid_Sugestions {
     -fx-border-width: 1px 0px 1px 0px;
     -fx-border-color: #CBCBCB;
     -fx-background-color: white;
 }
 
-#fxid_toggleButtonSupportA {
+#fxid_Acc {
     -fx-border-width: 1px 0px 1px 1px;
     -fx-border-color: #CBCBCB;
     -fx-background-color: white;
 }
 
-#fxid_toggleButtonSupportE {
+#fxid_Other {
     -fx-border-width: 1px 1px 1px 0px;
     -fx-border-color: #CBCBCB;
     -fx-background-color: white;
 }
 
-#fxid_toggleButtonSupportA:hover, #fxid_toggleButtonSupportB:hover, #fxid_toggleButtonSupportC:hover, #fxid_toggleButtonSupportD:hover, #fxid_toggleButtonSupportE:hover, #fxid_sendSupport:hover {
+#fxid_Acc:hover, #fxid_IveBeenHacked:hover, #fxid_Refounds:hover, #fxid_Sugestions:hover, #fxid_Other:hover, #fxid_sendSupport:hover {
     -fx-cursor: hand;
     -fx-border-color: #CBCBCB;
     -fx-background-color: rgb(196, 195, 195);

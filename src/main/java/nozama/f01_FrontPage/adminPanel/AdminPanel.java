@@ -13,9 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -51,19 +49,11 @@ public class AdminPanel {
     @FXML
     private Text fxid_usernameAv;
     @FXML
-    private ImageView fxid_logoIcon;
-    @FXML
-    private ImageView fxid_databaseAdminIcon;
-    @FXML
     private TextField fxid_queryInjection;
     @FXML
     private Text fxid_errorDatabase;
     @FXML
-    private ToggleButton fxid_deleteUser;
-    @FXML
     private Pane fxid_queryPane;
-    @FXML
-    private Text fxid_textReference;
     @FXML
     private Pane fxid_stockPane;
     @FXML

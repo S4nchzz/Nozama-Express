@@ -121,7 +121,7 @@
             <Image url="@src/frontPageIcons/search-icon.png" />
          </image>
       </ImageView>
-      <Pane fx:id="fxid_supportPane" layoutX="321.0" layoutY="106.0" prefHeight="620.0" prefWidth="900.0">
+      <Pane fx:id="fxid_supportPane" layoutX="321.0" layoutY="106.0" prefHeight="620.0" prefWidth="900.0" visible="false">
          <children>
             <Text layoutX="2.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Soporte y ayuda">
                <font>
@@ -135,27 +135,27 @@
             </Text>
             <ToggleButtonGroup fx:id="fxid_supportToggleButtons" layoutX="14.0" layoutY="83.0" selectionType="SINGLE">
                 <toggles>
-                    <ToggleButton fx:id="fxid_toggleButtonSupportA" onMouseClicked="#handleToggleSupport" stylesheets="@css/supportPanel.css">
+                    <ToggleButton fx:id="fxid_Acc" onMouseClicked="#handleToggleSupport" stylesheets="@css/supportPanel.css">
                      <graphic>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cuenta" />
                      </graphic>
                     </ToggleButton>
-                  <ToggleButton fx:id="fxid_toggleButtonSupportB" onMouseClicked="#handleToggleSupport" stylesheets="@css/supportPanel.css">
+                  <ToggleButton fx:id="fxid_IveBeenHacked" onMouseClicked="#handleToggleSupport" stylesheets="@css/supportPanel.css">
                      <graphic>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Me han hackeado" />
                      </graphic>
                   </ToggleButton>
-                    <ToggleButton fx:id="fxid_toggleButtonSupportC" onMouseClicked="#handleToggleSupport" stylesheets="@css/supportPanel.css">
+                    <ToggleButton fx:id="fxid_Refounds" onMouseClicked="#handleToggleSupport" stylesheets="@css/supportPanel.css">
                      <graphic>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Devoluciones y Reembolsos" />
                      </graphic>
                     </ToggleButton>
-                  <ToggleButton fx:id="fxid_toggleButtonSupportD" onMouseClicked="#handleToggleSupport" stylesheets="@css/supportPanel.css">
+                  <ToggleButton fx:id="fxid_Sugestions" onMouseClicked="#handleToggleSupport" stylesheets="@css/supportPanel.css">
                      <graphic>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sugerencias" />
                      </graphic>
                   </ToggleButton>
-                  <ToggleButton fx:id="fxid_toggleButtonSupportE" onMouseClicked="#handleToggleSupport" stylesheets="@css/supportPanel.css">
+                  <ToggleButton fx:id="fxid_Other" onMouseClicked="#handleToggleSupport" stylesheets="@css/supportPanel.css">
                      <graphic>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Otro" />
                      </graphic>
@@ -163,9 +163,11 @@
                 </toggles>
             </ToggleButtonGroup>
             <Text fill="#979797" layoutX="492.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="A que problema se enfrenta" />
-            <TextArea layoutX="14.0" layoutY="143.0" prefHeight="244.0" prefWidth="469.0" promptText="Problema..." />
+            <TextArea fx:id="fxid_problemField" layoutX="14.0" layoutY="142.0" prefHeight="244.0" prefWidth="469.0" promptText="Problema..." />
             <Text fill="#979797" layoutX="14.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Denos informacion sobre el problema que presenta" />
-            <Button fx:id="fxid_sendSupport" layoutX="14.0" layoutY="406.0" mnemonicParsing="false" stylesheets="@css/supportPanel.css" text="Enviar" />
+            <Button fx:id="fxid_sendSupport" layoutX="14.0" layoutY="406.0" mnemonicParsing="false" onMouseClicked="#handleSendTicket" stylesheets="@css/supportPanel.css" text="Enviar" />
+            <Text fx:id="fxid_ticketResult" layoutX="14.0" layoutY="452.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+            <Text fx:id="fxid_ticketsCreatedNum" layoutX="79.0" layoutY="423.0" strokeType="OUTSIDE" strokeWidth="0.0" />
          </children>
       </Pane>
    </children>
