@@ -34,6 +34,8 @@
           - Si el usuario es admin podra ver y eliminar usuarios de la base de datos desde un menu
 * Gestion interda de productos
           - Si el usuario es admin podra ver y eliminar los productos de la base de datos desde un menu
+* Control de incidencias:
+          - Nozama tiene implementado un sistema de control de incidencias
 * Iconos y logos:
           - Todos los iconos y logos son personalizados
 * Fuente usada:
@@ -49,7 +51,7 @@
 * Interaccion entre usuarios (Add friend, Follow, Message...)
 * En la store se veran reflejados los productos de la base de datos
 * Personalizacion de perfil avanzada
-* Administradores podran crear registros de usuarios y de productos desde us propio menu
+* Administradores podran crear registros de usuarios y de productos desde su propio menu
 * Mucho mas...
 
 > **Note**
