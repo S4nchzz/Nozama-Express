@@ -162,8 +162,8 @@ public class AdminPanel {
     @FXML
     private void showDatabaseStock() {
         fxid_queryPane.setVisible(true);
-        fxid_stockPane.setVisible(true);
         fxid_paneUser.setVisible(false);
+        fxid_stockPane.setVisible(true);
 
         if (!allInsertedStock && tS == null) {
             tS = new StockTable(fxid_databaseStock, fxid_itemType,fxid_stockId, fxid_product, fxid_stockAmount, fxid_itemPrice, fxid_discount);
@@ -173,6 +173,19 @@ public class AdminPanel {
             this.fxid_databaseItemType = tIT.insertRegistersOnTable();
             allInsertedStock = true;
         }
+    }
+
+    @FXML
+    private void handleReloadOption () {
+        tU = new UserTable(fxid_databaseUser, fxid_tableUsername, fxid_loginStatus, fxid_tableSalt, fxid_tablePass,
+                fxid_tableisAdmin, fxid_tableName, fxid_tableTelf, fxid_tableGender);
+        this.fxid_databaseUser = tU.insertRegistersOnTable();
+        tS = new StockTable(fxid_databaseStock, fxid_itemType, fxid_stockId, fxid_product, fxid_stockAmount,
+                fxid_itemPrice, fxid_discount);
+        this.fxid_databaseStock = tS.insertRegistersOnTable();
+
+        tIT = new ItemTypeTable(fxid_databaseItemType, fxid_itemTypeColumnExternal, fxid_descriptionColumnExternal);
+        this.fxid_databaseItemType = tIT.insertRegistersOnTable();
     }
 
     @FXML

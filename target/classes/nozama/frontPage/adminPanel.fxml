@@ -141,5 +141,10 @@
             </TableView>
          </children>
       </Pane>
+      <ImageView fx:id="fxid_reloadComponent" fitHeight="26.0" fitWidth="26.0" layoutX="160.0" layoutY="72.0" onMouseClicked="#handleReloadOption" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+         <image>
+            <Image url="@src/adminPanelIcons/reload-icon.png" />
+         </image>
+      </ImageView>
    </children>
 </Pane>
