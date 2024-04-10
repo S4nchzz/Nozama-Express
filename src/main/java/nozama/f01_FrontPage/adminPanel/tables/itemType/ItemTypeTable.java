@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import nozama.f01_FrontPage.adminPanel.tables.Tables;
 import nozama_database.sendRequest.DatabaseRequestManagment;
@@ -15,17 +14,9 @@ public class ItemTypeTable implements Tables {
 
     @FXML
     private TableView<TableDataItemType> fxid_databaseItemType;
-    @FXML
-    private TableColumn<TableDataItemType, String> fxid_itemTypeColumnExternal;
-    @FXML
-    private TableColumn<TableDataItemType, String> fxid_descriptionColumnExternal;
 
-    public ItemTypeTable (TableView<TableDataItemType> fxid_databaseItemType,
-                      TableColumn<TableDataItemType, String> fxid_itemTypeColumnExternal,
-                      TableColumn<TableDataItemType, String> fxid_descriptionColumnExternal) {
+    public ItemTypeTable (TableView<TableDataItemType> fxid_databaseItemType) {
         this.fxid_databaseItemType = fxid_databaseItemType;
-        this.fxid_itemTypeColumnExternal = fxid_itemTypeColumnExternal;
-        this.fxid_descriptionColumnExternal = fxid_descriptionColumnExternal;
     }
 
     @SuppressWarnings("unchecked")

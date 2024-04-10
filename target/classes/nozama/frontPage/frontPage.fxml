@@ -168,7 +168,12 @@
             <Button fx:id="fxid_sendSupport" layoutX="14.0" layoutY="406.0" mnemonicParsing="false" onMouseClicked="#handleSendTicket" stylesheets="@css/supportPanel.css" text="Enviar" />
             <Text fx:id="fxid_ticketResult" layoutX="14.0" layoutY="452.0" strokeType="OUTSIDE" strokeWidth="0.0" />
             <Text fx:id="fxid_ticketsCreatedNum" layoutX="79.0" layoutY="423.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-            <Pane fx:id="fxid_ticketsPane" layoutX="517.0" layoutY="143.0" prefHeight="244.0" prefWidth="372.0" />
+            <Pane fx:id="fxid_ticketsPane" layoutX="502.0" layoutY="142.0" prefHeight="244.0" prefWidth="370.0">
+               <children>
+                  <Pane fx:id="fxid_ticket1" prefHeight="81.33" prefWidth="370.0" />
+                  <Pane fx:id="fxid_ticket2" layoutY="82.0" prefHeight="81.0" prefWidth="370.0" />
+                  <Pane fx:id="fxid_ticket3" layoutY="163.0" prefHeight="81.0" prefWidth="370.0" />
+               </children></Pane>
          </children>
       </Pane>
    </children>

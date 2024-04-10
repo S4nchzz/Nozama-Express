@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import nozama.f01_FrontPage.adminPanel.tables.Tables;
 import nozama_database.sendRequest.DatabaseRequestManagment;
@@ -15,33 +14,9 @@ public class StockTable implements Tables {
 
     @FXML
     private TableView<TableDataStock> fxid_databaseStock;
-    @FXML
-    private TableColumn<TableDataStock, String> fxid_stockId;
-    @FXML
-    private TableColumn<TableDataStock, String> fxid_itemType;
-    @FXML
-    private TableColumn<TableDataStock, String> fxid_product;
-    @FXML
-    private TableColumn<TableDataStock, String> fxid_stockAmount;
-    @FXML
-    private TableColumn<TableDataStock, String> fxid_itemPrice;
-    @FXML
-    private TableColumn<TableDataStock, String> fxid_discount;
 
-    public StockTable(TableView<TableDataStock> fxid_databaseStock,
-                      TableColumn<TableDataStock, String> fxid_stockId,
-                      TableColumn<TableDataStock, String> fxid_itemType,
-                      TableColumn<TableDataStock, String> fxid_product,
-                      TableColumn<TableDataStock, String> fxid_stockAmount,
-                      TableColumn<TableDataStock, String> fxid_itemPrice,
-                      TableColumn<TableDataStock, String> fxid_discount) {
+    public StockTable(TableView<TableDataStock> fxid_databaseStock) {
         this.fxid_databaseStock = fxid_databaseStock;
-        this.fxid_stockId = fxid_stockId;
-        this.fxid_itemType = fxid_itemType;
-        this.fxid_product = fxid_product;
-        this.fxid_stockAmount = fxid_stockAmount;
-        this.fxid_itemPrice = fxid_itemPrice;
-        this.fxid_discount = fxid_discount;
     }
 
     @SuppressWarnings("unchecked")

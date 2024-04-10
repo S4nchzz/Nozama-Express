@@ -37,7 +37,6 @@ public class AdminPanel {
     private ResultSet rs;
     private boolean allInsertedUser;
     private boolean allInsertedStock;
-    private boolean allInserted;
     private TableDataUsers tdU;
     private TableDataStock tdS;
     private TableDataItemType tdIT;
@@ -154,7 +153,7 @@ public class AdminPanel {
         fxid_stockPane.setVisible(false);
 
         if (!allInsertedUser) {
-            tU = new UserTable(fxid_databaseUser, fxid_tableUsername, fxid_loginStatus, fxid_tableSalt, fxid_tablePass, fxid_tableisAdmin, fxid_tableName, fxid_tableTelf, fxid_tableGender);
+            tU = new UserTable(fxid_databaseUser);
             this.fxid_databaseUser = tU.insertRegistersOnTable();
             allInsertedUser = true;
         }
@@ -167,10 +166,10 @@ public class AdminPanel {
         fxid_stockPane.setVisible(true);
 
         if (!allInsertedStock && tS == null) {
-            tS = new StockTable(fxid_databaseStock, fxid_itemType,fxid_stockId, fxid_product, fxid_stockAmount, fxid_itemPrice, fxid_discount);
+            tS = new StockTable(fxid_databaseStock);
             this.fxid_databaseStock = tS.insertRegistersOnTable();
 
-            tIT = new ItemTypeTable(fxid_databaseItemType, fxid_itemTypeColumnExternal, fxid_descriptionColumnExternal);
+            tIT = new ItemTypeTable(fxid_databaseItemType);
             this.fxid_databaseItemType = tIT.insertRegistersOnTable();
             allInsertedStock = true;
         }
@@ -178,20 +177,26 @@ public class AdminPanel {
 
     @FXML
     private void handleReloadOption () {
-        if (!allInserted) {
-            tU = new UserTable(fxid_databaseUser, fxid_tableUsername, fxid_loginStatus, fxid_tableSalt, fxid_tablePass,
-                    fxid_tableisAdmin, fxid_tableName, fxid_tableTelf, fxid_tableGender);
+
+        if (fxid_paneUser.isVisible()) {
+            tU = new UserTable(fxid_databaseUser);
+            this.fxid_databaseUser.getItems().clear();
             this.fxid_databaseUser = tU.insertRegistersOnTable();
-            tS = new StockTable(fxid_databaseStock, fxid_itemType, fxid_stockId, fxid_product, fxid_stockAmount,
-                    fxid_itemPrice, fxid_discount);
+
+        } else if (fxid_stockPane.isVisible()) {
+            tS = new StockTable(fxid_databaseStock);
+            this.fxid_databaseStock.getItems().clear();
             this.fxid_databaseStock = tS.insertRegistersOnTable();
-    
-            tIT = new ItemTypeTable(fxid_databaseItemType, fxid_itemTypeColumnExternal, fxid_descriptionColumnExternal);
+
+            tIT = new ItemTypeTable(fxid_databaseItemType);
+            this.fxid_databaseItemType.getItems().clear();
             this.fxid_databaseItemType = tIT.insertRegistersOnTable();
-            allInserted = true;
-        }
+        }     
     }
 
+    /**
+     * Metodo que llama a sendAdminQuery()
+     */
     @FXML
     private void sendAdminQueryIconSearch () {
         sendAdminQuery();
@@ -229,12 +234,6 @@ public class AdminPanel {
         if (qc.conditions()) {
             // Si obj es una instancia de tipo ResultSet querra decir que la consulta funciono correctamente
             if (obj instanceof ResultSet) {
-                // Si la consulta es un select se aplica la variable booleana false queriendo
-                // decir que si se le da al boton de recargar saldran nuevos datos
-                if (query.contains("FROM USER") || query.contains("FROM STOCK") || query.contains("FROM ITEM_TYPE")) {
-                    allInserted = false;
-                }
-
                 this.rs = (ResultSet) obj;
                 if (rs != null && query.contains("FROM USER") || query.contains("INTO USER")) {                    
                     fxid_databaseUser.getItems().clear();
