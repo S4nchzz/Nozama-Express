@@ -3,6 +3,9 @@ package nozama.f01_FrontPage;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import javax.naming.spi.DirStateFactory.Result;
+
 import javafx.scene.control.TextArea;
 import com.gluonhq.charm.glisten.control.ToggleButtonGroup;
 
@@ -15,6 +18,7 @@ import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import nozama.NozamaWindowApp;
@@ -144,40 +148,45 @@ public class FrontPage {
         try {
             int countTickets = ticketLimitReached(dataloguedUser.getString(1));
             if (countTickets >= 3) {
-                fxid_ticketResult.setStyle("-fx-text-fill: red;");
+                fxid_ticketResult.setFill(Color.RED);
                 fxid_ticketResult.setText("Ya ha creado 3 tickets, no podra crear mas hasta que un adminsitrador cierre uno de estos");
             } else {
                 if (!fxid_problemField.getText().isEmpty() || !fxid_problemField.getText().isBlank()) {
                     String problemDesc = fxid_problemField.getText();
                     if (problemDesc.length() >= 200) {
-                        fxid_ticketResult.setStyle("-fx-text-fill: red;");
+                        fxid_ticketResult.setFill(Color.RED);
                         fxid_ticketResult.setText("La descripcion del problema no puede superar los 200 caracteres");
                     } else if (checkIfButtonStillSelected(nameIDSupportButton)) {
                         dbr = new DatabaseRequestManagment();
                         try {
-                            dbr.injectCustomQuery(
+                            Object obj = dbr.injectCustomQuery(
                                 "INSERT INTO SUPPORT_TICKETS (STATUS, TICKET_TYPE, SOLICITANTE_ID, PROBLEM_DESC) VALUES (true, \""
                                 + nameIDSupportButton + "\", \"" + dataloguedUser.getString(1) + "\", \""
                                 + problemDesc + "\");");
-                                fxid_ticketResult.setStyle("-fx-text-fill: green;");
 
-                                //! Probably reCheck the ticket
-                                fxid_ticketResult.setText("Ticket abierto correctamente, espere a que un administrador le responda");
+                                // ReChecking if the ticket was created
+                                if (obj instanceof ResultSet) {
+                                    fxid_ticketResult.setFill(Color.GREEN);
+                                    fxid_ticketResult.setText("Ticket abierto correctamente, espere a que un administrador le responda");
+                                    // Set number of tickets
+                                    countTickets = ticketLimitReached(dataloguedUser.getString(1));
+                                    fxid_ticketsCreatedNum.setText("Tickets: " + String.valueOf(countTickets) + "/3");
+                                } else {
+                                    fxid_ticketResult.setFill(Color.RED);
+                                    fxid_ticketResult.setText("Hubo un problema al enviar el ticket");
+                                }
 
-                                // Set number of tickets
-                                countTickets = ticketLimitReached(dataloguedUser.getString(1));
-                                fxid_ticketsCreatedNum.setText("Tickets: " + String.valueOf(countTickets) + "/3");
                         } catch (SQLException sqle) {
 
                         }
                     } else {
-                        fxid_ticketResult.setStyle("-fx-text-fill: red;");
+                        fxid_ticketResult.setFill(Color.RED);
                         fxid_ticketResult.setText("Elija una de las opciones");
                     }
 
                 } else {
                     fxid_ticketResult.setText("");
-                    fxid_ticketResult.setStyle("-fx-text-fill: red");
+                    fxid_ticketResult.setFill(Color.RED);
                     fxid_ticketResult.setText("Describa el problema antes de enviar el ticket");
                 }
             }
