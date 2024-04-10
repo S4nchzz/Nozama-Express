@@ -156,12 +156,13 @@ public class FrontPage {
                         dbr = new DatabaseRequestManagment();
                         try {
                             dbr.injectCustomQuery(
-                                "INSERT INTO SUPPORT_TICKETS (TICKET_TYPE, SOLICITANTE_ID, PROBLEM_DESC) VALUES (\""
+                                "INSERT INTO SUPPORT_TICKETS (STATUS, TICKET_TYPE, SOLICITANTE_ID, PROBLEM_DESC) VALUES (true, \""
                                 + nameIDSupportButton + "\", \"" + dataloguedUser.getString(1) + "\", \""
                                 + problemDesc + "\");");
                                 fxid_ticketResult.setStyle("-fx-text-fill: green;");
-                                fxid_ticketResult
-                                .setText("Ticket abierto correctamente, espere a que un administrador le responda");
+
+                                //! Probably reCheck the ticket
+                                fxid_ticketResult.setText("Ticket abierto correctamente, espere a que un administrador le responda");
 
                                 // Set number of tickets
                                 countTickets = ticketLimitReached(dataloguedUser.getString(1));
@@ -196,7 +197,7 @@ public class FrontPage {
 
     private int ticketLimitReached(String id) {
         dbr = new DatabaseRequestManagment();
-        Object obj = dbr.injectCustomQuery("SELECT COUNT(TICKET_ID) FROM SUPPORT_TICKETS WHERE SOLICITANTE_ID = \"" + id + "\";");
+        Object obj = dbr.injectCustomQuery("SELECT COUNT(TICKET_ID) FROM SUPPORT_TICKETS WHERE SOLICITANTE_ID = \"" + id + "\" AND STATUS = TRUE");
         
         ResultSet ticketCount = null;
         if (obj instanceof ResultSet) {
