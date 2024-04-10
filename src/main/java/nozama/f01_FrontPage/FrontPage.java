@@ -3,9 +3,6 @@ package nozama.f01_FrontPage;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import javax.naming.spi.DirStateFactory.Result;
-
 import javafx.scene.control.TextArea;
 import com.gluonhq.charm.glisten.control.ToggleButtonGroup;
 
@@ -160,7 +157,7 @@ public class FrontPage {
                         dbr = new DatabaseRequestManagment();
                         try {
                             Object obj = dbr.injectCustomQuery(
-                                "INSERT INTO SUPPORT_TICKETS (STATUS, TICKET_TYPE, SOLICITANTE_ID, PROBLEM_DESC) VALUES (true, \""
+                                "INSERT INTO SUPPORT_TICKET (STATUS, TICKET_TYPE, SOLICITANTE_ID, PROBLEM_DESC) VALUES (true, \""
                                 + nameIDSupportButton + "\", \"" + dataloguedUser.getString(1) + "\", \""
                                 + problemDesc + "\");");
 
@@ -206,7 +203,7 @@ public class FrontPage {
 
     private int ticketLimitReached(String id) {
         dbr = new DatabaseRequestManagment();
-        Object obj = dbr.injectCustomQuery("SELECT COUNT(TICKET_ID) FROM SUPPORT_TICKETS WHERE SOLICITANTE_ID = \"" + id + "\" AND STATUS = TRUE");
+        Object obj = dbr.injectCustomQuery("SELECT COUNT(TICKET_ID) FROM SUPPORT_TICKET WHERE SOLICITANTE_ID = \"" + id + "\" AND STATUS = TRUE");
         
         ResultSet ticketCount = null;
         if (obj instanceof ResultSet) {
