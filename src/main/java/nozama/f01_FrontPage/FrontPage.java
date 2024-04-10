@@ -69,19 +69,48 @@ public class FrontPage {
     private ToggleButton fxid_Other;
     @FXML
     private Text fxid_ticketResult;
-    @FXML
+    @FXML   
     private Text fxid_ticketsCreatedNum;
 
     public FrontPage (ResultSet rs, Stage s, boolean isAdmin) {
         this.dataloguedUser = rs;
         this.stage = s;
         this.isAdmin = isAdmin;
-        
         this.visibleSupport = true;
+        
+        // Runtime que crea un hilo antes de cerrar el programa para enviar por ultimo estas instrucciones
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            dbr = new DatabaseRequestManagment();
+            try {
+                dbr.injectCustomQuery("UPDATE USER SET LOGIN_STATUS = FALSE WHERE USERNAME = \"" + dataloguedUser.getString(1) + "\"");
+            } catch (SQLException sqle) {
+
+            }
+        }));
+        
+        // Establece el booleano de login_status a true refiriendose a que el usuario tiene la sesion iniciada
+        dbr = new DatabaseRequestManagment();
+        try {
+            dbr.injectCustomQuery("UPDATE USER SET LOGIN_STATUS = TRUE WHERE USERNAME = \"" + dataloguedUser.getString(1) + "\"");
+        } catch (SQLException sqle2) {
+
+        }
     }
 
+    /**
+     * Cuando el usuario le da al boton de logOf establece para 
+     * ese usuario el parametro de login_status a false
+     */
     @FXML
     private void handleLogof () {
+        try {
+            dbr = new DatabaseRequestManagment();
+            dbr.injectCustomQuery(
+                    "UPDATE USER SET LOGIN_STATUS = FALSE WHERE USERNAME = \"" + dataloguedUser.getString(1) + "\"");
+        } catch (SQLException sqle) {
+
+        }
+
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/nozama/login/login.fxml"));
         loader.setController(new LoginPage(stage));

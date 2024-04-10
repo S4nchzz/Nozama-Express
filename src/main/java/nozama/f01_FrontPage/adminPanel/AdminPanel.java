@@ -162,8 +162,8 @@ public class AdminPanel {
     @FXML
     private void showDatabaseStock() {
         fxid_queryPane.setVisible(true);
-        fxid_paneUser.setVisible(false);
         fxid_stockPane.setVisible(true);
+        fxid_paneUser.setVisible(false);
 
         if (!allInsertedStock && tS == null) {
             tS = new StockTable(fxid_databaseStock, fxid_itemType,fxid_stockId, fxid_product, fxid_stockAmount, fxid_itemPrice, fxid_discount);
