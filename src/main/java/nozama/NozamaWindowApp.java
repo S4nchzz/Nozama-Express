@@ -18,7 +18,7 @@ public class NozamaWindowApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         // Check connectivity
-        if (DatabaseLinkTest.createDBandTB(3310)) {
+        if (DatabaseLinkTest.createDBandTB(3306)) {
             DatabaseRequestManagment.anadir("a", "a", true, "Iyan", "1", "M");
             DatabaseRequestManagment.anadir("b", "a", true, "Iyan", "1", "M");
             DatabaseRequestManagment.anadir("c", "a", true, "Iyan", "1", "M");

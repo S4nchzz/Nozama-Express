@@ -37,6 +37,7 @@ public class AdminPanel {
     private ResultSet rs;
     private boolean allInsertedUser;
     private boolean allInsertedStock;
+    private boolean allInserted;
     private TableDataUsers tdU;
     private TableDataStock tdS;
     private TableDataItemType tdIT;
@@ -177,15 +178,18 @@ public class AdminPanel {
 
     @FXML
     private void handleReloadOption () {
-        tU = new UserTable(fxid_databaseUser, fxid_tableUsername, fxid_loginStatus, fxid_tableSalt, fxid_tablePass,
-                fxid_tableisAdmin, fxid_tableName, fxid_tableTelf, fxid_tableGender);
-        this.fxid_databaseUser = tU.insertRegistersOnTable();
-        tS = new StockTable(fxid_databaseStock, fxid_itemType, fxid_stockId, fxid_product, fxid_stockAmount,
-                fxid_itemPrice, fxid_discount);
-        this.fxid_databaseStock = tS.insertRegistersOnTable();
-
-        tIT = new ItemTypeTable(fxid_databaseItemType, fxid_itemTypeColumnExternal, fxid_descriptionColumnExternal);
-        this.fxid_databaseItemType = tIT.insertRegistersOnTable();
+        if (!allInserted) {
+            tU = new UserTable(fxid_databaseUser, fxid_tableUsername, fxid_loginStatus, fxid_tableSalt, fxid_tablePass,
+                    fxid_tableisAdmin, fxid_tableName, fxid_tableTelf, fxid_tableGender);
+            this.fxid_databaseUser = tU.insertRegistersOnTable();
+            tS = new StockTable(fxid_databaseStock, fxid_itemType, fxid_stockId, fxid_product, fxid_stockAmount,
+                    fxid_itemPrice, fxid_discount);
+            this.fxid_databaseStock = tS.insertRegistersOnTable();
+    
+            tIT = new ItemTypeTable(fxid_databaseItemType, fxid_itemTypeColumnExternal, fxid_descriptionColumnExternal);
+            this.fxid_databaseItemType = tIT.insertRegistersOnTable();
+            allInserted = true;
+        }
     }
 
     @FXML
@@ -193,6 +197,9 @@ public class AdminPanel {
         sendAdminQuery();
     }
 
+    /**
+     * Metodo que permite enviar consultas y obtener en tiempo real el resultado
+     */
     @FXML
     private void sendAdminQuery () {
         DatabaseRequestManagment db = new DatabaseRequestManagment();
@@ -200,6 +207,7 @@ public class AdminPanel {
         
         this.query = fxid_queryInjection.getText().toUpperCase();
         
+        // Si las tablas son visibles y el contenido de la consulta esta vacio se actualizan con los valores actuales
         if (fxid_databaseUser.isVisible()) {
             if (query.isEmpty() || query.isBlank()) {
                 fxid_databaseUser.getItems().clear();
@@ -217,12 +225,23 @@ public class AdminPanel {
 
         obj = db.injectCustomQuery(query);
         qc = new QueryConditions(query);
+
         if (qc.conditions()) {
+            // Si obj es una instancia de tipo ResultSet querra decir que la consulta funciono correctamente
             if (obj instanceof ResultSet) {
+                // Si la consulta es un select se aplica la variable booleana false queriendo
+                // decir que si se le da al boton de recargar saldran nuevos datos
+                if (query.contains("FROM USER") || query.contains("FROM STOCK") || query.contains("FROM ITEM_TYPE")) {
+                    allInserted = false;
+                }
+
                 this.rs = (ResultSet) obj;
-                if (rs != null && query.contains("FROM USER") || query.contains("INTO USER")) {
+                if (rs != null && query.contains("FROM USER") || query.contains("INTO USER")) {                    
                     fxid_databaseUser.getItems().clear();
-                    this.fxid_errorDatabase.setText("");   
+                    this.fxid_errorDatabase.setText("");
+
+                    // Si la consulta esta relacionada con la tabla USER se obtiene todos los
+                    // datos de la misma con la query solicitada
                     try {
                         while (rs.next()) {
                             tdU = new TableDataUsers(rs.getString(1), rs.getBoolean(2), rs.getString(3), rs.getString(4),

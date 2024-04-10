@@ -140,7 +140,7 @@ public class FrontPage {
             stage.setTitle("Nozama Express");
             stage.setScene(s);
             stage.setResizable(false);
-            stage.centerOnScreen();
+            stage.centerOnScreen(); 
             stage.show();
         } catch (IOException e) {
             System.out.println(e.getMessage());
