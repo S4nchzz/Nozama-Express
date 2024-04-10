@@ -234,7 +234,7 @@ public class FrontPage {
     @FXML
     private void initialize() {
         try {
-            fxid_usernameAv.setText(dataloguedUser.getString(5));
+            fxid_usernameAv.setText(dataloguedUser.getString(6));
         } catch (SQLException sqle) {
             System.out.println(sqle.getMessage());
         }

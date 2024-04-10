@@ -37,18 +37,19 @@ public class DatabaseRequestManagment {
             // Statement para dar ejecutar la consulta en la base de datos si se realiza con
             // exito la conexion
             PreparedStatement st = conn.prepareStatement(
-                    "INSERT INTO USER (USERNAME, SALT, PASS, ISADMIN, NAME, TELF, GENDER) VALUES (?, ?, ?, ?, ?, ?, ?);");
+                    "INSERT INTO USER (USERNAME, LOGIN_STATUS, SALT, PASS, ISADMIN, NAME, TELF, GENDER) VALUES (?, ?, ?, ?, ?, ?, ?, ?);");
 
             st.setString(1, name);
-            st.setString(2, salt);
+            st.setBoolean(2, false);
+            st.setString(3, salt);
             // En el parametro 3 del PreparedStatement se envia el array de bytes con la conversion
             // de SHA-356
-            st.setBytes(3, PasswordComplexity.sha256(passwordAndSalt));
-            st.setBoolean(4, isAdmin);
+            st.setBytes(4, PasswordComplexity.sha256(passwordAndSalt));
+            st.setBoolean(5, isAdmin);
 
-            st.setString(5, fullName);
-            st.setString(6, telf);
-            st.setString(7, gender);
+            st.setString(6, fullName);
+            st.setString(7, telf);
+            st.setString(8, gender);
             
             st.executeUpdate();
             st.close();
@@ -157,9 +158,9 @@ public class DatabaseRequestManagment {
             //Accedemos al primer registro
             if (rs.next()) {
                 // Salt del usuario en la base de datos
-                String saltFromUser = rs.getString(2);
+                String saltFromUser = rs.getString(3);
                 // Contraseña hasheada de la base de datos
-                byte[] passwordDatabaseHashed = rs.getBytes(3);
+                byte[] passwordDatabaseHashed = rs.getBytes(4);
 
                 // Contraseña ingresada por el usuario y el salt del usuario correcto
                 byte[] passwordToCheck = PasswordComplexity.sha256(saltFromUser + password);

@@ -64,6 +64,8 @@ public class AdminPanel {
     @FXML
     private TableColumn<TableDataUsers, String> fxid_tableUsername;
     @FXML
+    private TableColumn<TableDataUsers, String> fxid_loginStatus;
+    @FXML
     private TableColumn<TableDataUsers, String> fxid_tableSalt;
     @FXML
     private TableColumn<TableDataUsers, String> fxid_tablePass;
@@ -151,7 +153,7 @@ public class AdminPanel {
         fxid_stockPane.setVisible(false);
 
         if (!allInsertedUser) {
-            tU = new UserTable(fxid_databaseUser, fxid_tableUsername, fxid_tableSalt, fxid_tablePass, fxid_tableisAdmin, fxid_tableName, fxid_tableTelf, fxid_tableGender);
+            tU = new UserTable(fxid_databaseUser, fxid_tableUsername, fxid_loginStatus, fxid_tableSalt, fxid_tablePass, fxid_tableisAdmin, fxid_tableName, fxid_tableTelf, fxid_tableGender);
             this.fxid_databaseUser = tU.insertRegistersOnTable();
             allInsertedUser = true;
         }
@@ -210,9 +212,8 @@ public class AdminPanel {
                     this.fxid_errorDatabase.setText("");   
                     try {
                         while (rs.next()) {
-                            tdU = new TableDataUsers(rs.getString(1), rs.getString(2), rs.getString(3),
-                                    rs.getBoolean(4),
-                                    rs.getString(5), rs.getString(6), rs.getString(7));
+                            tdU = new TableDataUsers(rs.getString(1), rs.getBoolean(2), rs.getString(3), rs.getString(4),
+                                    rs.getBoolean(5), rs.getString(6), rs.getString(7), rs.getString(8));
         
                             fxid_databaseUser.getItems().add(tdU);
                         }
@@ -258,6 +259,7 @@ public class AdminPanel {
     public void initialize() {
         fxid_usernameAv.setText(username);
         fxid_tableUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
+        fxid_loginStatus.setCellValueFactory(new PropertyValueFactory<>("loginStatus"));
         fxid_tableSalt.setCellValueFactory(new PropertyValueFactory<>("salt"));
         fxid_tablePass.setCellValueFactory(new PropertyValueFactory<>("pass"));
         fxid_tableisAdmin.setCellValueFactory(new PropertyValueFactory<>("isAdmin"));

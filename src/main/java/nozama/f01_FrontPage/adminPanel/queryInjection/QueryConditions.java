@@ -8,7 +8,7 @@ public class QueryConditions {
     }
 
     public boolean conditions () {
-        if (alterTableCondition() && dropDatabaseCondition() && dropTableCondition() && createProcedure()) {
+        if (alterTableCondition() && dropDatabaseCondition() && updateTableCondition() && dropTableCondition() && createProcedure()) {
             return true;
         }
 
@@ -18,6 +18,14 @@ public class QueryConditions {
     private boolean createProcedure () {
         if (this.query.contains("CREATE PROCEDURE") || this.query.contains("CREATE FUNCTION") || this.query
                 .contains("CREATE OR REPLACE PROCEDURE") || this.query.contains("CREATE OR REPLACE FUNCTION")) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean updateTableCondition() {
+        if (this.query.contains("UPDATE")) {
             return false;
         }
 
