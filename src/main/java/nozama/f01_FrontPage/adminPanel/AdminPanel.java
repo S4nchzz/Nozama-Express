@@ -14,6 +14,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -58,6 +59,8 @@ public class AdminPanel {
     private Pane fxid_stockPane;
     @FXML
     private Pane fxid_paneUser;
+    @FXML
+    private ImageView fxid_reloadComponent;
 
     @FXML
     private TableView<TableDataUsers> fxid_databaseUser;
@@ -151,6 +154,7 @@ public class AdminPanel {
         fxid_queryPane.setVisible(true);
         fxid_paneUser.setVisible(true);
         fxid_stockPane.setVisible(false);
+        fxid_reloadComponent.setVisible(true);
 
         if (!allInsertedUser) {
             tU = new UserTable(fxid_databaseUser);
@@ -164,6 +168,7 @@ public class AdminPanel {
         fxid_queryPane.setVisible(true);
         fxid_paneUser.setVisible(false);
         fxid_stockPane.setVisible(true);
+        fxid_reloadComponent.setVisible(true);
 
         if (!allInsertedStock && tS == null) {
             tS = new StockTable(fxid_databaseStock);
@@ -177,7 +182,6 @@ public class AdminPanel {
 
     @FXML
     private void handleReloadOption () {
-
         if (fxid_paneUser.isVisible()) {
             tU = new UserTable(fxid_databaseUser);
             this.fxid_databaseUser.getItems().clear();

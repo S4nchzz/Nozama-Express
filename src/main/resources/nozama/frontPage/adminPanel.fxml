@@ -85,35 +85,25 @@
             </ImageView>
          </children></Pane>
       <Text fx:id="fxid_errorDatabase" fill="RED" layoutX="160.0" layoutY="729.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Pane fx:id="fxid_queryPane" blendMode="SRC_ATOP" layoutX="160.0" layoutY="662.0" prefHeight="47.0" prefWidth="299.0">
-         <children>
-            <ImageView fx:id="fxid_searchQueryIcon" fitHeight="26.0" fitWidth="28.0" layoutX="259.0" layoutY="11.0" onMouseClicked="#sendAdminQueryIconSearch" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
-               <image>
-                  <Image url="@src/adminPanelIcons/search-icon.png" />
-               </image>
-            </ImageView>
-            <TextField fx:id="fxid_queryInjection" layoutY="11.0" onAction="#sendAdminQuery" prefHeight="26.0" prefWidth="243.0" promptText="Query" />
-         </children>
-      </Pane>
       <ImageView fitHeight="146.0" fitWidth="423.0" layoutX="454.0" layoutY="-23.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../nozamaIcons/logo-SL.png" />
          </image>
       </ImageView>
-      <Pane fx:id="fxid_stockPane" layoutX="143.0" layoutY="72.0" prefHeight="613.0" prefWidth="1091.0" visible="false">
+      <Pane fx:id="fxid_stockPane" layoutX="152.0" layoutY="100.0" prefHeight="569.0" prefWidth="1060.0" visible="false">
          <children>
             <Text fx:id="fxid_textReference" fill="#808080" layoutX="807.0" layoutY="605.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tabla referenciada por ITEM_TYPE" wrappingWidth="243.469970703125">
                <font>
                   <Font size="15.0" />
                </font>
             </Text>
-            <TableView fx:id="fxid_databaseItemType" layoutX="789.0" layoutY="31.0" prefHeight="551.0" prefWidth="279.0">
+            <TableView fx:id="fxid_databaseItemType" layoutX="771.0" layoutY="14.0" prefHeight="551.0" prefWidth="286.0">
               <columns>
                 <TableColumn fx:id="fxid_itemTypeColumnExternal" prefWidth="100.33331298828125" text="TYPE" />
                 <TableColumn fx:id="fxid_descriptionColumnExternal" prefWidth="177.66668701171875" text="DESCRIPTION" />
               </columns>
             </TableView>
-            <TableView fx:id="fxid_databaseStock" layoutX="20.0" layoutY="31.0" prefHeight="551.0" prefWidth="758.0">
+            <TableView fx:id="fxid_databaseStock" layoutX="10.0" layoutY="14.0" prefHeight="551.0" prefWidth="758.0">
               <columns>
                 <TableColumn fx:id="fxid_stockId" prefWidth="75.0" text="STOCK_ID" />
                   <TableColumn fx:id="fxid_itemType" prefWidth="75.0" text="ITEM_TYPE" />
@@ -125,7 +115,7 @@
             </TableView>
          </children>
       </Pane>
-      <Pane fx:id="fxid_paneUser" layoutX="150.0" layoutY="101.0" prefHeight="569.0" prefWidth="1069.0">
+      <Pane fx:id="fxid_paneUser" layoutX="152.0" layoutY="100.0" prefHeight="569.0" prefWidth="1060.0" visible="false">
          <children>
             <TableView fx:id="fxid_databaseUser" editable="true" layoutX="10.0" layoutY="14.0" prefHeight="551.0" prefWidth="1030.0">
               <columns>
@@ -141,10 +131,20 @@
             </TableView>
          </children>
       </Pane>
-      <ImageView fx:id="fxid_reloadComponent" fitHeight="26.0" fitWidth="26.0" layoutX="160.0" layoutY="72.0" onMouseClicked="#handleReloadOption" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+      <ImageView fx:id="fxid_reloadComponent" fitHeight="26.0" fitWidth="26.0" layoutX="160.0" layoutY="72.0" onMouseClicked="#handleReloadOption" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" visible="false">
          <image>
             <Image url="@src/adminPanelIcons/reload-icon.png" />
          </image>
       </ImageView>
+      <Pane fx:id="fxid_queryPane" blendMode="SRC_ATOP" layoutX="160.0" layoutY="677.0" prefHeight="47.0" prefWidth="299.0">
+         <children>
+            <ImageView fx:id="fxid_searchQueryIcon" fitHeight="26.0" fitWidth="28.0" layoutX="259.0" layoutY="11.0" onMouseClicked="#sendAdminQueryIconSearch" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+               <image>
+                  <Image url="@src/adminPanelIcons/search-icon.png" />
+               </image>
+            </ImageView>
+            <TextField fx:id="fxid_queryInjection" layoutY="11.0" onAction="#sendAdminQuery" prefHeight="26.0" prefWidth="243.0" promptText="Query" />
+         </children>
+      </Pane>
    </children>
 </Pane>
