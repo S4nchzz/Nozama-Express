@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import nozama.NozamaWindowApp;
@@ -52,11 +53,14 @@ public class LoginPage {
         loginContent = fxid_username_field.getText();
         passwordContent = fxid_password_field.getText();
 
-        if (DatabaseRequestManagment.acceder(loginContent, passwordContent)) {
+        if (DatabaseRequestManagment.isBanned(loginContent)) {
+            JOptionPane.showMessageDialog(null, "You have been banned");
+        } else if (DatabaseRequestManagment.acceder(loginContent, passwordContent)) {
             FXMLLoader frontPageLoader = new FXMLLoader();
             frontPageLoader.setLocation(getClass().getResource("/nozama/frontPage/frontPage.fxml"));
 
-            FrontPage controller = new FrontPage(DatabaseRequestManagment.getQueryResult(loginContent), stage, DatabaseRequestManagment.isAdmin(loginContent, passwordContent));
+            FrontPage controller = new FrontPage(DatabaseRequestManagment.getQueryResult(loginContent), stage,
+                    DatabaseRequestManagment.isAdmin(loginContent, passwordContent));
             frontPageLoader.setController(controller);
 
             Parent p = frontPageLoader.load();
@@ -70,7 +74,7 @@ public class LoginPage {
             stage.show();
         } else {
             JOptionPane.showMessageDialog(null, "Usuario o contraseña invalidao");
-        }
+        }      
     }
 
     /**
