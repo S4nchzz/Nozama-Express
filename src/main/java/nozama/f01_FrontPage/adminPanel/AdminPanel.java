@@ -99,6 +99,10 @@ public class AdminPanel {
     private TableColumn<TableDataUsers, String> fxid_tableTelf;
     @FXML
     private TableColumn<TableDataUsers, String> fxid_tableGender;
+    @FXML
+    private TableColumn<TableDataUsers, String> fxid_banned;
+    @FXML
+    private TableColumn<TableDataUsers, String> fxid_warnings;
 
     // Tabla stock
     @FXML
@@ -307,7 +311,7 @@ public class AdminPanel {
                     try {
                         while (rs.next()) {
                             tdU = new TableDataUsers(rs.getString(1), rs.getBoolean(2), rs.getString(3), rs.getString(4),
-                                    rs.getBoolean(5), rs.getString(6), rs.getString(7), rs.getString(8));
+                                    rs.getBoolean(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getBoolean(9), rs.getInt(10));
         
                             fxid_databaseUser.getItems().add(tdU);
                         }
@@ -399,10 +403,12 @@ public class AdminPanel {
         fxid_loginStatus.setCellValueFactory(new PropertyValueFactory<>("loginStatus"));
         fxid_tableSalt.setCellValueFactory(new PropertyValueFactory<>("salt"));
         fxid_tablePass.setCellValueFactory(new PropertyValueFactory<>("pass"));
-        fxid_tableisAdmin.setCellValueFactory(new PropertyValueFactory<>("isAdmin"));
+        fxid_tableisAdmin.setCellValueFactory(new PropertyValueFactory<>("admin"));
         fxid_tableName.setCellValueFactory(new PropertyValueFactory<>("name"));
         fxid_tableTelf.setCellValueFactory(new PropertyValueFactory<>("telf"));
         fxid_tableGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        fxid_banned.setCellValueFactory(new PropertyValueFactory<>("banned"));
+        fxid_warnings.setCellValueFactory(new PropertyValueFactory<>("warnings"));
 
         fxid_stockId.setCellValueFactory(new PropertyValueFactory<>("stock_id"));
         fxid_itemType.setCellValueFactory(new PropertyValueFactory<>("itemType"));

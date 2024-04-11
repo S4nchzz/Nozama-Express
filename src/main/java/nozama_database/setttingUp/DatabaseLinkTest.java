@@ -42,7 +42,7 @@ public class DatabaseLinkTest {
 
                 PreparedStatement useDatabase = dbServer.prepareStatement("USE nozama_ex;");
                 PreparedStatement createTableUser = dbServer.prepareStatement(
-                        "CREATE TABLE user (USERNAME VARCHAR(15) PRIMARY KEY, LOGIN_STATUS BOOLEAN NOT NULL, SALT VARCHAR(16) NOT NULL, PASS BINARY(32) NOT NULL, ISADMIN BOOLEAN NOT NULL, NAME VARCHAR(20) NOT NULL, TELF VARCHAR(9), GENDER VARCHAR(1) NOT NULL);");
+                        "CREATE TABLE user (USERNAME VARCHAR(15) PRIMARY KEY, LOGIN_STATUS BOOLEAN NOT NULL, SALT VARCHAR(16) NOT NULL, PASS BINARY(32) NOT NULL, ISADMIN BOOLEAN NOT NULL, NAME VARCHAR(20) NOT NULL, TELF VARCHAR(9), GENDER VARCHAR(1) NOT NULL, BANNED BOOLEAN NOT NULL DEFAULT 0, WARNS INT NOT NULL DEFAULT 0);");
 
                 PreparedStatement itemtype = dbServer.prepareStatement(
                         "CREATE TABLE item_Type (TYPE VARCHAR(10) PRIMARY KEY, DESCRIPTION VARCHAR(100) NOT NULL);");

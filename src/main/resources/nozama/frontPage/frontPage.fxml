@@ -163,7 +163,7 @@
                 </toggles>
             </ToggleButtonGroup>
             <Text fill="#979797" layoutX="483.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="A que problema se enfrenta" />
-            <TextArea fx:id="fxid_problemField" layoutX="14.0" layoutY="142.0" prefHeight="244.0" prefWidth="469.0" promptText="Problema..." />
+            <TextArea fx:id="fxid_problemField" layoutX="14.0" layoutY="142.0" prefHeight="244.0" prefWidth="469.0" promptText="Problema..." wrapText="true" />
             <Text fill="#979797" layoutX="14.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Denos informacion sobre el problema que presenta" />
             <Button fx:id="fxid_sendSupport" layoutX="14.0" layoutY="406.0" mnemonicParsing="false" onMouseClicked="#handleSendTicket" stylesheets="@css/supportPanel.css" text="Enviar" />
             <Text fx:id="fxid_ticketResult" layoutX="14.0" layoutY="452.0" strokeType="OUTSIDE" strokeWidth="0.0" />

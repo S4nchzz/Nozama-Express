@@ -2,3 +2,22 @@
     -fx-background-color: white;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 1), 20, 0, 0, 0);
 }
+
+#fxid_paneProblem{
+    -fx-border-width: 1px 1px 1px 1px;
+    -fx-border-color: #CBCBCB;
+    -fx-background-color: white;
+}
+
+
+#fxid_responseButton:hover {
+    -fx-border-width: 1px 1px 1px 1px;
+    -fx-border-color: #CBCBCB;
+    -fx-background-color: #CBCBCB;
+}
+
+#fxid_responseButton {
+    -fx-border-width: 1px 1px 1px 1px;
+    -fx-border-color: #CBCBCB;
+    -fx-background-color: white;
+}
