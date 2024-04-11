@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Text?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="514.0" prefWidth="813.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane fx:id="fxid_topMenu" prefHeight="75.0" prefWidth="813.0" stylesheets="@css/ticketMenu.css">
+         <children>
+            <ImageView fitHeight="35.0" fitWidth="45.0" layoutX="387.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../nozamaIcons/logo-icon-icon.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Text fx:id="fxid_textTicketId" fill="#909090" layoutX="3.0" layoutY="493.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ticket id: " />
+      <Text fx:id="fxid_textTicketStatus" fill="#909090" layoutX="4.0" layoutY="475.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+   </children>
+</Pane>

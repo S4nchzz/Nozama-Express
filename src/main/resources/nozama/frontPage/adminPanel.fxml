@@ -163,9 +163,10 @@
                   <Text fx:id="fxid_problem_Desc" layoutX="12.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="510.13671875" />
                </children>
             </Pane>
-            <TextField fx:id="fxid_idSearch" layoutX="517.0" layoutY="260.0" prefHeight="26.0" prefWidth="44.0" />
+            <TextField fx:id="fxid_idSearch" layoutX="517.0" layoutY="260.0" onAction="#showTicketStageData" prefHeight="26.0" prefWidth="44.0" />
             <Text fill="#a8a8a8" layoutX="513.0" layoutY="297.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TICKET_ID" />
-            <Button fx:id="fxid_watchDescButton" layoutX="575.0" layoutY="262.0" mnemonicParsing="false" onMouseClicked="#handleWatchProblem" stylesheets="@css/supportPanel.css" text="&gt;" />
+            <Button fx:id="fxid_watchDescButton" layoutX="575.0" layoutY="262.0" mnemonicParsing="false" onMouseClicked="#showTicketStageData" stylesheets="@css/supportPanel.css" text="&gt;" />
+            <Text fx:id="fxid_ticketErrorQuery" layoutX="617.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: red;" />
          </children></Pane>
    </children>
 </Pane>

@@ -17,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import nozama.NozamaWindowApp;
@@ -32,6 +33,7 @@ import nozama.f01_FrontPage.adminPanel.tables.support.SupportTable;
 import nozama.f01_FrontPage.adminPanel.tables.support.TableDataSupport;
 import nozama.f01_FrontPage.adminPanel.tables.users.TableDataUsers;
 import nozama.f01_FrontPage.adminPanel.tables.users.UserTable;
+import nozama.f01_FrontPage.adminPanel.ticketPanel.TicketPanel;
 import nozama_database.sendRequest.DatabaseRequestManagment;
 
 public class AdminPanel {
@@ -75,6 +77,8 @@ public class AdminPanel {
     private TextField fxid_idSearch;
     @FXML
     private Button watchProblem;
+    @FXML
+    private Text fxid_ticketErrorQuery;
 
     // Tabla Users
     @FXML
@@ -357,28 +361,39 @@ public class AdminPanel {
     }
 
     @FXML
-    private void handleWatchProblem () {
+    private void showTicketStageData () throws SQLException, IOException {
         DatabaseRequestManagment db = new DatabaseRequestManagment();
         if (!fxid_idSearch.getText().isEmpty() && !fxid_idSearch.getText().isBlank()) {
-            Object obj = db.injectCustomQuery("SELECT PROBLEM_DESC FROM SUPPORT_TICKET WHERE TICKET_ID = " + fxid_idSearch.getText());
+            Object obj = db.injectCustomQuery("SELECT * FROM SUPPORT_TICKET WHERE TICKET_ID = " + fxid_idSearch.getText());
 
             if (obj instanceof ResultSet) {
                 ResultSet rs = (ResultSet)obj;
-                try {
-                    rs.next();
-                    fxid_problem_Desc.setText(rs.getString(1));
-                    rs.close();
-                } catch (SQLException sqle) {
 
+                if (!rs.next()) {
+                    fxid_ticketErrorQuery.setFill(Color.RED);
+                    fxid_ticketErrorQuery.setText("Ticket no encontrado");
+                } else {
+                    FXMLLoader ticketLoader = new FXMLLoader();
+                    ticketLoader.setLocation(getClass().getResource("/nozama/frontPage/ticketMenu.fxml"));
+                    ticketLoader.setController(new TicketPanel(rs));
+                        Parent p = ticketLoader.load();
+                        Scene s = new Scene(p);
+                        Stage ticketStage = new Stage();
+                        ticketStage.setScene(s);
+                        ticketStage.setTitle("Ticket Administration");
+                        ticketStage.setScene(s);
+                        ticketStage.setResizable(false);
+                        ticketStage.centerOnScreen();
+                        ticketStage.show();
                 }
             } else if (obj instanceof String){
-                fxid_errorDatabase.setText((String)obj);
+                fxid_ticketErrorQuery.setText((String)obj);
             }
         }
     }
 
     @FXML
-    public void initialize() {
+    private void initialize() {
         fxid_usernameAv.setText(username);
         fxid_tableUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
         fxid_loginStatus.setCellValueFactory(new PropertyValueFactory<>("loginStatus"));

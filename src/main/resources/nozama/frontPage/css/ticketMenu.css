@@ -1,0 +1,4 @@
+#fxid_topMenu {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 1), 20, 0, 0, 0);
+}
