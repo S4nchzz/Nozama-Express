@@ -247,6 +247,16 @@ public class DatabaseRequestManagment {
                     System.out.println(sqle.getMessage());
                 }
             break;
+
+            case 4:
+                try {
+                    Connection conn = DriverManager.getConnection(url, "root", "");
+                    PreparedStatement st = conn.prepareStatement("SELECT * FROM SUPPORT_TICKET");
+
+                    return st.executeQuery();
+                } catch (SQLException sqle) {
+                    System.out.println(sqle.getMessage());
+                }
         }
         return null;
     }

@@ -27,6 +27,8 @@ import nozama.f01_FrontPage.adminPanel.tables.itemType.ItemTypeTable;
 import nozama.f01_FrontPage.adminPanel.tables.itemType.TableDataItemType;
 import nozama.f01_FrontPage.adminPanel.tables.stock.StockTable;
 import nozama.f01_FrontPage.adminPanel.tables.stock.TableDataStock;
+import nozama.f01_FrontPage.adminPanel.tables.support.SupportTable;
+import nozama.f01_FrontPage.adminPanel.tables.support.TableDataSupport;
 import nozama.f01_FrontPage.adminPanel.tables.users.TableDataUsers;
 import nozama.f01_FrontPage.adminPanel.tables.users.UserTable;
 import nozama_database.sendRequest.DatabaseRequestManagment;
@@ -38,12 +40,15 @@ public class AdminPanel {
     private ResultSet rs;
     private boolean allInsertedUser;
     private boolean allInsertedStock;
+    private boolean allInsertedSupport;
     private TableDataUsers tdU;
     private TableDataStock tdS;
     private TableDataItemType tdIT;
+    private TableDataSupport tdST;
     private Tables tS;
     private Tables tU;
     private Tables tIT;
+    private Tables tST;
     private String query;
     private QueryConditions qc;
 
@@ -61,7 +66,10 @@ public class AdminPanel {
     private Pane fxid_paneUser;
     @FXML
     private ImageView fxid_reloadComponent;
+    @FXML
+    private Pane fxid_ticketPane;
 
+    // Tabla Users
     @FXML
     private TableView<TableDataUsers> fxid_databaseUser;
     @FXML
@@ -81,6 +89,7 @@ public class AdminPanel {
     @FXML
     private TableColumn<TableDataUsers, String> fxid_tableGender;
 
+    // Tabla stock
     @FXML
     private TableView<TableDataStock> fxid_databaseStock;
     @FXML
@@ -96,12 +105,31 @@ public class AdminPanel {
     @FXML
     private TableColumn<TableDataStock, String> fxid_discount;
 
+    // Tabla Item_type
     @FXML
     private TableView<TableDataItemType> fxid_databaseItemType;
     @FXML
     private TableColumn<TableDataItemType, String> fxid_itemTypeColumnExternal;
     @FXML
     private TableColumn<TableDataItemType, String> fxid_descriptionColumnExternal;
+
+    // Tabla Support_ticket
+    @FXML
+    private TableView<TableDataSupport> fxid_databaseSupport;
+    @FXML
+    private TableColumn<TableDataSupport, String> fxid_ticket_id;
+    @FXML
+    private TableColumn<TableDataSupport, String> fxid_ticketStatus;
+    @FXML
+    private TableColumn<TableDataSupport, String> fxid_ticketType;
+    @FXML
+    private TableColumn<TableDataSupport, String> fxid_solicitante_id;
+    @FXML
+    private TableColumn<TableDataSupport, String> fxid_respondente_id;
+    @FXML
+    private TableColumn<TableDataSupport, String> fxid_problem_desc;
+    @FXML
+    private TableColumn<TableDataSupport, String> fxid_problem_response;
 
     public AdminPanel (Stage s, FrontPage stageControllerFP, String username) {
         this.stage = s;
@@ -154,6 +182,7 @@ public class AdminPanel {
         fxid_queryPane.setVisible(true);
         fxid_paneUser.setVisible(true);
         fxid_stockPane.setVisible(false);
+        fxid_ticketPane.setVisible(false);
         fxid_reloadComponent.setVisible(true);
 
         if (!allInsertedUser) {
@@ -167,6 +196,7 @@ public class AdminPanel {
     private void showDatabaseStock() {
         fxid_queryPane.setVisible(true);
         fxid_paneUser.setVisible(false);
+        fxid_ticketPane.setVisible(false);
         fxid_stockPane.setVisible(true);
         fxid_reloadComponent.setVisible(true);
 
@@ -177,6 +207,21 @@ public class AdminPanel {
             tIT = new ItemTypeTable(fxid_databaseItemType);
             this.fxid_databaseItemType = tIT.insertRegistersOnTable();
             allInsertedStock = true;
+        }
+    }
+
+    @FXML
+    private void showDatabaseSupport () {
+        fxid_queryPane.setVisible(true);
+        fxid_ticketPane.setVisible(true);
+        fxid_paneUser.setVisible(false);
+        fxid_stockPane.setVisible(false);
+        fxid_reloadComponent.setVisible(true);
+
+        if (!allInsertedSupport && tST == null) {
+            tST = new SupportTable(fxid_databaseSupport);
+            this.fxid_databaseSupport = tST.insertRegistersOnTable();
+            allInsertedSupport = true;
         }
     }
 
@@ -195,7 +240,11 @@ public class AdminPanel {
             tIT = new ItemTypeTable(fxid_databaseItemType);
             this.fxid_databaseItemType.getItems().clear();
             this.fxid_databaseItemType = tIT.insertRegistersOnTable();
-        }     
+        } else if (fxid_ticketPane.isVisible()) {
+            tST = new SupportTable(fxid_databaseSupport);
+            fxid_databaseSupport.getItems().clear();
+            this.fxid_databaseSupport = tST.insertRegistersOnTable();
+        }
     }
 
     /**
@@ -230,6 +279,9 @@ public class AdminPanel {
         } else if (fxid_databaseItemType.isVisible()) {
             fxid_databaseItemType.getItems().clear();
             this.fxid_databaseItemType = tIT.insertRegistersOnTable();
+        } else if (fxid_ticketPane.isVisible()) {
+            fxid_databaseSupport.getItems().clear();
+            this.fxid_databaseSupport = tST.insertRegistersOnTable();
         }
 
         obj = db.injectCustomQuery(query);
@@ -239,7 +291,7 @@ public class AdminPanel {
             // Si obj es una instancia de tipo ResultSet querra decir que la consulta funciono correctamente
             if (obj instanceof ResultSet) {
                 this.rs = (ResultSet) obj;
-                if (rs != null && query.contains("FROM USER") || query.contains("INTO USER")) {                    
+                if (query.contains("FROM USER") || query.contains("INTO USER")) {                    
                     fxid_databaseUser.getItems().clear();
                     this.fxid_errorDatabase.setText("");
 
@@ -255,7 +307,7 @@ public class AdminPanel {
                     } catch (SQLException sqle) {
                         System.out.println(sqle.getMessage());
                     }
-                } else if (rs != null && query.contains("FROM STOCK") || query.contains("INTO STOCK")) {
+                } else if (query.contains("FROM STOCK") || query.contains("INTO STOCK")) {
                     this.rs = (ResultSet) obj;
                     if (rs != null) {
                         fxid_databaseStock.getItems().clear();
@@ -270,13 +322,24 @@ public class AdminPanel {
                             System.out.println(sqle.getMessage());
                         }
                     }
-                } else if (rs != null && query.contains("FROM ITEM_TYPE") || query.contains("INTO ITEM_TYPE")) {
+                } else if (query.contains("FROM ITEM_TYPE") || query.contains("INTO ITEM_TYPE")) {
                     fxid_databaseItemType.getItems().clear();
                     this.fxid_errorDatabase.setText("");
                     try {
                         while (rs.next()) {
                             tdIT = new TableDataItemType(rs.getString(1), rs.getString(2));
                             fxid_databaseItemType.getItems().add(tdIT);
+                        }
+                    } catch (SQLException sqle) {
+                        System.out.println(sqle.getMessage());
+                    }
+                } else if (query.contains("FROM SUPPORT_TICKET") || query.contains("INTO SUPPORT_TICKET")) {
+                    fxid_databaseSupport.getItems().clear();
+                    this.fxid_errorDatabase.setText("");
+                    try {
+                        while (rs.next()) {
+                            tdST = new TableDataSupport(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7));
+                            fxid_databaseSupport.getItems().add(tdST);
                         }
                     } catch (SQLException sqle) {
                         System.out.println(sqle.getMessage());
@@ -311,5 +374,13 @@ public class AdminPanel {
 
         fxid_itemTypeColumnExternal.setCellValueFactory(new PropertyValueFactory<>("type"));
         fxid_descriptionColumnExternal.setCellValueFactory(new PropertyValueFactory<>("description"));
+
+        fxid_ticket_id.setCellValueFactory(new PropertyValueFactory<>("ticket_id"));
+        fxid_ticketStatus.setCellValueFactory(new PropertyValueFactory<>("ticket_status"));
+        fxid_ticketType.setCellValueFactory(new PropertyValueFactory<>("ticket_type"));
+        fxid_solicitante_id.setCellValueFactory(new PropertyValueFactory<>("solicitante_id"));
+        fxid_respondente_id.setCellValueFactory(new PropertyValueFactory<>("respondente_id"));
+        fxid_problem_desc.setCellValueFactory(new PropertyValueFactory<>("problem_desc"));
+        fxid_problem_response.setCellValueFactory(new PropertyValueFactory<>("problem_response"));
     }
 }

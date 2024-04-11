@@ -64,7 +64,7 @@
                   </Pane>
                   <Pane fx:id="fxid_paneE" prefHeight="60.6" prefWidth="189.0">
                      <children>
-                        <ImageView fx:id="fxid_assistanceAdmin" fitHeight="37.0" fitWidth="37.0" layoutX="14.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="fxid_assistanceAdmin" fitHeight="37.0" fitWidth="37.0" layoutX="14.0" layoutY="12.0" onMouseClicked="#showDatabaseSupport" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@src/adminPanelIcons/assistance-mark.png" />
                            </image>
@@ -146,5 +146,19 @@
             <TextField fx:id="fxid_queryInjection" layoutY="11.0" onAction="#sendAdminQuery" prefHeight="26.0" prefWidth="243.0" promptText="Query" />
          </children>
       </Pane>
+      <Pane fx:id="fxid_ticketPane" layoutX="152.0" layoutY="100.0" prefHeight="569.0" prefWidth="1060.0">
+         <children>
+            <TableView fx:id="fxid_databaseSupport" layoutX="10.0" layoutY="14.0" prefHeight="437.0" prefWidth="1030.0">
+              <columns>
+                <TableColumn fx:id="fxid_ticket_id" prefWidth="75.0" text="TICKET_ID" />
+                <TableColumn fx:id="fxid_ticketStatus" prefWidth="108.0" text="TICKET_STATUS" />
+                  <TableColumn fx:id="fxid_ticketType" prefWidth="93.0" text="TICKET_TYPE" />
+                  <TableColumn fx:id="fxid_solicitante_id" prefWidth="105.0" text="SOLICITANTE_ID" />
+                  <TableColumn fx:id="fxid_respondente_id" minWidth="0.0" prefWidth="117.0" text="RESPONDENTE_ID" />
+                  <TableColumn fx:id="fxid_problem_desc" prefWidth="256.0" text="PROBLEM_DESC" />
+                  <TableColumn fx:id="fxid_problem_response" prefWidth="275.0" text="PROBLEM_RESPONSE" />
+              </columns>
+            </TableView>
+         </children></Pane>
    </children>
 </Pane>
