@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -148,17 +149,23 @@
       </Pane>
       <Pane fx:id="fxid_ticketPane" layoutX="152.0" layoutY="100.0" prefHeight="569.0" prefWidth="1060.0">
          <children>
-            <TableView fx:id="fxid_databaseSupport" layoutX="10.0" layoutY="14.0" prefHeight="437.0" prefWidth="1030.0">
+            <TableView fx:id="fxid_databaseSupport" layoutX="10.0" layoutY="14.0" prefHeight="437.0" prefWidth="499.0">
               <columns>
                 <TableColumn fx:id="fxid_ticket_id" prefWidth="75.0" text="TICKET_ID" />
                 <TableColumn fx:id="fxid_ticketStatus" prefWidth="108.0" text="TICKET_STATUS" />
                   <TableColumn fx:id="fxid_ticketType" prefWidth="93.0" text="TICKET_TYPE" />
                   <TableColumn fx:id="fxid_solicitante_id" prefWidth="105.0" text="SOLICITANTE_ID" />
                   <TableColumn fx:id="fxid_respondente_id" minWidth="0.0" prefWidth="117.0" text="RESPONDENTE_ID" />
-                  <TableColumn fx:id="fxid_problem_desc" prefWidth="256.0" text="PROBLEM_DESC" />
-                  <TableColumn fx:id="fxid_problem_response" prefWidth="275.0" text="PROBLEM_RESPONSE" />
               </columns>
             </TableView>
+            <Pane fx:id="fxid_paneAreaProblem" layoutX="517.0" layoutY="40.0" prefHeight="200.0" prefWidth="535.0" style="-fx-background-color: white;" stylesheets="@css/supportPanel.css">
+               <children>
+                  <Text fx:id="fxid_problem_Desc" layoutX="12.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="510.13671875" />
+               </children>
+            </Pane>
+            <TextField fx:id="fxid_idSearch" layoutX="517.0" layoutY="260.0" prefHeight="26.0" prefWidth="44.0" />
+            <Text fill="#a8a8a8" layoutX="513.0" layoutY="297.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TICKET_ID" />
+            <Button fx:id="fxid_watchDescButton" layoutX="575.0" layoutY="262.0" mnemonicParsing="false" onMouseClicked="#handleWatchProblem" stylesheets="@css/supportPanel.css" text="&gt;" />
          </children></Pane>
    </children>
 </Pane>

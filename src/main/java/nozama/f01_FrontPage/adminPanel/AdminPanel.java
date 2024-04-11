@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -68,6 +69,12 @@ public class AdminPanel {
     private ImageView fxid_reloadComponent;
     @FXML
     private Pane fxid_ticketPane;
+    @FXML
+    private Text fxid_problem_Desc;
+    @FXML
+    private TextField fxid_idSearch;
+    @FXML
+    private Button watchProblem;
 
     // Tabla Users
     @FXML
@@ -126,10 +133,6 @@ public class AdminPanel {
     private TableColumn<TableDataSupport, String> fxid_solicitante_id;
     @FXML
     private TableColumn<TableDataSupport, String> fxid_respondente_id;
-    @FXML
-    private TableColumn<TableDataSupport, String> fxid_problem_desc;
-    @FXML
-    private TableColumn<TableDataSupport, String> fxid_problem_response;
 
     public AdminPanel (Stage s, FrontPage stageControllerFP, String username) {
         this.stage = s;
@@ -338,7 +341,7 @@ public class AdminPanel {
                     this.fxid_errorDatabase.setText("");
                     try {
                         while (rs.next()) {
-                            tdST = new TableDataSupport(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7));
+                            tdST = new TableDataSupport(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
                             fxid_databaseSupport.getItems().add(tdST);
                         }
                     } catch (SQLException sqle) {
@@ -350,6 +353,27 @@ public class AdminPanel {
             }
         } else {
             JOptionPane.showMessageDialog(null, "Instruccion SQL no permitida");
+        }
+    }
+
+    @FXML
+    private void handleWatchProblem () {
+        DatabaseRequestManagment db = new DatabaseRequestManagment();
+        if (!fxid_idSearch.getText().isEmpty() && !fxid_idSearch.getText().isBlank()) {
+            Object obj = db.injectCustomQuery("SELECT PROBLEM_DESC FROM SUPPORT_TICKET WHERE TICKET_ID = " + fxid_idSearch.getText());
+
+            if (obj instanceof ResultSet) {
+                ResultSet rs = (ResultSet)obj;
+                try {
+                    rs.next();
+                    fxid_problem_Desc.setText(rs.getString(1));
+                    rs.close();
+                } catch (SQLException sqle) {
+
+                }
+            } else if (obj instanceof String){
+                fxid_errorDatabase.setText((String)obj);
+            }
         }
     }
 
@@ -380,7 +404,5 @@ public class AdminPanel {
         fxid_ticketType.setCellValueFactory(new PropertyValueFactory<>("ticket_type"));
         fxid_solicitante_id.setCellValueFactory(new PropertyValueFactory<>("solicitante_id"));
         fxid_respondente_id.setCellValueFactory(new PropertyValueFactory<>("respondente_id"));
-        fxid_problem_desc.setCellValueFactory(new PropertyValueFactory<>("problem_desc"));
-        fxid_problem_response.setCellValueFactory(new PropertyValueFactory<>("problem_response"));
     }
 }

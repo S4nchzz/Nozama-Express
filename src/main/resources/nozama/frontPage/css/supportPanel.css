@@ -16,7 +16,7 @@
     -fx-background-color: white;
 }
 
-#fxid_Acc:hover, #fxid_IveBeenHacked:hover, #fxid_Refounds:hover, #fxid_Sugestions:hover, #fxid_Other:hover, #fxid_sendSupport:hover {
+#fxid_Acc:hover, #fxid_IveBeenHacked:hover, #fxid_Refounds:hover, #fxid_Sugestions:hover, #fxid_Other:hover, #fxid_sendSupport:hover, #fxid_watchDescButton:hover  {
     -fx-cursor: hand;
     -fx-border-color: #CBCBCB;
     -fx-background-color: rgb(196, 195, 195);
@@ -26,4 +26,15 @@
 #fxid_sendSupport {
     -fx-border-color: #CBCBCB;
     -fx-background-color: white;
+}
+
+#fxid_watchDescButton {
+    -fx-border-width: 1px 1px 1px 1px;
+    -fx-border-color: #CBCBCB;
+    -fx-background-color: white;
+}
+
+#fxid_paneAreaProblem {
+    -fx-border-width: 1px 1px 1px 1px;
+    -fx-border-color: #CBCBCB;
 }
