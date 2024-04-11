@@ -23,7 +23,7 @@ import javafx.stage.Stage;
 import nozama.NozamaWindowApp;
 import nozama.f00_Login.LoginPage;
 import nozama.f01_FrontPage.FrontPage;
-import nozama.f01_FrontPage.adminPanel.queryInjection.QueryConditions;
+import nozama.f01_FrontPage.adminPanel.queryConditions.QueryConditions;
 import nozama.f01_FrontPage.adminPanel.tables.Tables;
 import nozama.f01_FrontPage.adminPanel.tables.itemType.ItemTypeTable;
 import nozama.f01_FrontPage.adminPanel.tables.itemType.TableDataItemType;

@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import nozama_database.sendRequest.DatabaseRequestManagment;
@@ -31,6 +32,16 @@ public class TicketPanel {
     @FXML
     private void sendResponse () {
         
+    }
+
+    @FXML
+    private void banUserAction () throws SQLException {
+        dbr.injectCustomQuery("UPDATE USER SET BANNED = TRUE WHERE USERNAME LIKE \"" + ticketData.getString(4) + "\"");
+    }
+
+    @FXML
+    private void warnUserAction () throws SQLException{
+        dbr.injectCustomQuery("UPDATE USER SET WARNS = WARNS + 1 WHERE USERNAME LIKE \"" + ticketData.getString(4) + "\"");
     }
 
     @FXML

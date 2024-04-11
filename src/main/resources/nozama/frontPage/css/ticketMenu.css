@@ -3,21 +3,29 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 1), 20, 0, 0, 0);
 }
 
-#fxid_paneProblem{
+#fxid_paneProblem {
     -fx-border-width: 1px 1px 1px 1px;
     -fx-border-color: #CBCBCB;
     -fx-background-color: white;
 }
 
-
-#fxid_responseButton:hover {
-    -fx-border-width: 1px 1px 1px 1px;
-    -fx-border-color: #CBCBCB;
-    -fx-background-color: #CBCBCB;
-}
-
-#fxid_responseButton {
+ #fxid_banUser, #fxid_warnUser, #fxid_responseButton {
     -fx-border-width: 1px 1px 1px 1px;
     -fx-border-color: #CBCBCB;
     -fx-background-color: white;
+    -fx-cursor: hand;
+}
+
+#fxid_banUser:hover {
+    -fx-border-width: 1px 1px 1px 1px;
+    -fx-border-color: red;
+    -fx-background-color: white;
+    -fx-cursor: hand;
+}
+
+#fxid_warnUser:hover {
+    -fx-border-width: 1px 1px 1px 1px;
+    -fx-border-color: orange;
+    -fx-background-color: white;
+    -fx-cursor: hand;
 }

@@ -1,4 +1,4 @@
-package nozama.f01_FrontPage.adminPanel.queryInjection;
+package nozama.f01_FrontPage.adminPanel.queryConditions;
 
 public class QueryConditions {
     private final String query;

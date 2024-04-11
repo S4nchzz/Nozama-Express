@@ -332,7 +332,9 @@ public class DatabaseRequestManagment {
     public static boolean isBanned (String username) {
         try {
             Connection conn = DriverManager.getConnection(url, "root", "");
-            PreparedStatement st = conn.prepareStatement("SELECT BANNED FROM USER WHERE USERNAME LIKE \"" + username + "\"");
+            PreparedStatement st = conn.prepareStatement("SELECT BANNED FROM USER WHERE USERNAME LIKE ?");
+            st.setString(1, username);
+
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
