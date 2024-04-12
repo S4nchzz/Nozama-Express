@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="357.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane fx:id="fxid_chatHeader" prefHeight="84.0" prefWidth="357.0" />
+      <VBox layoutY="84.0" prefHeight="440.0" prefWidth="357.0" />
+   </children>
+</Pane>
