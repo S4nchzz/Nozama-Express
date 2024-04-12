@@ -350,4 +350,20 @@ public class DatabaseRequestManagment {
 
         return false;
     }
+
+    public static ResultSet getAllTicketsFromUser(String username) {
+        try {
+            Connection conn = DriverManager.getConnection(url, "root", "");
+            PreparedStatement st = conn.prepareStatement("SELECT * FROM SUPPORT_TICKET WHERE SOLICITANTE_ID LIKE ? AND STATUS = TRUE");
+            st.setString(1, username);
+
+            ResultSet rs = st.executeQuery();
+            rs.next();
+
+            return rs;
+        } catch (SQLException sqle) {
+
+        }
+        return null;
+    }
 }

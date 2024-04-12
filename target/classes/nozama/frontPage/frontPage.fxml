@@ -121,7 +121,7 @@
             <Image url="@src/frontPageIcons/search-icon.png" />
          </image>
       </ImageView>
-      <Pane fx:id="fxid_supportPane" layoutX="321.0" layoutY="106.0" prefHeight="620.0" prefWidth="900.0" visible="false">
+      <Pane fx:id="fxid_supportPane" layoutX="321.0" layoutY="106.0" prefHeight="620.0" prefWidth="900.0">
          <children>
             <Text layoutX="2.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Soporte y ayuda">
                <font>
@@ -168,6 +168,7 @@
             <Button fx:id="fxid_sendSupport" layoutX="14.0" layoutY="406.0" mnemonicParsing="false" onMouseClicked="#handleSendTicket" stylesheets="@css/supportPanel.css" text="Enviar" />
             <Text fx:id="fxid_ticketResult" layoutX="14.0" layoutY="452.0" strokeType="OUTSIDE" strokeWidth="0.0" />
             <Text fx:id="fxid_ticketsCreatedNum" layoutX="79.0" layoutY="423.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+            <VBox fx:id="fxid_ticketGraphicPane" layoutX="503.0" layoutY="142.0" prefHeight="244.0" prefWidth="377.0" style="-fx-border-color: #CFCFCF;" />
          </children>
       </Pane>
    </children>

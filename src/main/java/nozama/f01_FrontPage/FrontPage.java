@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 import nozama.NozamaWindowApp;
 import nozama.f00_Login.LoginPage;
 import nozama.f01_FrontPage.adminPanel.AdminPanel;
+import nozama.f01_FrontPage.controllersForTemplatesFP.TicketTemplate;
 import nozama_database.sendRequest.DatabaseRequestManagment;
 
 public class FrontPage {
@@ -30,6 +31,8 @@ public class FrontPage {
     private boolean visibleSupport;
     private String nameIDSupportButton;
     private DatabaseRequestManagment dbr;
+    private int ticketAmountAmount;
+    private ResultSet ticketPositionToAdd;
 
     @FXML
     private Text fxid_usernameAv;
@@ -71,12 +74,22 @@ public class FrontPage {
     private Text fxid_ticketResult;
     @FXML   
     private Text fxid_ticketsCreatedNum;
+    @FXML
+    private Pane fxid_ticketGraphicPane;
 
     public FrontPage (ResultSet rs, Stage s, boolean isAdmin) {
         this.dataloguedUser = rs;
         this.stage = s;
         this.isAdmin = isAdmin;
         this.visibleSupport = true;
+        
+        this.ticketAmountAmount = 0;
+
+        try {
+            this.ticketPositionToAdd = DatabaseRequestManagment.getAllTicketsFromUser(dataloguedUser.getString(1));
+        } catch (SQLException sqle) {
+
+        }
         
         // Runtime que crea un hilo antes de cerrar el programa para enviar por ultimo estas instrucciones
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
@@ -148,10 +161,18 @@ public class FrontPage {
     }
 
     @FXML
-    private void handleSupportAction () throws SQLException {
+    private void handleSupportAction () throws SQLException, IOException {
         fxid_supportPane.setVisible(visibleSupport);
 
         int countTickets = ticketLimitReached(dataloguedUser.getString(1));
+        
+        if (fxid_supportPane.isVisible()) {
+            fxid_ticketGraphicPane.getChildren().clear();
+            ticketPositionToAdd = DatabaseRequestManagment.getAllTicketsFromUser(dataloguedUser.getString(1));
+            this.ticketAmountAmount = countTickets;
+            setGraphicTicketsOnShow();
+        }
+        
         fxid_ticketsCreatedNum.setText("Tickets: " + String.valueOf(countTickets) + "/3");
 
         visibleSupport = !visibleSupport;
@@ -194,8 +215,12 @@ public class FrontPage {
                                 if (obj instanceof ResultSet) {
                                     fxid_ticketResult.setFill(Color.GREEN);
                                     fxid_ticketResult.setText("Ticket abierto correctamente, espere a que un administrador le responda");
-                                    // Set number of tickets
+                                    
+                                    
                                     countTickets = ticketLimitReached(dataloguedUser.getString(1));
+                                    this.ticketAmountAmount = countTickets;
+                                    setGraphicTicketsOnCreate();
+
                                     fxid_ticketsCreatedNum.setText("Tickets: " + String.valueOf(countTickets) + "/3");
                                 } else {
                                     fxid_ticketResult.setFill(Color.RED);
@@ -219,6 +244,31 @@ public class FrontPage {
         } catch (SQLException sqle) {
 
         } 
+    }
+
+    private void setGraphicTicketsOnShow () {
+        try {
+            if (ticketAmountAmount <= 3 && ticketAmountAmount >= 1) {
+                for (int i = 0; i <= ticketAmountAmount; i++) {
+                    TicketTemplate tt = new TicketTemplate(ticketPositionToAdd.getString(3), ticketPositionToAdd.getString(6));
+                    fxid_ticketGraphicPane.getChildren().add(tt.getProcessedTicket());
+                    ticketPositionToAdd.next();
+                }
+            }
+        } catch (SQLException sqle) {
+
+        }
+    }
+
+    private void setGraphicTicketsOnCreate () {
+        fxid_ticketGraphicPane.getChildren().clear();
+        try {
+            ticketPositionToAdd = DatabaseRequestManagment.getAllTicketsFromUser(dataloguedUser.getString(1));
+        } catch (SQLException sqle) {
+
+        }
+
+        setGraphicTicketsOnShow();
     }
 
     private boolean checkIfButtonStillSelected(String id) {

@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import nozama_database.sendRequest.DatabaseRequestManagment;
