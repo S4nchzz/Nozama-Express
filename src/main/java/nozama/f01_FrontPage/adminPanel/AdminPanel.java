@@ -22,6 +22,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import nozama.NozamaWindowApp;
 import nozama.f00_Login.LoginPage;
+import nozama.f00_Login.UserData;
+import nozama.f01_FrontPage.BannedException;
 import nozama.f01_FrontPage.FrontPage;
 import nozama.f01_FrontPage.adminPanel.queryConditions.QueryConditions;
 import nozama.f01_FrontPage.adminPanel.tables.Tables;
@@ -39,7 +41,7 @@ import nozama_database.sendRequest.DatabaseRequestManagment;
 public class AdminPanel {
     private final Stage stage;
     private final FrontPage stageControllerFP;
-    private final String username;
+    private final UserData dataLoggedUser;
     private ResultSet rs;
     private boolean allInsertedUser;
     private boolean allInsertedStock;
@@ -148,16 +150,24 @@ public class AdminPanel {
     @FXML
     private TableColumn<TableDataSupport, String> fxid_problem_response;
 
-    public AdminPanel (Stage s, FrontPage stageControllerFP, String username) {
+    public AdminPanel (Stage s, FrontPage stageControllerFP, UserData dataLoggedUser) {
         this.stage = s;
         this.stageControllerFP = stageControllerFP;
-        this.username = username;
+        this.dataLoggedUser = dataLoggedUser;
         this.allInsertedUser = false;
         this.allInsertedStock = false;
     }
 
+    private void checkBanned() throws BannedException {
+        if (DatabaseRequestManagment.isBanned(dataLoggedUser.getUser_id())
+                && DatabaseRequestManagment.isLoggedIn(dataLoggedUser.getUser_id())) {
+            throw new BannedException("El usuario ha sido baneado");
+        }
+    }
+
     @FXML
-    private void handleLogof () {
+    private void handleLogof () throws BannedException {
+        checkBanned();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/nozama/login/login.fxml"));
         loader.setController(new LoginPage(stage));
@@ -176,7 +186,8 @@ public class AdminPanel {
     }
 
     @FXML
-    private void goBackAction () {
+    private void goBackAction () throws BannedException {
+        checkBanned();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/nozama/frontPage/frontPage.fxml"));
         loader.setController(this.stageControllerFP);
@@ -195,7 +206,8 @@ public class AdminPanel {
     }
 
     @FXML
-    private void showDatabaseUsers () {
+    private void showDatabaseUsers () throws BannedException {
+        checkBanned();
         fxid_queryPane.setVisible(true);
         fxid_paneUser.setVisible(true);
         fxid_stockPane.setVisible(false);
@@ -210,7 +222,8 @@ public class AdminPanel {
     }
 
     @FXML
-    private void showDatabaseStock() {
+    private void showDatabaseStock() throws BannedException {
+        checkBanned();
         fxid_queryPane.setVisible(true);
         fxid_paneUser.setVisible(false);
         fxid_ticketPane.setVisible(false);
@@ -228,7 +241,8 @@ public class AdminPanel {
     }
 
     @FXML
-    private void showDatabaseSupport () {
+    private void showDatabaseSupport () throws BannedException {
+        checkBanned();
         fxid_queryPane.setVisible(true);
         fxid_ticketPane.setVisible(true);
         fxid_paneUser.setVisible(false);
@@ -243,7 +257,8 @@ public class AdminPanel {
     }
 
     @FXML
-    private void handleReloadOption () {
+    private void handleReloadOption () throws BannedException {
+        checkBanned();
         if (fxid_paneUser.isVisible()) {
             tU = new UserTable(fxid_databaseUser);
             this.fxid_databaseUser.getItems().clear();
@@ -268,7 +283,8 @@ public class AdminPanel {
      * Metodo que llama a sendAdminQuery()
      */
     @FXML
-    private void sendAdminQueryIconSearch () {
+    private void sendAdminQueryIconSearch () throws BannedException {
+        checkBanned();
         sendAdminQuery();
     }
 
@@ -276,7 +292,8 @@ public class AdminPanel {
      * Metodo que permite enviar consultas y obtener en tiempo real el resultado
      */
     @FXML
-    private void sendAdminQuery () {
+    private void sendAdminQuery () throws BannedException {
+        checkBanned();
         DatabaseRequestManagment db = new DatabaseRequestManagment();
         Object obj = null;
         
@@ -305,6 +322,7 @@ public class AdminPanel {
         qc = new QueryConditions(query);
 
         if (qc.conditions()) {
+            checkBanned();
             // Si obj es una instancia de tipo ResultSet querra decir que la consulta funciono correctamente
             if (obj instanceof ResultSet) {
                 this.rs = (ResultSet) obj;
@@ -371,7 +389,8 @@ public class AdminPanel {
     }
 
     @FXML
-    private void showTicketStageData () throws SQLException, IOException {
+    private void showTicketStageData () throws SQLException, IOException, BannedException {
+        checkBanned();
         DatabaseRequestManagment db = new DatabaseRequestManagment();
         if (!fxid_idSearch.getText().isEmpty() && !fxid_idSearch.getText().isBlank()) {
             Object obj = db.injectCustomQuery("SELECT * FROM SUPPORT_TICKET WHERE TICKET_ID = " + fxid_idSearch.getText());
@@ -382,6 +401,7 @@ public class AdminPanel {
                 if (!rs.next()) {
                     fxid_ticketErrorQuery.setFill(Color.RED);
                     fxid_ticketErrorQuery.setText("Ticket no encontrado");
+                    rs.close();
                 } else {
                     FXMLLoader ticketLoader = new FXMLLoader();
                     ticketLoader.setLocation(getClass().getResource("/nozama/frontPage/ticketMenuAdmin.fxml"));
@@ -395,16 +415,18 @@ public class AdminPanel {
                         ticketStage.setResizable(false);
                         ticketStage.centerOnScreen();
                         ticketStage.show();
+                        rs.close();
                 }
             } else if (obj instanceof String){
                 fxid_ticketErrorQuery.setText((String)obj);
+                rs.close();
             }
         }
     }
 
     @FXML
     private void initialize() {
-        fxid_usernameAv.setText(username);
+        fxid_usernameAv.setText(dataLoggedUser.getName());
         fxid_user_ID.setCellValueFactory(new PropertyValueFactory<>("userID"));
         fxid_tableUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
         fxid_loginStatus.setCellValueFactory(new PropertyValueFactory<>("loginStatus"));

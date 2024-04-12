@@ -144,7 +144,7 @@ public class FrontPage {
         checkBanned();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/nozama/frontPage/adminPanel.fxml"));
-        loader.setController(new AdminPanel(this.stage, this, fxid_usernameAv.getText()));
+        loader.setController(new AdminPanel(this.stage, this, dataLoggedUser));
 
         try {
             Parent p = loader.load();
