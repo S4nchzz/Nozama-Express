@@ -86,7 +86,7 @@ public class FrontPage {
         this.ticketAmount = 0;
 
         try {
-            this.ticketResultQuery = DatabaseRequestManagment.getAllTrueTicketsFromUser(dataloguedUser.getString(1));
+            this.ticketResultQuery = DatabaseRequestManagment.getAllTrueTicketsFromUser(dataloguedUser.getInt(1));
         } catch (SQLException sqle) {
 
         }
@@ -164,11 +164,11 @@ public class FrontPage {
     private void handleSupportAction () throws SQLException, IOException {
         fxid_supportPane.setVisible(visibleSupport);
 
-        ticketAmount = ticketLimitReached(dataloguedUser.getString(1));
+        ticketAmount = ticketLimitReached(dataloguedUser.getInt(1));
         
         if (fxid_supportPane.isVisible()) {
             fxid_ticketGraphicPane.getChildren().clear();
-            ticketResultQuery = DatabaseRequestManagment.getAllTrueTicketsFromUser(dataloguedUser.getString(1));
+            ticketResultQuery = DatabaseRequestManagment.getAllTrueTicketsFromUser(dataloguedUser.getInt(1));
             setGraphicTicketsOnShow();
         }
         
@@ -192,7 +192,7 @@ public class FrontPage {
     @FXML
     private void handleSendTicket () {
         try {
-            int ticketAmount = ticketLimitReached(dataloguedUser.getString(1));
+            int ticketAmount = ticketLimitReached(dataloguedUser.getInt(1));
             if (ticketAmount >= 3) {
                 fxid_ticketResult.setFill(Color.RED);
                 fxid_ticketResult.setText("Ya ha creado 3 tickets, no podra crear mas hasta que un adminsitrador cierre uno de estos");
@@ -215,7 +215,7 @@ public class FrontPage {
                                     fxid_ticketResult.setFill(Color.GREEN);
                                     fxid_ticketResult.setText("Ticket abierto correctamente, espere a que un administrador le responda");
                                     
-                                    this.ticketAmount = ticketLimitReached(dataloguedUser.getString(1));
+                                    this.ticketAmount = ticketLimitReached(dataloguedUser.getInt(1));
                                     setGraphicTicketsOnCreate();
 
                                     fxid_ticketsCreatedNum.setText("Tickets: " + String.valueOf(ticketAmount + 1) + "/3");
@@ -260,7 +260,7 @@ public class FrontPage {
     private void setGraphicTicketsOnCreate () {
         fxid_ticketGraphicPane.getChildren().clear();
         try {
-            ticketResultQuery = DatabaseRequestManagment.getAllTrueTicketsFromUser(dataloguedUser.getString(1));
+            ticketResultQuery = DatabaseRequestManagment.getAllTrueTicketsFromUser(dataloguedUser.getInt(1));
         } catch (SQLException sqle) {
 
         }
@@ -277,7 +277,7 @@ public class FrontPage {
         return false;
     }
 
-    private int ticketLimitReached(String id) {
+    private int ticketLimitReached(int id) {
         dbr = new DatabaseRequestManagment();
         Object obj = dbr.injectCustomQuery("SELECT COUNT(TICKET_ID) FROM SUPPORT_TICKET WHERE SOLICITANTE_ID = \"" + id + "\" AND STATUS = TRUE");
         
@@ -309,7 +309,7 @@ public class FrontPage {
     @FXML
     private void initialize() {
         try {
-            fxid_usernameAv.setText(dataloguedUser.getString(6));
+            fxid_usernameAv.setText(dataloguedUser.getString(7));
         } catch (SQLException sqle) {
             System.out.println(sqle.getMessage());
         }

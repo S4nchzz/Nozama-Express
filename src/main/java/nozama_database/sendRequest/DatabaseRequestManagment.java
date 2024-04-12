@@ -158,9 +158,9 @@ public class DatabaseRequestManagment {
             //Accedemos al primer registro
             if (rs.next()) {
                 // Salt del usuario en la base de datos
-                String saltFromUser = rs.getString(3);
+                String saltFromUser = rs.getString(4);
                 // Contraseña hasheada de la base de datos
-                byte[] passwordDatabaseHashed = rs.getBytes(4);
+                byte[] passwordDatabaseHashed = rs.getBytes(5);
 
                 // Contraseña ingresada por el usuario y el salt del usuario correcto
                 byte[] passwordToCheck = PasswordComplexity.sha256(saltFromUser + password);
@@ -189,12 +189,12 @@ public class DatabaseRequestManagment {
      * @param username Usuario a buscar
      * @return ResultSet
      */
-    public static ResultSet getQueryResult(String username) {
+    public static ResultSet getQueryResult(int username) {
         try {
             Connection conn = DriverManager.getConnection(url, "root", "");
 
-            PreparedStatement st = conn.prepareStatement("SELECT * FROM USER WHERE USERNAME = ?");
-            st.setString(1, username);
+            PreparedStatement st = conn.prepareStatement("SELECT * FROM USER WHERE USER_ID = ?");
+            st.setInt(1, username);
 
             ResultSet rs = st.executeQuery();
 
@@ -267,13 +267,13 @@ public class DatabaseRequestManagment {
      * @param password Contraseña del usuario
      * @return true = admin; false = notAdmin
      */
-    public static boolean isAdmin(String username, String password) {
+    public static boolean isAdmin(String username, String password, int user_ID) {
         if (acceder(username, password)) {
-            ResultSet rs = getQueryResult(username);
+            ResultSet rs = getQueryResult(user_ID);
 
             if (rs != null) {
                 try {
-                    return rs.getBoolean(4);
+                    return rs.getBoolean(6);
                 } catch (SQLException sqle) {
                     System.out.println(sqle.getMessage());
                 }
@@ -329,11 +329,11 @@ public class DatabaseRequestManagment {
         }
     }
 
-    public static boolean isBanned (String username) {
+    public static boolean isBanned (int username) {
         try {
             Connection conn = DriverManager.getConnection(url, "root", "");
-            PreparedStatement st = conn.prepareStatement("SELECT BANNED FROM USER WHERE USERNAME LIKE ?");
-            st.setString(1, username);
+            PreparedStatement st = conn.prepareStatement("SELECT BANNED FROM USER WHERE USER_ID LIKE ?");
+            st.setInt(1, username);
 
             ResultSet rs = st.executeQuery();
 
@@ -351,11 +351,11 @@ public class DatabaseRequestManagment {
         return false;
     }
 
-    public static ResultSet getAllTrueTicketsFromUser(String username) {
+    public static ResultSet getAllTrueTicketsFromUser(int username) {
         try {
             Connection conn = DriverManager.getConnection(url, "root", "");
             PreparedStatement st = conn.prepareStatement("SELECT * FROM SUPPORT_TICKET WHERE SOLICITANTE_ID LIKE ? AND STATUS = TRUE");
-            st.setString(1, username);
+            st.setInt(1, username);
 
             ResultSet rs = st.executeQuery();
 
@@ -366,12 +366,12 @@ public class DatabaseRequestManagment {
         return null;
     }
 
-    public static ResultSet getAllTicketsFromUser(String username) {
+    public static ResultSet getAllTicketsFromUser(int username) {
         try {
             Connection conn = DriverManager.getConnection(url, "root", "");
             PreparedStatement st = conn
                     .prepareStatement("SELECT * FROM SUPPORT_TICKET WHERE SOLICITANTE_ID LIKE ?");
-            st.setString(1, username);
+            st.setInt(1, username);
 
             ResultSet rs = st.executeQuery();
 

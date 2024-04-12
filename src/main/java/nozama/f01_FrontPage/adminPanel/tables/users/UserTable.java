@@ -28,9 +28,9 @@ public class UserTable implements Tables {
             if (rs != null) {
                 try {
                     while (rs.next()) {
-                        tdU = new TableDataUsers(rs.getString(1), rs.getBoolean(2), rs.getString(3), rs.getString(4), rs.getBoolean(5),
-                            rs.getString(6), rs.getString(7), rs.getString(8), rs.getBoolean(9), rs.getInt(10));
-    
+                        tdU = new TableDataUsers(rs.getInt(1), rs.getString(2), rs.getBoolean(3), rs.getString(4),
+                                rs.getString(5), rs.getBoolean(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getBoolean(10), rs.getInt(11));
+
                         fxid_databaseUser.getItems().add(tdU);
                     }
                     return fxid_databaseUser;

@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class TableDataUsers {
+    private final SimpleIntegerProperty user_id;
     private final SimpleStringProperty username;
     private final SimpleBooleanProperty loginStatus;
     private final SimpleStringProperty salt;
@@ -16,8 +17,9 @@ public class TableDataUsers {
     private final SimpleBooleanProperty banned;
     private final SimpleIntegerProperty warnings;
 
-    public TableDataUsers(String username, boolean login_stauts, String salt, String pass, boolean isAdmin, String name, String telf,
+    public TableDataUsers(int user_id, String username, boolean login_stauts, String salt, String pass, boolean isAdmin, String name, String telf,
             String gender, boolean banned, int warnings) {
+        this.user_id = new SimpleIntegerProperty(user_id);
         this.username = new SimpleStringProperty(username);
         this.loginStatus = new SimpleBooleanProperty(login_stauts);
         this.salt = new SimpleStringProperty(salt);
@@ -28,6 +30,10 @@ public class TableDataUsers {
         this.gender = new SimpleStringProperty(gender);
         this.banned = new SimpleBooleanProperty(banned);
         this.warnings = new SimpleIntegerProperty(warnings);
+    }
+
+    public int getUserID() {
+        return user_id.get();
     }
 
     public String getUsername() {

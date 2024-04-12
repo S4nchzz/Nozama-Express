@@ -91,6 +91,25 @@
             <Image url="@../nozamaIcons/logo-SL.png" />
          </image>
       </ImageView>
+      <Pane fx:id="fxid_paneUser" layoutX="152.0" layoutY="100.0" prefHeight="569.0" prefWidth="1060.0">
+         <children>
+            <TableView fx:id="fxid_databaseUser" editable="true" layoutX="10.0" layoutY="14.0" prefHeight="551.0" prefWidth="1030.0">
+              <columns>
+                  <TableColumn fx:id="fxid_user_ID" prefWidth="75.0" text="USER_ID" />
+                <TableColumn fx:id="fxid_tableUsername" prefWidth="75.0" text="USERNAME" />
+                  <TableColumn fx:id="fxid_loginStatus" prefWidth="104.0" text="LOGIN_STATUS" />
+                  <TableColumn fx:id="fxid_tableSalt" prefWidth="75.0" text="SALT" />
+                  <TableColumn fx:id="fxid_tablePass" prefWidth="75.0" text="PASS" />
+                  <TableColumn fx:id="fxid_tableisAdmin" prefWidth="75.0" text="ISADMIN" />
+                  <TableColumn fx:id="fxid_tableName" prefWidth="75.0" text="NAME" />
+                  <TableColumn fx:id="fxid_tableTelf" prefWidth="75.0" text="TELF" />
+                  <TableColumn fx:id="fxid_tableGender" prefWidth="75.0" text="GENDER" />
+                  <TableColumn fx:id="fxid_banned" prefWidth="75.0" text="BANNED" />
+                  <TableColumn fx:id="fxid_warnings" prefWidth="75.0" text="WARNINGS" />
+              </columns>
+            </TableView>
+         </children>
+      </Pane>
       <Pane fx:id="fxid_stockPane" layoutX="152.0" layoutY="100.0" prefHeight="569.0" prefWidth="1060.0" visible="false">
          <children>
             <Text fx:id="fxid_textReference" fill="#808080" layoutX="807.0" layoutY="605.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tabla referenciada por ITEM_TYPE" wrappingWidth="243.469970703125">
@@ -112,24 +131,6 @@
                   <TableColumn fx:id="fxid_stockAmount" prefWidth="120.0" text="STOCK_AMOUNT" />
                   <TableColumn fx:id="fxid_itemPrice" prefWidth="83.0" text="ITEM_PRICE" />
                   <TableColumn fx:id="fxid_discount" prefWidth="82.0" text="DISCOUNT" />
-              </columns>
-            </TableView>
-         </children>
-      </Pane>
-      <Pane fx:id="fxid_paneUser" layoutX="152.0" layoutY="100.0" prefHeight="569.0" prefWidth="1060.0" visible="false">
-         <children>
-            <TableView fx:id="fxid_databaseUser" editable="true" layoutX="10.0" layoutY="14.0" prefHeight="551.0" prefWidth="1030.0">
-              <columns>
-                <TableColumn fx:id="fxid_tableUsername" prefWidth="75.0" text="USERNAME" />
-                  <TableColumn fx:id="fxid_loginStatus" prefWidth="104.0" text="LOGIN_STATUS" />
-                  <TableColumn fx:id="fxid_tableSalt" prefWidth="75.0" text="SALT" />
-                  <TableColumn fx:id="fxid_tablePass" prefWidth="75.0" text="PASS" />
-                  <TableColumn fx:id="fxid_tableisAdmin" prefWidth="75.0" text="ISADMIN" />
-                  <TableColumn fx:id="fxid_tableName" prefWidth="75.0" text="NAME" />
-                  <TableColumn fx:id="fxid_tableTelf" prefWidth="75.0" text="TELF" />
-                  <TableColumn fx:id="fxid_tableGender" prefWidth="75.0" text="GENDER" />
-                  <TableColumn fx:id="fxid_banned" prefWidth="75.0" text="BANNED" />
-                  <TableColumn fx:id="fxid_warnings" prefWidth="75.0" text="WARNINGS" />
               </columns>
             </TableView>
          </children>

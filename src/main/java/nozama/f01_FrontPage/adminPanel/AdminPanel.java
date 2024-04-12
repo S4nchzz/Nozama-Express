@@ -84,6 +84,8 @@ public class AdminPanel {
     @FXML
     private TableView<TableDataUsers> fxid_databaseUser;
     @FXML
+    private TableColumn<TableDataUsers, String> fxid_user_ID;
+    @FXML
     private TableColumn<TableDataUsers, String> fxid_tableUsername;
     @FXML
     private TableColumn<TableDataUsers, String> fxid_loginStatus;
@@ -314,8 +316,8 @@ public class AdminPanel {
                     // datos de la misma con la query solicitada
                     try {
                         while (rs.next()) {
-                            tdU = new TableDataUsers(rs.getString(1), rs.getBoolean(2), rs.getString(3), rs.getString(4),
-                                    rs.getBoolean(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getBoolean(9), rs.getInt(10));
+                            tdU = new TableDataUsers(rs.getInt(1), rs.getString(2), rs.getBoolean(3), rs.getString(4), rs.getString(5),
+                                    rs.getBoolean(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getBoolean(10), rs.getInt(11));
         
                             fxid_databaseUser.getItems().add(tdU);
                         }
@@ -403,6 +405,7 @@ public class AdminPanel {
     @FXML
     private void initialize() {
         fxid_usernameAv.setText(username);
+        fxid_user_ID.setCellValueFactory(new PropertyValueFactory<>("userID"));
         fxid_tableUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
         fxid_loginStatus.setCellValueFactory(new PropertyValueFactory<>("loginStatus"));
         fxid_tableSalt.setCellValueFactory(new PropertyValueFactory<>("salt"));

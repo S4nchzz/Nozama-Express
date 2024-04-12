@@ -42,6 +42,7 @@ public class CreateAccount {
     private String fullname;
     private String telf;
     private String gender;
+    private int userID;
 
     private Conditions conditions;
     
@@ -52,10 +53,11 @@ public class CreateAccount {
      * crear otra nueva
      * @param l Referencia de la clase LoginPage
      */
-    public CreateAccount (Stage s, LoginPage l) {
+    public CreateAccount (Stage s, LoginPage l, int userID) {
         this.stage = s;
         this.loginController = l;
         this.loader = new FXMLLoader();
+        this.userID = userID;
     }
 
     /**
@@ -71,7 +73,7 @@ public class CreateAccount {
     private void handleSingup () throws IOException {
         setStrings();
         // Se crea una instancia de conditions enviandole los String de cada campo
-        this.conditions = new Conditions(username, fullname, telf, password);
+        this.conditions = new Conditions(username, fullname, telf, password, userID);
 
         // Si todas las condiciones se cumplen añade el usuario
         if (conditions.usernameConditions() && conditions.fullNameConditions() && conditions.telfConditions() && conditions.passwordConditions()) {

@@ -1,6 +1,8 @@
 package nozama.f00_Login;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
@@ -52,14 +54,14 @@ public class LoginPage {
         loginContent = fxid_username_field.getText();
         passwordContent = fxid_password_field.getText();
 
-        if (DatabaseRequestManagment.isBanned(loginContent)) {
+        if (DatabaseRequestManagment.isBanned(getIDOnAction())) {
             JOptionPane.showMessageDialog(null, "You have been banned");
         } else if (DatabaseRequestManagment.acceder(loginContent, passwordContent)) {
             FXMLLoader frontPageLoader = new FXMLLoader();
             frontPageLoader.setLocation(getClass().getResource("/nozama/frontPage/frontPage.fxml"));
 
-            FrontPage controller = new FrontPage(DatabaseRequestManagment.getQueryResult(loginContent), stage,
-                    DatabaseRequestManagment.isAdmin(loginContent, passwordContent));
+            FrontPage controller = new FrontPage(DatabaseRequestManagment.getQueryResult(getIDOnAction()), stage,
+                    DatabaseRequestManagment.isAdmin(loginContent, passwordContent, getIDOnAction()));
             frontPageLoader.setController(controller);
 
             Parent p = frontPageLoader.load();
@@ -73,7 +75,7 @@ public class LoginPage {
             stage.show();
         } else {
             JOptionPane.showMessageDialog(null, "Usuario o contraseña invalidao");
-        }      
+        }
     }
 
     /**
@@ -85,7 +87,7 @@ public class LoginPage {
     private void handleCreateAccount() throws IOException {
         FXMLLoader singup_loader = new FXMLLoader();
         singup_loader.setLocation(getClass().getResource("/nozama/login/createAccount.fxml"));
-        singup_loader.setController(new CreateAccount(stage, this));
+        singup_loader.setController(new CreateAccount(stage, this, getIDOnAction()));
 
         Parent p = singup_loader.load();
 
@@ -95,7 +97,6 @@ public class LoginPage {
         stage.setScene(s);
 
         stage.show();
-
     }
 
     /**
@@ -117,5 +118,25 @@ public class LoginPage {
         stage.setScene(s);
 
         stage.show();
+    }
+
+    private int getIDOnAction() {
+        DatabaseRequestManagment dbr = new DatabaseRequestManagment();
+        Object obj = dbr.injectCustomQuery("SELECT USER_ID FROM USER WHERE USERNAME LIKE \"" + loginContent + "\"");
+        
+        if (obj instanceof ResultSet) {
+            ResultSet userIDReg = (ResultSet)obj;  
+            try {
+                while (userIDReg.next()) {
+                    int id = userIDReg.getInt(1);
+                    userIDReg.close();
+                    return id;
+                }
+            } catch (SQLException sqle) {
+
+            }
+        }
+
+        return 0;
     }
 }

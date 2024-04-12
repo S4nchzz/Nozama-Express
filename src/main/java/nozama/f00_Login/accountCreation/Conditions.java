@@ -13,6 +13,7 @@ public class Conditions {
     private final String fullName;
     private final String telf;
     private final String password;
+    private final int userID;
 
     private ResultSet rs;
 
@@ -23,11 +24,12 @@ public class Conditions {
      * @param telf Telefono +34
      * @param pass Contraseña del usuario
      */
-    public Conditions (String username, String fullName, String telf, String pass) {
+    public Conditions (String username, String fullName, String telf, String pass, int userID) {
         this.username = username;
         this.fullName = fullName;
         this.telf = telf;
         this.password = pass;
+        this.userID = userID;
     }
 
     /**
@@ -44,10 +46,10 @@ public class Conditions {
      */
     protected boolean usernameConditions () {
         if (!username.isEmpty() && !username.isBlank()) {
-            this.rs = DatabaseRequestManagment.getQueryResult(username);
+            this.rs = DatabaseRequestManagment.getQueryResult(userID);
             
             // Si rs es distinto de null querra decir que se encontro un usuario en la base
-            // de datos con el mismo nombre de usuario a elegir
+            // de datos con el mismo id de usuario a elegir
             if (rs != null) {
                 JOptionPane.showMessageDialog(null, "Usuario en uso");
                 return false;
