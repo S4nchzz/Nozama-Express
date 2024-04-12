@@ -46,12 +46,12 @@ public class TicketPanel {
 
     @FXML
     private void banUserAction () throws SQLException {
-        dbr.injectCustomQuery("UPDATE USER SET BANNED = TRUE WHERE USERNAME LIKE \"" + ticketData.getString(4) + "\"");
+        dbr.injectCustomQuery("UPDATE USER SET BANNED = TRUE WHERE USER_ID = " + ticketData.getInt(4));
     }
 
     @FXML
     private void warnUserAction () throws SQLException{
-        dbr.injectCustomQuery("UPDATE USER SET WARNS = WARNS + 1 WHERE USERNAME LIKE \"" + ticketData.getString(4) + "\"");
+        dbr.injectCustomQuery("UPDATE USER SET WARNS = WARNS + 1 WHERE USER_ID = " + ticketData.getInt(4));
     }
 
     @FXML
@@ -67,11 +67,12 @@ public class TicketPanel {
                 fxid_closedResponse.setVisible(true);
 
                 fxid_responseIfClosed.setText(ticketData.getString(7));
-                fxid_whoRespond.setText(fxid_whoRespond.getText() + " " + ticketData.getString(5));
+                fxid_whoRespond.setText(fxid_whoRespond.getText() + " " + ticketData.getInt(5));
                 fxid_sendResponsePane.setVisible(false);
+                fxid_whoRespond.setVisible(true);
             }
 
-            Object obj = dbr.injectCustomQuery("SELECT LOGIN_STATUS FROM USER WHERE USERNAME LIKE \"" + ticketData.getString(4) + "\"");
+            Object obj = dbr.injectCustomQuery("SELECT LOGIN_STATUS FROM USER WHERE USER_ID = " + ticketData.getInt(4));
             boolean user_status;
 
             if (obj instanceof ResultSet) {
@@ -80,23 +81,21 @@ public class TicketPanel {
                 user_status = rs.getBoolean(1);
                 if (!user_status) {
                     fxid_userLoguedOrNot.setFill(Color.RED);
-                    fxid_userLoguedOrNot.setText(ticketData.getString(4) + " (Offline)");
+                    fxid_userLoguedOrNot.setText(ticketData.getInt(4) + " (Offline)");
                 } else {
                     fxid_userLoguedOrNot.setFill(Color.GREEN);
-                    fxid_userLoguedOrNot.setText(ticketData.getString(4) + " (Online)");
+                    fxid_userLoguedOrNot.setText(ticketData.getInt(4) + " (Online)");
                 }
                 rs.close();
             }
 
             StringBuilder sb = new StringBuilder();
-            for (int i = 1; i < ticketData.getString(3).length(); i++) {
-                if (ticketData.getString(3).charAt(i - 1) == '_') {
-                    sb.append(ticketData.getString(3).charAt(i));
-                }
+            for (int i = 5; i < ticketData.getString(3).length(); i++) {
+                sb.append(ticketData.getString(3).charAt(i));
             }
 
             fxid_probType.setText("Type: " + sb.toString());
-            fxid_probType.setText(ticketData.getString(3));
+            fxid_probType.setText(String.valueOf(ticketData.getInt(3)));
             fxid_problem_content.setText(ticketData.getString(6));
         } catch (SQLException ioe) {
             

@@ -95,16 +95,29 @@ public class FrontPage {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             dbr = new DatabaseRequestManagment();
             try {
-                dbr.injectCustomQuery("UPDATE USER SET LOGIN_STATUS = FALSE WHERE USERNAME = \"" + dataloguedUser.getString(1) + "\"");
+                dbr.injectCustomQuery("UPDATE USER SET LOGIN_STATUS = FALSE WHERE USER_ID = " + dataloguedUser.getInt(1));
             } catch (SQLException sqle) {
 
             }
         }));
+
+        new Thread(() -> {
+            try {
+                while (DatabaseRequestManagment.isLoguedIn(dataloguedUser.getInt(1))) {
+                    if (DatabaseRequestManagment.isBanned(dataloguedUser.getInt(1))) {
+                        System.out.println("BANEADO");
+                    }
+                    Thread.sleep(5000);
+                }
+            } catch (SQLException | InterruptedException sqlei) {
+
+            }
+        }).start();
         
         // Establece el booleano de login_status a true refiriendose a que el usuario tiene la sesion iniciada
         dbr = new DatabaseRequestManagment();
         try {
-            dbr.injectCustomQuery("UPDATE USER SET LOGIN_STATUS = TRUE WHERE USERNAME = \"" + dataloguedUser.getString(1) + "\"");
+            dbr.injectCustomQuery("UPDATE USER SET LOGIN_STATUS = TRUE WHERE USER_ID = " + dataloguedUser.getInt(1));
         } catch (SQLException sqle2) {
 
         }
@@ -119,7 +132,7 @@ public class FrontPage {
         try {
             dbr = new DatabaseRequestManagment();
             dbr.injectCustomQuery(
-                    "UPDATE USER SET LOGIN_STATUS = FALSE WHERE USERNAME = \"" + dataloguedUser.getString(1) + "\"");
+                    "UPDATE USER SET LOGIN_STATUS = FALSE WHERE USERNAME = \"" + dataloguedUser.getInt(1));;
         } catch (SQLException sqle) {
 
         }

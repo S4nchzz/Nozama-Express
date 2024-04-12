@@ -381,4 +381,25 @@ public class DatabaseRequestManagment {
         }
         return null;
     }
+
+    public static boolean isLoguedIn (int username) {
+         try {
+            Connection conn = DriverManager.getConnection(url, "root", "");
+            PreparedStatement st = conn
+                    .prepareStatement("SELECT LOGIN_STATUS FROM USER WHERE USER_ID LIKE ?");
+            st.setInt(1, username);
+
+            boolean sesion = false;
+            ResultSet rs = st.executeQuery();
+            
+            while (rs.next()) {
+                sesion = rs.getBoolean(1);
+            }
+
+            return sesion;
+        } catch (SQLException sqle) {
+
+        }
+        return false;
+    }
 }

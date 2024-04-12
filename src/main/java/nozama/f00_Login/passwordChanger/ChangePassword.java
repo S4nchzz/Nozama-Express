@@ -38,7 +38,6 @@ public class ChangePassword {
     private String passAdmin;
     private String user;
     private String pass;
-    private int userID;
 
     /**
      * Constructor de la clase con el Stage actual y
@@ -50,7 +49,6 @@ public class ChangePassword {
     public ChangePassword (Stage s, LoginPage l) {
         this.stage = s;
         this.loginController = l;
-        this.userID = userID;
     }
 
     /**
@@ -68,7 +66,7 @@ public class ChangePassword {
     public void handleChange () throws IOException {
         setStrings();
 
-        if (checkFieldSyntax() && DatabaseRequestManagment.isAdmin(ObtainIDFromUsername.getID(userAdmin), passAdmin)) {
+        if (checkFieldSyntax() && DatabaseRequestManagment.isAdmin(userAdmin, passAdmin, ObtainIDFromUsername.getID(userAdmin))) {
             if (!DatabaseRequestManagment.acceder(user, pass)) {
                 if (pass.length() > 5) {
                     DatabaseRequestManagment.cambiarContrasena(user, pass);
