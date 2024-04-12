@@ -164,16 +164,15 @@ public class FrontPage {
     private void handleSupportAction () throws SQLException, IOException {
         fxid_supportPane.setVisible(visibleSupport);
 
-        int countTickets = ticketLimitReached(dataloguedUser.getString(1));
+        ticketAmount = ticketLimitReached(dataloguedUser.getString(1));
         
         if (fxid_supportPane.isVisible()) {
             fxid_ticketGraphicPane.getChildren().clear();
             ticketResultQuery = DatabaseRequestManagment.getAllTicketsFromUser(dataloguedUser.getString(1));
-            this.ticketAmount = countTickets;
             setGraphicTicketsOnShow();
         }
         
-        fxid_ticketsCreatedNum.setText("Tickets: " + String.valueOf(countTickets) + "/3");
+        fxid_ticketsCreatedNum.setText("Tickets: " + String.valueOf(ticketAmount) + "/3");
 
         visibleSupport = !visibleSupport;
     }
@@ -193,8 +192,8 @@ public class FrontPage {
     @FXML
     private void handleSendTicket () {
         try {
-            int countTickets = ticketLimitReached(dataloguedUser.getString(1));
-            if (countTickets >= 3) {
+            int ticketAmount = ticketLimitReached(dataloguedUser.getString(1));
+            if (ticketAmount >= 3) {
                 fxid_ticketResult.setFill(Color.RED);
                 fxid_ticketResult.setText("Ya ha creado 3 tickets, no podra crear mas hasta que un adminsitrador cierre uno de estos");
             } else {
@@ -216,12 +215,10 @@ public class FrontPage {
                                     fxid_ticketResult.setFill(Color.GREEN);
                                     fxid_ticketResult.setText("Ticket abierto correctamente, espere a que un administrador le responda");
                                     
-                                    
-                                    countTickets = ticketLimitReached(dataloguedUser.getString(1));
-                                    this.ticketAmount = countTickets;
+                                    this.ticketAmount = ticketLimitReached(dataloguedUser.getString(1));
                                     setGraphicTicketsOnCreate();
 
-                                    fxid_ticketsCreatedNum.setText("Tickets: " + String.valueOf(countTickets) + "/3");
+                                    fxid_ticketsCreatedNum.setText("Tickets: " + String.valueOf(ticketAmount + 1) + "/3");
                                 } else {
                                     fxid_ticketResult.setFill(Color.RED);
                                     fxid_ticketResult.setText("Hubo un problema al enviar el ticket");
