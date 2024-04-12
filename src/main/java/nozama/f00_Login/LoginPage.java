@@ -1,6 +1,8 @@
 package nozama.f00_Login;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
@@ -58,8 +60,18 @@ public class LoginPage {
             FXMLLoader frontPageLoader = new FXMLLoader();
             frontPageLoader.setLocation(getClass().getResource("/nozama/frontPage/frontPage.fxml"));
 
-            FrontPage controller = new FrontPage(DatabaseRequestManagment.getQueryResult(ObtainIDFromUsername.getID(loginContent)), stage,
-                    DatabaseRequestManagment.isAdmin(loginContent, passwordContent, ObtainIDFromUsername.getID(loginContent)));
+            UserData user = null;
+            ResultSet rsUser = null;
+            try {
+                rsUser = DatabaseRequestManagment.getQueryResult(ObtainIDFromUsername.getID(loginContent));
+                user = new UserData(rsUser.getInt(1), rsUser.getString(2), rsUser.getBoolean(3), rsUser.getString(4), rsUser.getString(5), rsUser.getBoolean(6), rsUser.getString(7), rsUser.getString(8), rsUser.getString(9), rsUser.getBoolean(10), rsUser.getInt(11));
+            } catch (SQLException sqle) {
+
+            }
+            
+            FrontPage controller = new FrontPage(user, stage, DatabaseRequestManagment.isAdmin(loginContent, passwordContent, ObtainIDFromUsername.getID(loginContent)));
+            try {rsUser.close();} catch (SQLException e) {};
+            
             frontPageLoader.setController(controller);
 
             Parent p = frontPageLoader.load();

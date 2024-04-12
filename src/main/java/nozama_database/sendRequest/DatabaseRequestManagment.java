@@ -329,28 +329,7 @@ public class DatabaseRequestManagment {
         }
     }
 
-    public static boolean isBanned (int username) {
-        try {
-            Connection conn = DriverManager.getConnection(url, "root", "");
-            PreparedStatement st = conn.prepareStatement("SELECT BANNED FROM USER WHERE USER_ID LIKE ?");
-            st.setInt(1, username);
-
-            ResultSet rs = st.executeQuery();
-
-            while (rs.next()) {
-                if (rs.getBoolean(1)) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        } catch (SQLException sqle) {
-
-        }
-
-        return false;
-    }
-
+    
     public static ResultSet getAllTrueTicketsFromUser(int username) {
         try {
             Connection conn = DriverManager.getConnection(url, "root", "");
@@ -370,36 +349,100 @@ public class DatabaseRequestManagment {
         try {
             Connection conn = DriverManager.getConnection(url, "root", "");
             PreparedStatement st = conn
-                    .prepareStatement("SELECT * FROM SUPPORT_TICKET WHERE SOLICITANTE_ID LIKE ?");
+                    .prepareStatement("SELECT * FROM SUPPORT_TICKET WHERE SOLICITANTE_ID = ?");
             st.setInt(1, username);
 
             ResultSet rs = st.executeQuery();
-
+            
             return rs;
         } catch (SQLException sqle) {
-
+            
         }
         return null;
     }
+    
+    public static boolean isBanned (int username) {
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        boolean banned;
 
-    public static boolean isLoguedIn (int username) {
-         try {
-            Connection conn = DriverManager.getConnection(url, "root", "");
-            PreparedStatement st = conn
-                    .prepareStatement("SELECT LOGIN_STATUS FROM USER WHERE USER_ID LIKE ?");
+        try {
+            conn = DriverManager.getConnection(url, "root", "");
+            st = conn
+                    .prepareStatement("SELECT BANNED FROM USER WHERE USER_ID = ?");
             st.setInt(1, username);
 
-            boolean sesion = false;
-            ResultSet rs = st.executeQuery();
-            
-            while (rs.next()) {
-                sesion = rs.getBoolean(1);
+            rs = st.executeQuery();
+
+            if (!rs.next()) {
+                banned = false;
+            } else {
+                banned = rs.getBoolean(1);
+
+                if (rs.next()) {
+                    banned = false;
+                }
             }
 
-            return sesion;
         } catch (SQLException sqle) {
-
+            banned = false;
         }
-        return false;
+
+        if (rs != null) {
+            try {rs.close();} catch (SQLException e) {}
+        }
+
+        if (st != null) {try {st.close();} catch (SQLException e) {}
+        }
+
+        if (conn != null) {
+            try {conn.close();} catch (SQLException e) {}
+        }
+
+        return banned;
+    }
+    
+    public static boolean isLoggedIn (int username) {
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        boolean sesion;
+
+        try {
+            conn = DriverManager.getConnection(url, "root", "");
+            st = conn
+                    .prepareStatement("SELECT LOGIN_STATUS FROM USER WHERE USER_ID = ?");
+            st.setInt(1, username);
+
+            rs = st.executeQuery();
+
+            if (! rs.next ()) {
+                sesion = false;
+            } else {
+                sesion = rs.getBoolean(1);
+
+                if (rs.next ()) {
+                    sesion = false;
+                }
+            }
+            
+        } catch (SQLException sqle) {
+            sesion = false;
+        }
+
+        if (rs != null) {
+            try { rs.close(); } catch (SQLException e) {}
+        }
+
+        if (st != null) {
+            try { st.close(); } catch (SQLException e) {}
+        }
+
+        if (conn != null) {
+            try { conn.close(); } catch (SQLException e) {}
+        }
+
+        return sesion;
     }
 }
