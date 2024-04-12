@@ -42,6 +42,8 @@
           - Kollektif
 * Cerrar sesion:
           - La funcion de cerrar sesion esta implementada
+* Funciones de tickets:
+          - El usuario creara incidencias y se almacenaran en la base de datos
 
 ## Ideas
 
