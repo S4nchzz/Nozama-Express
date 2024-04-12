@@ -1,6 +1,8 @@
 package nozama.f01_FrontPage.controllersForTemplatesFP;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,15 +17,19 @@ public class TicketTemplateCLLR {
     @FXML
     private Text fxid_prob;
 
-    public TicketTemplateCLLR(String type, String problem) {
+    public TicketTemplateCLLR(ResultSet ticketData) {
         try {
             FXMLLoader ticket = new FXMLLoader();
             ticket.setLocation(getClass().getResource("/nozama/frontPage/templateElements/ticketTemplate.fxml"));
             ticket.setController(this);
             graphicTicket = ticket.load();
 
-            fxid_type.setText(type);
-            fxid_prob.setText(problem);
+            try {
+                fxid_prob.setText(ticketData.getString(6));
+                fxid_type.setText(ticketData.getString(3));
+            } catch (SQLException sqle) {
+                
+            }
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Failed to load FXML file.");
@@ -32,5 +38,10 @@ public class TicketTemplateCLLR {
 
     public Pane getProcessedTicket () {
         return this.graphicTicket;
+    }
+
+    @FXML
+    private void openTicketAction () {
+        System.out.println("ASDasdasdsda");
     }
 }

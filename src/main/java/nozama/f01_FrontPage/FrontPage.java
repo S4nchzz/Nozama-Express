@@ -31,8 +31,8 @@ public class FrontPage {
     private boolean visibleSupport;
     private String nameIDSupportButton;
     private DatabaseRequestManagment dbr;
-    private int ticketAmountAmount;
-    private ResultSet ticketPositionToAdd;
+    private int ticketAmount;
+    private ResultSet ticketResultQuery;
 
     @FXML
     private Text fxid_usernameAv;
@@ -83,10 +83,10 @@ public class FrontPage {
         this.isAdmin = isAdmin;
         this.visibleSupport = true;
         
-        this.ticketAmountAmount = 0;
+        this.ticketAmount = 0;
 
         try {
-            this.ticketPositionToAdd = DatabaseRequestManagment.getAllTicketsFromUser(dataloguedUser.getString(1));
+            this.ticketResultQuery = DatabaseRequestManagment.getAllTicketsFromUser(dataloguedUser.getString(1));
         } catch (SQLException sqle) {
 
         }
@@ -168,8 +168,8 @@ public class FrontPage {
         
         if (fxid_supportPane.isVisible()) {
             fxid_ticketGraphicPane.getChildren().clear();
-            ticketPositionToAdd = DatabaseRequestManagment.getAllTicketsFromUser(dataloguedUser.getString(1));
-            this.ticketAmountAmount = countTickets;
+            ticketResultQuery = DatabaseRequestManagment.getAllTicketsFromUser(dataloguedUser.getString(1));
+            this.ticketAmount = countTickets;
             setGraphicTicketsOnShow();
         }
         
@@ -218,7 +218,7 @@ public class FrontPage {
                                     
                                     
                                     countTickets = ticketLimitReached(dataloguedUser.getString(1));
-                                    this.ticketAmountAmount = countTickets;
+                                    this.ticketAmount = countTickets;
                                     setGraphicTicketsOnCreate();
 
                                     fxid_ticketsCreatedNum.setText("Tickets: " + String.valueOf(countTickets) + "/3");
@@ -248,11 +248,11 @@ public class FrontPage {
 
     private void setGraphicTicketsOnShow () {
         try {
-            if (ticketAmountAmount <= 3 && ticketAmountAmount >= 1) {
-                for (int i = 0; i <= ticketAmountAmount; i++) {
-                    TicketTemplateCLLR tt = new TicketTemplateCLLR(ticketPositionToAdd.getString(3), ticketPositionToAdd.getString(6));
+            if (ticketAmount <= 3 && ticketAmount >= 1) {
+                for (int i = 0; i < ticketAmount; i++) {
+                    TicketTemplateCLLR tt = new TicketTemplateCLLR(ticketResultQuery);
                     fxid_ticketGraphicPane.getChildren().add(tt.getProcessedTicket());
-                    ticketPositionToAdd.next();
+                    ticketResultQuery.next();
                 }
             }
         } catch (SQLException sqle) {
@@ -263,7 +263,7 @@ public class FrontPage {
     private void setGraphicTicketsOnCreate () {
         fxid_ticketGraphicPane.getChildren().clear();
         try {
-            ticketPositionToAdd = DatabaseRequestManagment.getAllTicketsFromUser(dataloguedUser.getString(1));
+            ticketResultQuery = DatabaseRequestManagment.getAllTicketsFromUser(dataloguedUser.getString(1));
         } catch (SQLException sqle) {
 
         }
