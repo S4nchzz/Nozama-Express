@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 import nozama.NozamaWindowApp;
 import nozama.f00_Login.LoginPage;
 import nozama.f01_FrontPage.adminPanel.AdminPanel;
+import nozama.f01_FrontPage.controllersForTemplatesFP.AllTicketTemplate;
 import nozama.f01_FrontPage.controllersForTemplatesFP.TicketTemplateCLLR;
 import nozama_database.sendRequest.DatabaseRequestManagment;
 
@@ -86,7 +87,7 @@ public class FrontPage {
         this.ticketAmount = 0;
 
         try {
-            this.ticketResultQuery = DatabaseRequestManagment.getAllTicketsFromUser(dataloguedUser.getString(1));
+            this.ticketResultQuery = DatabaseRequestManagment.getAllTrueTicketsFromUser(dataloguedUser.getString(1));
         } catch (SQLException sqle) {
 
         }
@@ -168,7 +169,7 @@ public class FrontPage {
         
         if (fxid_supportPane.isVisible()) {
             fxid_ticketGraphicPane.getChildren().clear();
-            ticketResultQuery = DatabaseRequestManagment.getAllTicketsFromUser(dataloguedUser.getString(1));
+            ticketResultQuery = DatabaseRequestManagment.getAllTrueTicketsFromUser(dataloguedUser.getString(1));
             setGraphicTicketsOnShow();
         }
         
@@ -247,9 +248,9 @@ public class FrontPage {
         try {
             if (ticketAmount <= 3 && ticketAmount >= 1) {
                 for (int i = 0; i < ticketAmount; i++) {
+                    ticketResultQuery.next();
                     TicketTemplateCLLR tt = new TicketTemplateCLLR(ticketResultQuery);
                     fxid_ticketGraphicPane.getChildren().add(tt.getProcessedTicket());
-                    ticketResultQuery.next();
                 }
             }
         } catch (SQLException sqle) {
@@ -260,7 +261,7 @@ public class FrontPage {
     private void setGraphicTicketsOnCreate () {
         fxid_ticketGraphicPane.getChildren().clear();
         try {
-            ticketResultQuery = DatabaseRequestManagment.getAllTicketsFromUser(dataloguedUser.getString(1));
+            ticketResultQuery = DatabaseRequestManagment.getAllTrueTicketsFromUser(dataloguedUser.getString(1));
         } catch (SQLException sqle) {
 
         }
@@ -297,7 +298,6 @@ public class FrontPage {
         }
         return -999;
     }
-
     /**
      * Metodo que cuando se ejecuta el controlador y se cargan todos
      * los componentes de la clase con la anotacion @FXML, busca

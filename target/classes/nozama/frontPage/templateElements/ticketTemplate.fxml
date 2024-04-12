@@ -14,11 +14,11 @@
             <Image url="@../src/frontPageIcons/carta-icon.png" />
          </image>
       </ImageView>
-      <Pane fx:id="fxid_contentPane" layoutX="75.0" layoutY="1.0" onMouseClicked="#openTicketAction" prefHeight="81.0" prefWidth="298.0">
+      <Pane fx:id="fxid_contentPane" layoutX="75.0" layoutY="1.0" onMouseClicked="#openTicketAction" prefHeight="81.0" prefWidth="302.0">
          <children>
             <Text fx:id="fxid_type" layoutX="14.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="198.7109375" />
             <Text fx:id="fxid_prob" layoutX="14.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="303.7109375" />
-            <Line endX="101.2890625" endY="-7.62939453125E-6" layoutX="136.0" layoutY="21.0" startX="-135.0" startY="-7.62939453125E-6" />
+            <Line endX="15.2890625" endY="-7.62939453125E-6" layoutX="136.0" layoutY="21.0" startX="-135.0" startY="-7.62939453125E-6" />
          </children>
       </Pane>
    </children>

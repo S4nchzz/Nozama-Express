@@ -149,7 +149,7 @@
             <TextField fx:id="fxid_queryInjection" layoutY="11.0" onAction="#sendAdminQuery" prefHeight="26.0" prefWidth="243.0" promptText="Query" />
          </children>
       </Pane>
-      <Pane fx:id="fxid_ticketPane" layoutX="152.0" layoutY="100.0" prefHeight="569.0" prefWidth="1060.0">
+      <Pane fx:id="fxid_ticketPane" layoutX="152.0" layoutY="100.0" prefHeight="569.0" prefWidth="1060.0" visible="false">
          <children>
             <TableView fx:id="fxid_databaseSupport" layoutX="10.0" layoutY="14.0" prefHeight="437.0" prefWidth="1040.0">
               <columns>

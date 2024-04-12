@@ -382,7 +382,7 @@ public class AdminPanel {
                     fxid_ticketErrorQuery.setText("Ticket no encontrado");
                 } else {
                     FXMLLoader ticketLoader = new FXMLLoader();
-                    ticketLoader.setLocation(getClass().getResource("/nozama/frontPage/ticketMenu.fxml"));
+                    ticketLoader.setLocation(getClass().getResource("/nozama/frontPage/ticketMenuAdmin.fxml"));
                     ticketLoader.setController(new TicketPanel(rs));
                         Parent p = ticketLoader.load();
                         Scene s = new Scene(p);
