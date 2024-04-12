@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 import nozama.NozamaWindowApp;
 import nozama.f00_Login.LoginPage;
 import nozama.f01_FrontPage.adminPanel.AdminPanel;
-import nozama.f01_FrontPage.controllersForTemplatesFP.TicketTemplate;
+import nozama.f01_FrontPage.controllersForTemplatesFP.TicketTemplateCLLR;
 import nozama_database.sendRequest.DatabaseRequestManagment;
 
 public class FrontPage {
@@ -250,7 +250,7 @@ public class FrontPage {
         try {
             if (ticketAmountAmount <= 3 && ticketAmountAmount >= 1) {
                 for (int i = 0; i <= ticketAmountAmount; i++) {
-                    TicketTemplate tt = new TicketTemplate(ticketPositionToAdd.getString(3), ticketPositionToAdd.getString(6));
+                    TicketTemplateCLLR tt = new TicketTemplateCLLR(ticketPositionToAdd.getString(3), ticketPositionToAdd.getString(6));
                     fxid_ticketGraphicPane.getChildren().add(tt.getProcessedTicket());
                     ticketPositionToAdd.next();
                 }

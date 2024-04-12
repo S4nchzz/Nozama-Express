@@ -7,7 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
-public class TicketTemplate {
+public class TicketTemplateCLLR {
     Pane graphicTicket;
 
     @FXML
@@ -15,7 +15,7 @@ public class TicketTemplate {
     @FXML
     private Text fxid_prob;
 
-    public TicketTemplate(String type, String problem) {
+    public TicketTemplateCLLR(String type, String problem) {
         try {
             FXMLLoader ticket = new FXMLLoader();
             ticket.setLocation(getClass().getResource("/nozama/frontPage/templateElements/ticketTemplate.fxml"));

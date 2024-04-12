@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javafx.fxml.FXML;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import nozama_database.sendRequest.DatabaseRequestManagment;
@@ -22,6 +23,16 @@ public class TicketPanel {
     private Text fxid_userLoguedOrNot;
     @FXML
     private Text fxid_probType;
+    @FXML
+    private Text fxid_whoRespond;
+    @FXML
+    private Pane fxid_sendResponsePane;
+
+    // Closed Ticket?
+    @FXML
+    private Pane fxid_closedResponse;
+    @FXML
+    private Text fxid_responseIfClosed;
 
     public TicketPanel (ResultSet ticketData) {
         this.ticketData = ticketData;
@@ -53,6 +64,11 @@ public class TicketPanel {
             } else {
                 fxid_textTicketStatus.setFill(Color.RED);
                 fxid_textTicketStatus.setText("Ticket cerrado");
+                fxid_closedResponse.setVisible(true);
+
+                fxid_responseIfClosed.setText(ticketData.getString(7));
+                fxid_whoRespond.setText(fxid_whoRespond.getText() + " " + ticketData.getString(5));
+                fxid_sendResponsePane.setVisible(false);
             }
 
             Object obj = dbr.injectCustomQuery("SELECT LOGIN_STATUS FROM USER WHERE USERNAME LIKE \"" + ticketData.getString(4) + "\"");
