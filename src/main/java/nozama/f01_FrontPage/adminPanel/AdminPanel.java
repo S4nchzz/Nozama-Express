@@ -35,6 +35,7 @@ import nozama.f01_FrontPage.adminPanel.tables.support.SupportTable;
 import nozama.f01_FrontPage.adminPanel.tables.support.TableDataSupport;
 import nozama.f01_FrontPage.adminPanel.tables.users.TableDataUsers;
 import nozama.f01_FrontPage.adminPanel.tables.users.UserTable;
+import nozama.f01_FrontPage.adminPanel.ticketPanel.TicketData;
 import nozama.f01_FrontPage.adminPanel.ticketPanel.TicketPanel;
 import nozama_database.sendRequest.DatabaseRequestManagment;
 
@@ -405,7 +406,10 @@ public class AdminPanel {
                 } else {
                     FXMLLoader ticketLoader = new FXMLLoader();
                     ticketLoader.setLocation(getClass().getResource("/nozama/frontPage/ticketMenuAdmin.fxml"));
-                    ticketLoader.setController(new TicketPanel(rs));
+
+                    TicketData ticketData = new TicketData(rs.getInt(1), rs.getBoolean(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getString(6), rs.getString(7));
+
+                    ticketLoader.setController(new TicketPanel(ticketData));
                         Parent p = ticketLoader.load();
                         Scene s = new Scene(p);
                         Stage ticketStage = new Stage();

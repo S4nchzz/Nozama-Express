@@ -32,6 +32,7 @@ public class ItemTypeTable implements Tables {
                         fxid_databaseItemType.getItems().add(tIT);
                     }
 
+                    try {rs.close();} catch (SQLException q) {}
                     return this.fxid_databaseItemType;
                 } catch (SQLException sqle) {
                     System.out.println(sqle.getMessage());

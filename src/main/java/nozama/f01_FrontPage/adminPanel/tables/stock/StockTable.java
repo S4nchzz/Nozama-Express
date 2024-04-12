@@ -33,6 +33,7 @@ public class StockTable implements Tables {
                         fxid_databaseStock.getItems().add(tdS);
                     }
 
+                    try {rs.close();} catch (SQLException q) {}
                     return this.fxid_databaseStock;
                 } catch (SQLException sqle) {
                     System.out.println(sqle.getMessage());

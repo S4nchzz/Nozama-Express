@@ -33,6 +33,7 @@ public class SupportTable implements Tables {
                         fxid_databaseSupport.getItems().add(tdST);
                     }
 
+                    try {rs.close();} catch (SQLException q) {}
                     return this.fxid_databaseSupport;
                 } catch (SQLException sqle) {
                     System.out.println(sqle.getMessage());

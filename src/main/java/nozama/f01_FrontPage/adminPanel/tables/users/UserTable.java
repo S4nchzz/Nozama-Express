@@ -33,6 +33,8 @@ public class UserTable implements Tables {
 
                         fxid_databaseUser.getItems().add(tdU);
                     }
+
+                    try {rs.close();} catch (SQLException q) {}
                     return fxid_databaseUser;
                 } catch (SQLException sqle) {
                     System.out.println(sqle.getMessage());

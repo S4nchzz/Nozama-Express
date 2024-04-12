@@ -1,8 +1,11 @@
 package nozama.f00_Login.accountCreation;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javax.swing.JOptionPane;
 
+import nozama.f00_Login.ObtainIDFromUsername;
 import nozama_database.sendRequest.DatabaseRequestManagment;
 
 /**
@@ -13,7 +16,6 @@ public class Conditions {
     private final String fullName;
     private final String telf;
     private final String password;
-    private final int userID;
 
     private ResultSet rs;
 
@@ -29,7 +31,6 @@ public class Conditions {
         this.fullName = fullName;
         this.telf = telf;
         this.password = pass;
-        this.userID = userID;
     }
 
     /**
@@ -46,12 +47,13 @@ public class Conditions {
      */
     protected boolean usernameConditions () {
         if (!username.isEmpty() && !username.isBlank()) {
-            this.rs = DatabaseRequestManagment.getQueryResult(userID);
+            this.rs = DatabaseRequestManagment.getQueryResult(ObtainIDFromUsername.getID(username));
             
             // Si rs es distinto de null querra decir que se encontro un usuario en la base
             // de datos con el mismo id de usuario a elegir
             if (rs != null) {
                 JOptionPane.showMessageDialog(null, "Usuario en uso");
+                try {rs.close();} catch (SQLException q) {};
                 return false;
             }
             
@@ -68,6 +70,7 @@ public class Conditions {
                         || (username.charAt(i)) > 122 && username.charAt(i) <= 127) {
                         
                         JOptionPane.showMessageDialog(null, "Usa solo letras y numeros en tu nombre de usuario (sin espacios)");
+
                     return false;
                 }
             }
@@ -85,9 +88,9 @@ public class Conditions {
 
             if (cNumbers >= cLetters) {
                 JOptionPane.showMessageDialog(null, "No puede haber mas numeros que letras en el usuario");
+
                 return false;
             }
-
             return true;
         }
 
@@ -137,13 +140,13 @@ public class Conditions {
                     cSpace++;
                 } else if (cSpace >= 2) {
                     JOptionPane.showMessageDialog(null, "Asegurate de que no hay espacios extra en tu nombre completo");
+                    try {rs.close();} catch (SQLException q) {}
                     return false;
                 } else {
                     cSpace = 0;
                 }
             }
         }
-
         return true;
     }
 
