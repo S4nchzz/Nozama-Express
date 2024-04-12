@@ -102,4 +102,9 @@ public class TicketPanel {
             
         }
     }
+
+    @FXML
+    private void liveChatAction () {
+        
+    }
 }

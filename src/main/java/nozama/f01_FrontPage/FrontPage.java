@@ -21,7 +21,6 @@ import javafx.stage.Stage;
 import nozama.NozamaWindowApp;
 import nozama.f00_Login.LoginPage;
 import nozama.f01_FrontPage.adminPanel.AdminPanel;
-import nozama.f01_FrontPage.controllersForTemplatesFP.AllTicketTemplate;
 import nozama.f01_FrontPage.controllersForTemplatesFP.TicketTemplateCLLR;
 import nozama_database.sendRequest.DatabaseRequestManagment;
 

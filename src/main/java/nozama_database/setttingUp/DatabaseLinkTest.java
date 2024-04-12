@@ -52,18 +52,22 @@ public class DatabaseLinkTest {
                 PreparedStatement supportTickets = dbServer.prepareStatement(
                         "CREATE TABLE support_Ticket (TICKET_ID INTEGER PRIMARY KEY AUTO_INCREMENT, STATUS BOOLEAN NOT NULL, TICKET_TYPE VARCHAR(20) NOT NULL, SOLICITANTE_ID VARCHAR(15) NOT NULL, RESPONDENTE_ID VARCHAR(15), PROBLEM_DESC VARCHAR(200) NOT NULL, PROBLEM_RESPONSE VARCHAR(200), FOREIGN KEY (SOLICITANTE_ID) REFERENCES user(username), FOREIGN KEY (RESPONDENTE_ID) REFERENCES user(username))");
 
+                PreparedStatement chatMessage = dbServer.prepareStatement("CREATE TABLE chat_messages (MESSAGE_ID INTEGER PRIMARY KEY AUTO_INCREMENT, TICKET_ID INTEGER REFERENCES SUPPORT_TICKET(TICKET_ID), SENDER_ID VARCHAR(15) REFERENCES USER(USERNAME), SENDER_ROLE VARCHAR(5) NOT NULL, MESSAGE VARCHAR(100) NOT NULL, DATE TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP)");
+                
                 setUpDatabase.executeUpdate();
                 useDatabase.executeUpdate();
                 createTableUser.executeUpdate();
                 itemtype.executeUpdate();
                 itemStock.executeUpdate();
                 supportTickets.executeUpdate();
+                chatMessage.executeUpdate();
                 
+                supportTickets.close();
                 itemStock.close();
                 itemtype.close();
-                supportTickets.close();
                 createTableUser.close();
                 useDatabase.close();
+                chatMessage.close();
                 setUpDatabase.close();
                 dbServer.close();
             }

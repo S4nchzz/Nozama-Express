@@ -56,6 +56,7 @@
                </children>
             </Pane>
             <Text fx:id="fxid_whoRespond" fill="#4a4a4a" layoutX="291.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Response by:" wrappingWidth="166.466796875" />
+            <Button fx:id="fxid_liveChatAction" layoutX="661.0" layoutY="122.0" mnemonicParsing="false" onMouseClicked="#liveChatAction" stylesheets="@css/ticketMenu.css" text="Iniciar Live Chat" />
          </children>
       </Pane>
    </children>
