@@ -141,6 +141,10 @@ public class AdminPanel {
     private TableColumn<TableDataSupport, String> fxid_solicitante_id;
     @FXML
     private TableColumn<TableDataSupport, String> fxid_respondente_id;
+    @FXML
+    private TableColumn<TableDataSupport, String> fxid_problem_desc;
+    @FXML
+    private TableColumn<TableDataSupport, String> fxid_problem_response;
 
     public AdminPanel (Stage s, FrontPage stageControllerFP, String username) {
         this.stage = s;
@@ -349,7 +353,7 @@ public class AdminPanel {
                     this.fxid_errorDatabase.setText("");
                     try {
                         while (rs.next()) {
-                            tdST = new TableDataSupport(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+                            tdST = new TableDataSupport(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7));
                             fxid_databaseSupport.getItems().add(tdST);
                         }
                     } catch (SQLException sqle) {
@@ -425,5 +429,7 @@ public class AdminPanel {
         fxid_ticketType.setCellValueFactory(new PropertyValueFactory<>("ticket_type"));
         fxid_solicitante_id.setCellValueFactory(new PropertyValueFactory<>("solicitante_id"));
         fxid_respondente_id.setCellValueFactory(new PropertyValueFactory<>("respondente_id"));
+        fxid_problem_desc.setCellValueFactory(new PropertyValueFactory<>("problem_desc"));
+        fxid_problem_response.setCellValueFactory(new PropertyValueFactory<>("problem_response"));
     }
 }
