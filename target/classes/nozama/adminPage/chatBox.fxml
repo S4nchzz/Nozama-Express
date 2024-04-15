@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="357.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane fx:id="fxid_chatHeader" prefHeight="84.0" prefWidth="357.0" />
-      <VBox layoutY="78.0" prefHeight="437.0" prefWidth="357.0" />
+      <VBox fx:id="fxid_chatVbox" prefHeight="443.0" prefWidth="357.0" />
+      <Pane layoutY="443.0" prefHeight="84.0" prefWidth="364.0">
+         <children>
+            <TextField fx:id="fxid_sendMessage" layoutX="201.0" layoutY="30.0" onAction="#sendMessageAction" />
+         </children>
+      </Pane>
    </children>
 </Pane>

@@ -1,11 +1,17 @@
 package nozama.f01_FrontPage.adminPanel.ticketPanel;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import nozama.f01_FrontPage.ChatBoxController;
 import nozama_database.sendRequest.DatabaseRequestManagment;
 
 public class TicketPanel {
@@ -100,6 +106,20 @@ public class TicketPanel {
 
     @FXML
     private void liveChatAction () {
-        
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/nozama/adminPage/chatBox.fxml"));
+        loader.setController(new ChatBoxController(ticketData));
+        try {
+            Parent p = loader.load();
+            Scene s = new Scene(p);
+            Stage ss = new Stage();
+            ss.setScene(s);
+            ss.centerOnScreen();
+            ss.setTitle("Online Chat");
+            ss.setResizable(false);
+            ss.show();
+        } catch (IOException e) {
+
+        }
     }
 }

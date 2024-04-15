@@ -445,4 +445,21 @@ public class DatabaseRequestManagment {
 
         return sesion;
     }
+
+    public static void sendMessage(int ticketID, int senderID, String senderRole, String message) {
+        try {
+            Connection conn = DriverManager.getConnection(url, "root", "");
+            PreparedStatement st = conn.prepareStatement("INSERT INTO CHAT_MESSAGES (TICKET_ID, SENDER_ID, SENDER_ROLE, MESSAGE) VALUES (?, ?, ?, ?)");
+            st.setInt(1, ticketID);
+            st.setInt(2, senderID);
+            st.setString(3, senderRole);
+            st.setString(4, message);
+            st.executeUpdate();
+
+            st.close();
+        
+        } catch (SQLException q) {
+
+        }
+    }
 }
