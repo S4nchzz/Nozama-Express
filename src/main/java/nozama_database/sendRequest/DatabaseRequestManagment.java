@@ -444,7 +444,7 @@ public class DatabaseRequestManagment {
         return sesion;
     }
 
-    public static void sendMessage(int ticketID, int senderID, String senderRole, String message) {
+    public void sendMessage(int ticketID, int senderID, String senderRole, String message) {
         try {
             Connection conn = DriverManager.getConnection(url, "root", "");
             PreparedStatement st = conn.prepareStatement("INSERT INTO CHAT_MESSAGES (TICKET_ID, SENDER_ID, SENDER_ROLE, MESSAGE) VALUES (?, ?, ?, ?)");
@@ -459,5 +459,29 @@ public class DatabaseRequestManagment {
         } catch (SQLException q) {
 
         }
-    }   
+    }
+
+    public static int getMessageAmount(int ticketID) {
+        int ticketAmount = 0;
+        try {
+            Connection conn = DriverManager.getConnection(url, "root", "");
+            PreparedStatement st = conn.prepareStatement(
+                    "SELECT COUNT(MESSAGE_ID) FROM CHAT_MESSAGE WHERE TICKET_ID = ?");
+            st.setInt(1, ticketID);
+            ResultSet rs = st.executeQuery();
+
+            rs.next();
+            ticketAmount = rs.getInt(1);
+            st.close();
+            rs.close();
+            conn.close();
+
+            return ticketAmount;
+
+        } catch (SQLException q) {
+
+        }
+
+        return ticketAmount;
+    }
 }

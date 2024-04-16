@@ -32,7 +32,8 @@ public class ChatBoxController {
             admin = "user";
         }
 
-        DatabaseRequestManagment.sendMessage(td.getTicket_id(), userData.getUser_id(), admin, message);
+        DatabaseRequestManagment dbr = new DatabaseRequestManagment();
+        dbr.sendMessage(td.getTicket_id(), userData.getUser_id(), admin, message);
     }
 
     @FXML

@@ -110,7 +110,7 @@ public class TicketPanel {
     @FXML
     private void liveChatAction () {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/nozama/adminPage/chatBox.fxml"));
+        loader.setLocation(getClass().getResource("/nozama/virtualChat/chatBox.fxml"));
         loader.setController(new ChatBoxController(ticketData, userData));
         try {
             Parent p = loader.load();
