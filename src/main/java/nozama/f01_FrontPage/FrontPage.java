@@ -303,7 +303,6 @@ public class FrontPage {
     private void initialize() {
         fxid_usernameAv.setText(dataLoggedUser.getName());
 
-
         if (isAdmin) {
             fxid_adminElement.setVisible(true);
         }

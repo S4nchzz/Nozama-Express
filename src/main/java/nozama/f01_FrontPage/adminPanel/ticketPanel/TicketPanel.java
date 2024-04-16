@@ -11,12 +11,14 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import nozama.f00_Login.UserData;
 import nozama.f01_FrontPage.ChatBoxController;
 import nozama_database.sendRequest.DatabaseRequestManagment;
 
 public class TicketPanel {
     private final TicketData ticketData;
     private final DatabaseRequestManagment dbr;
+    private final UserData userData;
 
     @FXML
     private Text fxid_textTicketId;
@@ -39,9 +41,10 @@ public class TicketPanel {
     @FXML
     private Text fxid_responseIfClosed;
 
-    public TicketPanel (TicketData ticketData) {
+    public TicketPanel (TicketData ticketData, UserData userData) {
         this.ticketData = ticketData;
         this.dbr = new DatabaseRequestManagment();
+        this.userData = userData;
     }
 
     @FXML
@@ -108,7 +111,7 @@ public class TicketPanel {
     private void liveChatAction () {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/nozama/adminPage/chatBox.fxml"));
-        loader.setController(new ChatBoxController(ticketData));
+        loader.setController(new ChatBoxController(ticketData, userData));
         try {
             Parent p = loader.load();
             Scene s = new Scene(p);

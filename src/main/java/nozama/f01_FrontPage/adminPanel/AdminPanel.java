@@ -409,7 +409,7 @@ public class AdminPanel {
 
                     TicketData ticketData = new TicketData(rs.getInt(1), rs.getBoolean(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getString(6), rs.getString(7));
 
-                    ticketLoader.setController(new TicketPanel(ticketData));
+                    ticketLoader.setController(new TicketPanel(ticketData, dataLoggedUser));
                         Parent p = ticketLoader.load();
                         Scene s = new Scene(p);
                         Stage ticketStage = new Stage();
