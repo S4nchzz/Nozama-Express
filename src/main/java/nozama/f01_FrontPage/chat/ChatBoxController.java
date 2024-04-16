@@ -1,4 +1,4 @@
-package nozama.f01_FrontPage;
+package nozama.f01_FrontPage.chat;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -33,5 +33,14 @@ public class ChatBoxController {
         }
 
         DatabaseRequestManagment.sendMessage(td.getTicket_id(), userData.getUser_id(), admin, message);
+    }
+
+    @FXML
+    private void initialize () {
+        new Thread (() -> {
+            while(DatabaseRequestManagment.isLoggedIn(userData.getUser_id())) {
+                
+            }
+        });
     }
 }

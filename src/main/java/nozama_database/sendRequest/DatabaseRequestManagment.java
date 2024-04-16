@@ -267,16 +267,14 @@ public class DatabaseRequestManagment {
      * @param password Contraseña del usuario
      * @return true = admin; false = notAdmin
      */
-    public static boolean isAdmin(String username, String password, int user_ID) {
-        if (acceder(username, password)) {
-            ResultSet rs = getQueryResult(user_ID);
+    public static boolean isAdmin(int user_ID) {
+        ResultSet rs = getQueryResult(user_ID);
 
-            if (rs != null) {
-                try {
-                    return rs.getBoolean(6);
-                } catch (SQLException sqle) {
-                    System.out.println(sqle.getMessage());
-                }
+        if (rs != null) {
+            try {
+                return rs.getBoolean(6);
+            } catch (SQLException sqle) {
+                System.out.println(sqle.getMessage());
             }
         }
         return false;
@@ -461,5 +459,5 @@ public class DatabaseRequestManagment {
         } catch (SQLException q) {
 
         }
-    }
+    }   
 }

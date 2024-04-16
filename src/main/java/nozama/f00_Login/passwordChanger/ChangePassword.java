@@ -66,7 +66,7 @@ public class ChangePassword {
     public void handleChange () throws IOException {
         setStrings();
 
-        if (checkFieldSyntax() && DatabaseRequestManagment.isAdmin(userAdmin, passAdmin, ObtainIDFromUsername.getID(userAdmin))) {
+        if (checkFieldSyntax() && DatabaseRequestManagment.isAdmin(ObtainIDFromUsername.getID(userAdmin))) {
             if (!DatabaseRequestManagment.acceder(user, pass)) {
                 if (pass.length() > 5) {
                     DatabaseRequestManagment.cambiarContrasena(user, pass);

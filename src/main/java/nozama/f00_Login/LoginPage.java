@@ -69,7 +69,7 @@ public class LoginPage {
 
             }
             
-            FrontPage controller = new FrontPage(user, stage, DatabaseRequestManagment.isAdmin(loginContent, passwordContent, ObtainIDFromUsername.getID(loginContent)));
+            FrontPage controller = new FrontPage(user, stage, DatabaseRequestManagment.isAdmin(ObtainIDFromUsername.getID(loginContent)));
             try {rsUser.close();} catch (SQLException e) {};
             
             frontPageLoader.setController(controller);
