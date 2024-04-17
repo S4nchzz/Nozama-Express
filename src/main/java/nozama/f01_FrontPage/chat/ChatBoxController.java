@@ -1,10 +1,16 @@
 package nozama.f01_FrontPage.chat;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import nozama.f00_Login.UserData;
 import nozama.f01_FrontPage.adminPanel.ticketPanel.TicketData;
+import nozama.f01_FrontPage.chat.messageBox.AdminMessageBox;
+import nozama.f01_FrontPage.chat.messageBox.UserMessageBox;
 import nozama_database.sendRequest.DatabaseRequestManagment;
 
 public class ChatBoxController {
@@ -37,11 +43,26 @@ public class ChatBoxController {
     }
 
     @FXML
-    private void initialize () {
+    private void initialize() {
         new Thread (() -> {
-            while(DatabaseRequestManagment.isLoggedIn(userData.getUser_id())) {
-                
-            }
-        });
+            Platform.runLater(() -> {
+                while (this.fxid_chatVbox.getChildren().size() < 5) {
+                    ResultSet messages = DatabaseRequestManagment.getMessages(td.getTicket_id());
+                    
+                    try {
+                        while (messages.next()) {
+                            if (messages.getString(4).equals("admin")) {
+                                new AdminMessageBox(DatabaseRequestManagment.getName(messages.getInt(3)), messages.getString(5));
+                            } else if (messages.getString(4).equals("user")) {
+                                new UserMessageBox(DatabaseRequestManagment.getName(messages.getInt(3)), messages.getString(5));
+                            }
+                        }
+                        messages.close();
+                    } catch (SQLException sqle) {
+                        
+                    }
+                }
+            });
+        }).start();
     }
 }

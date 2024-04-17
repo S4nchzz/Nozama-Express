@@ -12,6 +12,7 @@
             <Image url="@src/usuario-icon.png" />
          </image>
       </ImageView>
-      <Text fx:id="fxid_userResponse" layoutX="20.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="249.13671875" />
+      <Text fx:id="fxid_userResponse" layoutX="28.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="249.13671875" />
+      <Text fx:id="fxid_userFieldOnChat" layoutX="230.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" />
    </children>
 </Pane>

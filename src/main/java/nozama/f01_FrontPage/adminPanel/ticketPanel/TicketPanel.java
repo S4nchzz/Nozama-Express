@@ -12,7 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import nozama.f00_Login.UserData;
-import nozama.f01_FrontPage.ChatBoxController;
+import nozama.f01_FrontPage.chat.ChatBoxController;
 import nozama_database.sendRequest.DatabaseRequestManagment;
 
 public class TicketPanel {

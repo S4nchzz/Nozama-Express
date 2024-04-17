@@ -484,4 +484,34 @@ public class DatabaseRequestManagment {
 
         return ticketAmount;
     }
+
+    public static ResultSet getMessages(int ticketID) {
+        try {
+            Connection conn = DriverManager.getConnection(url, "root", "");
+            PreparedStatement st = conn.prepareStatement("SELECT * FROM CHAT_MESSAGES WHERE TICKET_ID = ?");
+            st.setInt(1, ticketID);
+            
+            return st.executeQuery();
+        } catch (SQLException sqle) {
+
+        }
+
+        return null;
+    }
+
+    public static String getName (int id) {
+        try {
+            Connection conn = DriverManager.getConnection(url, "root", "");
+            PreparedStatement st = conn.prepareStatement("SELECT NAME FROM USER WHERE USER_ID = ?");
+            st.setInt(1, id);
+
+            ResultSet rs = st.executeQuery();
+            rs.next();
+            return rs.getString(1);
+        } catch (SQLException sqle) {
+
+        }
+
+        return null;
+    }
 }
