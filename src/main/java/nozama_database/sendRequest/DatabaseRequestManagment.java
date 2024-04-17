@@ -466,7 +466,7 @@ public class DatabaseRequestManagment {
         try {
             Connection conn = DriverManager.getConnection(url, "root", "");
             PreparedStatement st = conn.prepareStatement(
-                    "SELECT COUNT(MESSAGE_ID) FROM CHAT_MESSAGE WHERE TICKET_ID = ?");
+                    "SELECT COUNT(MESSAGE_ID) FROM CHAT_MESSAGES WHERE TICKET_ID = ?");
             st.setInt(1, ticketID);
             ResultSet rs = st.executeQuery();
 
