@@ -400,6 +400,25 @@ public class DatabaseRequestManagment {
 
         return banned;
     }
+
+    public static int numberOfWarnings(int username) {
+        try {
+            Connection conn = DriverManager.getConnection(url, "root", "");
+            PreparedStatement st = conn
+                    .prepareStatement("SELECT WARNS FROM USER WHERE USER_ID = ?");
+            st.setInt(1, username);
+
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+
+        } catch (SQLException sqle) {
+        
+        }
+
+        return 0;
+    }
     
     public static boolean isLoggedIn (int username) {
         Connection conn = null;

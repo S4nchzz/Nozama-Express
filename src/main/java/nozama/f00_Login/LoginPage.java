@@ -54,7 +54,7 @@ public class LoginPage {
         loginContent = fxid_username_field.getText();
         passwordContent = fxid_password_field.getText();
 
-        if (DatabaseRequestManagment.isBanned(ObtainIDFromUsername.getID(loginContent))) {
+        if (DatabaseRequestManagment.isBanned(ObtainIDFromUsername.getID(loginContent)) || DatabaseRequestManagment.numberOfWarnings(ObtainIDFromUsername.getID(loginContent)) >= 3) {
             JOptionPane.showMessageDialog(null, "You have been banned");
         } else if (DatabaseRequestManagment.acceder(loginContent, passwordContent)) {
             FXMLLoader frontPageLoader = new FXMLLoader();
