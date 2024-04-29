@@ -514,4 +514,59 @@ public class DatabaseRequestManagment {
 
         return null;
     }
+
+    public boolean updateTicket(int adminID, String problem, int ticketID) {
+        try {
+            Connection conn = DriverManager.getConnection(url, "root", "");
+            PreparedStatement st1 = conn.prepareStatement("UPDATE SUPPORT_TICKET SET RESPONDENTE_ID = ? WHERE TICKET_ID = ?");
+            PreparedStatement st2 = conn.prepareStatement("UPDATE SUPPORT_TICKET SET PROBLEM_RESPONSE = ? WHERE TICKET_ID = ?");
+            PreparedStatement st3 = conn.prepareStatement("UPDATE SUPPORT_TICKET SET STATUS = FALSE WHERE TICKET_ID = ?");
+
+            st1.setInt(1, adminID);
+            st1.setInt(2, ticketID);
+
+            st2.setString(1, problem);
+            st2.setInt(2, ticketID);
+
+            st3.setInt(1, ticketID);
+            st1.executeUpdate();
+            st2.executeUpdate();
+            st3.executeUpdate();
+
+            st1.close();
+            st2.close();
+            st3.close();
+            conn.close();
+
+            return true;
+        } catch (SQLException sqle) {
+            
+        }
+
+        return false;
+    }
+
+    public String getTicketResponse(int ticketID) {
+        try {
+            Connection conn = DriverManager.getConnection(url, "root", "");
+            PreparedStatement st1 = conn
+                    .prepareStatement("SELECT PROBLEM_RESPONSE FROM SUPPORT_TICKET WHERE TICKET_ID = ?");
+            st1.setInt(1, ticketID);
+
+            ResultSet rs = st1.executeQuery();
+
+            String response = null;
+            while (rs.next()) {
+                response = rs.getString(1);
+            }
+
+            conn.close();
+
+            return response;
+        } catch (SQLException sqle) {
+
+        }
+
+        return null;
+    }
 }

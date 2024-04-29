@@ -3,10 +3,13 @@ package nozama.f01_FrontPage.adminPanel.ticketPanel;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -19,6 +22,7 @@ public class TicketPanel {
     private final TicketData ticketData;
     private final DatabaseRequestManagment dbr;
     private final UserData userData;
+    private final int adminID;
 
     @FXML
     private Text fxid_textTicketId;
@@ -34,6 +38,8 @@ public class TicketPanel {
     private Text fxid_whoRespond;
     @FXML
     private Pane fxid_sendResponsePane;
+    @FXML
+    private TextArea fxid_responseArea;
 
     // Closed Ticket?
     @FXML
@@ -41,15 +47,22 @@ public class TicketPanel {
     @FXML
     private Text fxid_responseIfClosed;
 
-    public TicketPanel (TicketData ticketData, UserData userData) {
+    public TicketPanel (TicketData ticketData, UserData userData, int adminID) {
         this.ticketData = ticketData;
         this.dbr = new DatabaseRequestManagment();
         this.userData = userData;
+        this.adminID = adminID;
     }
 
     @FXML
     private void sendResponse () {
-        
+        DatabaseRequestManagment sendResponse = new DatabaseRequestManagment();
+        if (sendResponse.updateTicket(adminID, fxid_responseArea.getText(), ticketData.getTicket_id())) {
+            fxid_closedResponse.setVisible(true);
+            fxid_responseIfClosed.setText(dbr.getTicketResponse(ticketData.getTicket_id()));
+        } else {
+            JOptionPane.showMessageDialog(null, "Hubo un error a la hora de enviar el ticket");
+        }
     }
 
     @FXML
