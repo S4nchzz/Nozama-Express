@@ -1,6 +1,7 @@
 package nozama.f01_FrontPage.adminPanel.ticketPanel;
 
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
@@ -19,7 +20,7 @@ import nozama.f01_FrontPage.chat.ChatBoxController;
 import nozama_database.sendRequest.DatabaseRequestManagment;
 
 public class TicketPanel {
-    private final TicketData ticketData;
+    private TicketData ticketData;
     private final DatabaseRequestManagment dbr;
     private final UserData userData;
     private final int adminID;
@@ -58,7 +59,11 @@ public class TicketPanel {
     private void sendResponse () {
         DatabaseRequestManagment sendResponse = new DatabaseRequestManagment();
         if (sendResponse.updateTicket(adminID, fxid_responseArea.getText(), ticketData.getTicket_id())) {
-            fxid_closedResponse.setVisible(true);
+            this.ticketData = updateTicketDataContent();
+            if (ticketData != null) {
+                initialize();
+            }
+
             fxid_responseIfClosed.setText(dbr.getTicketResponse(ticketData.getTicket_id()));
         } else {
             JOptionPane.showMessageDialog(null, "Hubo un error a la hora de enviar el ticket");
@@ -79,8 +84,53 @@ public class TicketPanel {
         }
     }
 
+    private TicketData updateTicketDataContent () {
+        Object obj = dbr.injectCustomQuery("SELECT * FROM SUPPORT_TICKET WHERE TICKET_ID = " + ticketData.getTicket_id());
+
+        TicketData updateTicket = null;
+        if (obj instanceof ResultSet) {
+            ResultSet rs = (ResultSet)obj;
+
+            try {
+                while (rs.next()) {
+                    updateTicket = new TicketData(rs.getInt(1), rs.getBoolean(2), rs.getString(3), rs.getInt(4),
+                            rs.getInt(5), rs.getString(6), rs.getString(7));
+                }
+
+                rs.close();
+
+                return updateTicket;
+            } catch (SQLException sqle) {
+
+            }
+
+            return updateTicket;
+        }
+
+        return updateTicket;
+    } 
+
+    @FXML
+    private void liveChatAction () {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/nozama/virtualChat/chatBox.fxml"));
+        loader.setController(new ChatBoxController(ticketData, userData));
+        try {
+            Parent p = loader.load();
+            Scene s = new Scene(p);
+            Stage ss = new Stage();
+            ss.setScene(s);
+            ss.centerOnScreen();
+            ss.setTitle("Online Chat");
+            ss.setResizable(false);
+            ss.show();
+        } catch (IOException e) {
+
+        }
+    }
     @FXML
     private void initialize () {
+        fxid_textTicketId.setText("");
         fxid_textTicketId.setText(fxid_textTicketId.getText() + ticketData.getTicket_id());
         if (ticketData.isStatus()) {
             fxid_textTicketStatus.setFill(Color.GREEN);
@@ -118,24 +168,5 @@ public class TicketPanel {
         fxid_probType.setText(String.valueOf(ticketData.getTicket_type()));
         fxid_problem_content.setText(ticketData.getProblem_desc());
             
-    }
-
-    @FXML
-    private void liveChatAction () {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/nozama/virtualChat/chatBox.fxml"));
-        loader.setController(new ChatBoxController(ticketData, userData));
-        try {
-            Parent p = loader.load();
-            Scene s = new Scene(p);
-            Stage ss = new Stage();
-            ss.setScene(s);
-            ss.centerOnScreen();
-            ss.setTitle("Online Chat");
-            ss.setResizable(false);
-            ss.show();
-        } catch (IOException e) {
-
-        }
     }
 }
