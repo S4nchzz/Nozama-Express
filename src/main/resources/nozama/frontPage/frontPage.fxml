@@ -43,7 +43,7 @@
                         </ImageView>
                      </children>
                   </Pane>
-                  <Pane fx:id="fxid_paneB" prefHeight="60.6" prefWidth="189.0">
+                  <Pane fx:id="fxid_paneB" onMouseClicked="#handleShowStore" prefHeight="60.6" prefWidth="189.0">
                      <children>
                         <ImageView fitHeight="37.0" fitWidth="37.0" layoutX="8.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>

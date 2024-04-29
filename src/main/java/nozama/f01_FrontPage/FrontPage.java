@@ -160,6 +160,11 @@ public class FrontPage {
     }
 
     @FXML
+    private void handleShowStore () {
+        
+    }
+
+    @FXML
     private void handleSupportAction () throws SQLException, IOException, BannedException {
         checkBanned();
         fxid_supportPane.setVisible(visibleSupport);
@@ -290,6 +295,7 @@ public class FrontPage {
         }
         return -999;
     }
+
     /**
      * Metodo que cuando se ejecuta el controlador y se cargan todos
      * los componentes de la clase con la anotacion @FXML, busca
