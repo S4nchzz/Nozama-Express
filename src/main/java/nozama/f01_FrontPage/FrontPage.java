@@ -185,7 +185,7 @@ public class FrontPage {
     @FXML
     private void handleToggleSupport () throws BannedException {
         checkBanned();
-        for (Toggle toggle: fxid_supportToggleButtons.getToggles()) {
+        for (Toggle toggle : fxid_supportToggleButtons.getToggles()) {
             if (toggle.isSelected()) {
                 ((ToggleButton) toggle).setStyle("-fx-background-color: rgb(196, 195, 195);");
                 nameIDSupportButton = ((ToggleButton) toggle).getId();

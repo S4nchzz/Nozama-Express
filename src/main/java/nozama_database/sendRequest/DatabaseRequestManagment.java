@@ -358,6 +358,26 @@ public class DatabaseRequestManagment {
         }
         return null;
     }
+
+    /**
+     * Metodo que actualiza dependiendo del numero de warnings el valor de banned de user
+     * tood esto controlado desde la clase Warning
+     * @param userID ID del usuario
+     * @param newStatus Nuevo status true = banned | false = not banned
+     */
+    public static void modifyBannedVrb(int userID, boolean newStatus) {
+        try {
+            Connection conn = DriverManager.getConnection(url, "root", "");
+            PreparedStatement st = conn.prepareStatement("UPDATE USER SET BANNED ? WHERE USER_ID = ?");
+            st.setInt(1, userID);
+            st.setBoolean(2, newStatus);
+            st.executeUpdate();
+            st.close();
+            conn.close();
+        } catch (SQLException sqle) {
+
+        }
+    }
     
     public static boolean isBanned (int username) {
         Connection conn = null;

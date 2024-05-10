@@ -54,6 +54,9 @@ public class LoginPage {
         loginContent = fxid_username_field.getText();
         passwordContent = fxid_password_field.getText();
 
+        // Se comprueba si el usuario tiene 3 o mas warnings y cambia el status de la base de datos
+        new Warning(DatabaseRequestManagment.numberOfWarnings(ObtainIDFromUsername.getID(loginContent)));
+
         if (DatabaseRequestManagment.isBanned(ObtainIDFromUsername.getID(loginContent)) || DatabaseRequestManagment.numberOfWarnings(ObtainIDFromUsername.getID(loginContent)) >= 3) {
             JOptionPane.showMessageDialog(null, "You have been banned");
         } else if (DatabaseRequestManagment.acceder(loginContent, passwordContent)) {
