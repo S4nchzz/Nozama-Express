@@ -171,5 +171,6 @@
             <VBox fx:id="fxid_ticketGraphicPane" layoutX="503.0" layoutY="142.0" prefHeight="244.0" prefWidth="377.0" style="-fx-border-color: #CFCFCF;" />
          </children>
       </Pane>
+      <Pane fx:id="fxid_browseBanner" layoutX="321.0" layoutY="106.0" prefHeight="165.0" prefWidth="900.0" />
    </children>
 </Pane>
