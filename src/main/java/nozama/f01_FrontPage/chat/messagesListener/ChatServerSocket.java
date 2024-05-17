@@ -15,13 +15,17 @@ public class ChatServerSocket {
 
     public ChatServerSocket (ChatBoxController c) {
         try {
+
             s = new ServerSocket(25567);
-            Socket clientSocket = s.accept();
 
-            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            String clientInput = in.readLine();
-
-            replicateMessageToChats(messageFromAdmin(clientInput), substractPrefix(clientInput));
+            while (true) {
+                Socket clientSocket = s.accept();
+    
+                BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                String clientInput = in.readLine();
+    
+                replicateMessageToChats(messageFromAdmin(clientInput), substractPrefix(clientInput));
+            }
             
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -79,7 +83,7 @@ public class ChatServerSocket {
     }
 
     private void replicateMessageToChats(boolean fromAdmin, String message) {
-        for (ChatBoxController chat : CentralizedChats.getInstance().getChats()) {
+        for (ChatBoxController chat : CentralizedChats.getChats()) {
             if (chat.getTicketData().getTicket_id() == ticketID) {
                 chat.addMessage(fromAdmin, message);
             }

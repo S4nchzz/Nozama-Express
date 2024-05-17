@@ -29,8 +29,7 @@ public class ChatBoxController {
         this.userData = userData;
         this.chatInstanceFromAdmin = chatInstanceFromAdmin;
 
-        CentralizedChats c = CentralizedChats.getInstance();
-        c.addChat(this);
+        CentralizedChats.addChat(this);
     }
 
     @FXML
