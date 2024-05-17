@@ -18,7 +18,7 @@ public class CentralizedChats {
         chats.add(chat);
     }
 
-    public static void delChar(ChatBoxController chat) {
+    public static void delChat(ChatBoxController chat) {
         chats.remove(chat);
     }
 

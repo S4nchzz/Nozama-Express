@@ -1,12 +1,16 @@
 package nozama.f01_FrontPage.ticketChat;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import nozama.f00_Login.UserData;
 import nozama.f01_FrontPage.adminPanel.ticketPanel.TicketData;
 import nozama.f01_FrontPage.ticketChat.messageBox.AdminMessageBox;
@@ -22,6 +26,8 @@ public class ChatBoxController {
     private final UserData userData;
     private boolean chatInstanceFromAdmin;
 
+    private final int token;
+
     @FXML
     private VBox fxid_chatVbox;
     @FXML
@@ -30,18 +36,78 @@ public class ChatBoxController {
     private AnchorPane fxid_anchorPaneResizeable;
 
     public ChatBoxController (TicketData td, UserData userData, boolean chatInstanceFromAdmin) {
+        this.token = generateToken();
         this.td = td;
         this.userData = userData;
         this.chatInstanceFromAdmin = chatInstanceFromAdmin;
 
         CentralizedChats.addChat(this);
 
+        Platform.runLater(() -> {
+            Scene scene = fxid_chatVbox.getScene();
+            Stage stage = (Stage)scene.getWindow();
+            
+            stage.setOnHidden(event -> {
+                ChatBoxController chatToDelete = null;
+                for (ChatBoxController chat : CentralizedChats.getChats()) {
+                    if (chat.getToken() == token) {
+                        chatToDelete = chat;
+                    }
+                }
+
+                if (chatToDelete == null) {
+                    return;
+                }
+
+                CentralizedChats.delChat(chatToDelete);
+            });
+            
+        });
+
         // Verify amount of instances of ChatBoxController, if there is 1 the user cannot send messages whereas if there is 2 he would
+        checkBothUsersConnected();
+    }
+
+    @FXML
+    private void sendMessageAction () { 
+        checkBothUsersConnected();
+        if (this.fxid_chatVbox.getChildren().size() > 5) {
+            // Ancho del AnchorPane lleno, aumentando tamaño en todos los chatBox con ese ID
+            for (ChatBoxController chat : CentralizedChats.getChats()) {
+                if (chat.getTicketData().getTicket_id() == this.getTicketData().getTicket_id()) {
+                    chat.modifyAnchorPane(fxid_anchorPaneResizeable.getWidth(), fxid_anchorPaneResizeable.getHeight() + 69);
+                }
+            }
+        }
+
+        String message = fxid_sendMessage.getText();
+        DatabaseRequestManagment dbr = new DatabaseRequestManagment();
+
+        if (!message.equals("")) {
+            if (this.chatInstanceFromAdmin) {
+                new AdminSocket(fxid_sendMessage.getText(), this.td.getTicket_id());
+                dbr.sendMessage(td.getTicket_id(), userData.getUser_id(), "Admin", message);
+            } else {
+                new UserSocket(fxid_sendMessage.getText(), this.td.getTicket_id());
+                dbr.sendMessage(td.getTicket_id(), userData.getUser_id(), "User", message);
+            }
+        }
+    }
+
+    private int generateToken () {
+        Random rm = new Random();
+        return rm.nextInt(10);
+    }
+
+    public int getToken() {
+        return this.token;
+    }
+
+    private void checkBothUsersConnected () {
         Platform.runLater(new Runnable() {
             @Override
-            public void run () {
+            public void run() {
                 int countInstancesOfThisTicket = 0;
-                
                 ArrayList<ChatBoxController> usedChatsWithSameTicket = new ArrayList<>();
 
                 for (ChatBoxController chat : CentralizedChats.getChats()) {
@@ -64,31 +130,6 @@ public class ChatBoxController {
                 }
             }
         });
-    }
-
-    @FXML
-    private void sendMessageAction () {
-        if (this.fxid_chatVbox.getChildren().size() > 5) {
-            // Ancho del AnchorPane lleno, aumentando tamaño en todos los chatBox con ese ID
-            for (ChatBoxController chat : CentralizedChats.getChats()) {
-                if (chat.getTicketData().getTicket_id() == this.getTicketData().getTicket_id()) {
-                    chat.modifyAnchorPane(fxid_anchorPaneResizeable.getWidth(), fxid_anchorPaneResizeable.getHeight() + 69);
-                }
-            }
-        }
-
-        String message = fxid_sendMessage.getText();
-        DatabaseRequestManagment dbr = new DatabaseRequestManagment();
-
-        if (!message.equals("")) {
-            if (this.chatInstanceFromAdmin) {
-                new AdminSocket(fxid_sendMessage.getText(), this.td.getTicket_id());
-                dbr.sendMessage(td.getTicket_id(), userData.getUser_id(), "Admin", message);
-            } else {
-                new UserSocket(fxid_sendMessage.getText(), this.td.getTicket_id());
-                dbr.sendMessage(td.getTicket_id(), userData.getUser_id(), "User", message);
-            }
-        }
     }
     
     public void addMessage(boolean fromAdmin, String input) {
