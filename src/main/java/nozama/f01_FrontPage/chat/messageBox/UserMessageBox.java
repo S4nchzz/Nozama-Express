@@ -18,10 +18,11 @@ public class UserMessageBox {
     private Text fxid_userFieldOnChat;
 
     public UserMessageBox (String userName, String message) {
-        FXMLLoader adminMessage = new FXMLLoader();
-        adminMessage.setLocation(getClass().getResource("/nozama/virtualChat/userRespondContainer.fxml"));
+        FXMLLoader userMessage = new FXMLLoader();
+        userMessage.setController(this);
+        userMessage.setLocation(getClass().getResource("/nozama/virtualChat/userRespondContainer.fxml"));
         try {
-            userBox = adminMessage.load();
+            userBox = userMessage.load();
         } catch (IOException ioe) {
 
         }

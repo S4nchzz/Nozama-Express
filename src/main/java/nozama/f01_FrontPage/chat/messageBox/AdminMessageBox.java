@@ -19,6 +19,7 @@ public class AdminMessageBox {
 
     public AdminMessageBox (String userName, String message) {
         FXMLLoader adminMessage = new FXMLLoader();
+        adminMessage.setController(this);
         adminMessage.setLocation(getClass().getResource("/nozama/virtualChat/adminRespondContainer.fxml"));
         try {
             adminBox = adminMessage.load();
