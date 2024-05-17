@@ -1,4 +1,4 @@
-package nozama.f01_FrontPage.chat.messagesListener;
+package nozama.f01_FrontPage.ticketChat.messagesListener;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,8 +6,8 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import nozama.f01_FrontPage.chat.CentralizedChats;
-import nozama.f01_FrontPage.chat.ChatBoxController;
+import nozama.f01_FrontPage.ticketChat.CentralizedChats;
+import nozama.f01_FrontPage.ticketChat.ChatBoxController;
 
 public class ChatServerSocket {
     private ServerSocket s;

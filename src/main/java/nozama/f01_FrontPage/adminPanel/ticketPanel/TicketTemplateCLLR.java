@@ -10,8 +10,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import nozama.f00_Login.UserData;
-import nozama.f01_FrontPage.chat.CentralizedChats;
-import nozama.f01_FrontPage.chat.ChatBoxController;
+import nozama.f01_FrontPage.ticketChat.CentralizedChats;
+import nozama.f01_FrontPage.ticketChat.ChatBoxController;
 
 public class TicketTemplateCLLR {
     private Pane graphicTicket;

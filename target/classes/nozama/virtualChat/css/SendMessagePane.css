@@ -1,0 +1,4 @@
+#fxid_sendMesagePane {
+    -fx-background-color: linear-gradient(transparent, lightblue);
+    -fx-background-insets: 0, 0 0 10 0;
+}

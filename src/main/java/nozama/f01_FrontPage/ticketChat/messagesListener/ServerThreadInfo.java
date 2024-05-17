@@ -1,4 +1,4 @@
-package nozama.f01_FrontPage.chat.messagesListener;
+package nozama.f01_FrontPage.ticketChat.messagesListener;
 
 public class ServerThreadInfo {
     public static boolean serverThreadRunning;

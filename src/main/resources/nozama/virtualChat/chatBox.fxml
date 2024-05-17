@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="357.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="fxid_chatPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="527.0" prefWidth="357.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane fx:id="fxid_chatHeader" prefHeight="84.0" prefWidth="357.0" />
-      <VBox fx:id="fxid_chatVbox" prefHeight="443.0" prefWidth="357.0" />
-      <Pane layoutY="443.0" prefHeight="84.0" prefWidth="364.0">
+      <ScrollPane prefHeight="447.0" prefWidth="357.0">
+        <content>
+          <AnchorPane fx:id="fxid_anchorPaneResizeable" minHeight="0.0" minWidth="0.0" prefHeight="441.0" prefWidth="355.0">
+               <children>
+                  <VBox fx:id="fxid_chatVbox" prefHeight="443.0" prefWidth="357.0" />
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+      <Pane layoutY="443.0" prefHeight="84.0" prefWidth="357.0" stylesheets="@css/SendMessagePane.css">
          <children>
-            <TextField fx:id="fxid_sendMessage" layoutX="201.0" layoutY="30.0" onAction="#sendMessageAction" />
+            <TextField fx:id="fxid_sendMessage" alignment="CENTER" layoutY="30.0" onAction="#sendMessageAction" prefHeight="25.0" prefWidth="357.0" promptText="Mensaje..." />
          </children>
       </Pane>
    </children>

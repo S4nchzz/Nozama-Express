@@ -1,4 +1,4 @@
-package nozama.f01_FrontPage.chat;
+package nozama.f01_FrontPage.ticketChat;
 
 import java.util.ArrayList;
 

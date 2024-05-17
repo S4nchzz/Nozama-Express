@@ -1,4 +1,4 @@
-package nozama.f01_FrontPage.chat.messageBox;
+package nozama.f01_FrontPage.ticketChat.messageBox;
 
 import java.io.IOException;
 
