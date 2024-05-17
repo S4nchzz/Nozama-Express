@@ -3,26 +3,26 @@ package nozama.f01_FrontPage.chat;
 import java.util.ArrayList;
 
 public class CentralizedChats {
-    private final ArrayList<ChatBoxController> chats;
+    private static final ArrayList<ChatBoxController> chats = new ArrayList<>();
     private static CentralizedChats centralized = new CentralizedChats();
 
     private CentralizedChats() {
-        this.chats = new ArrayList<>();
+    
     }
 
     public static CentralizedChats getInstance() {
         return centralized;
     }
 
-    public void addChat(ChatBoxController chat) {
-        this.chats.add(chat);
+    public static void addChat(ChatBoxController chat) {
+        chats.add(chat);
     }
 
-    public void delChar(ChatBoxController chat) {
-        this.chats.remove(chat);
+    public static void delChar(ChatBoxController chat) {
+        chats.remove(chat);
     }
 
-    public ArrayList<ChatBoxController> getChats() {
-        return this.chats;
+    public static ArrayList<ChatBoxController> getChats() {
+        return chats;
     }
 }

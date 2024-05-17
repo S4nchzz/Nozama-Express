@@ -1,4 +1,4 @@
-package nozama.f01_FrontPage.controllersForTemplatesFP;
+package nozama.f01_FrontPage.adminPanel.ticketPanel;
 
 import java.io.IOException;
 
@@ -10,7 +10,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import nozama.f00_Login.UserData;
-import nozama.f01_FrontPage.adminPanel.ticketPanel.TicketData;
 import nozama.f01_FrontPage.chat.CentralizedChats;
 import nozama.f01_FrontPage.chat.ChatBoxController;
 
@@ -49,14 +48,12 @@ public class TicketTemplateCLLR {
 
     @FXML
     private void openTicketAction () {
-        CentralizedChats c = CentralizedChats.getInstance();
-        
-        if (c.getChats().size() == 0 || c.getChats() == null || this.chatToOpen != null) {
+        if (CentralizedChats.getChats().size() == 0 || CentralizedChats.getChats() == null || this.chatToOpen != null) {
             return;
         }
 
         TicketData data = null;
-        for (ChatBoxController chat : c.getChats()) {
+        for (ChatBoxController chat : CentralizedChats.getChats()) {
             if (chat.getTicketData().getTicket_id() == ticketData.getTicket_id()) {
                 data = chat.getTicketData();
             }

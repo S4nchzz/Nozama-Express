@@ -48,15 +48,14 @@ public class ChatBoxController {
     }
     
     public void addMessage(boolean fromAdmin, String input) {
-        String fromWho = fromAdmin ? "Admin" : "User";
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
                 if (fromAdmin) {
-                    AdminMessageBox admin = new AdminMessageBox(fromWho, input);
+                    AdminMessageBox admin = new AdminMessageBox(userData, input);
                     fxid_chatVbox.getChildren().add(admin.getAdminPane());
                 } else {
-                    UserMessageBox user = new UserMessageBox(fromWho, input);
+                    UserMessageBox user = new UserMessageBox(userData, input);
                     fxid_chatVbox.getChildren().add(user.getUserPane());
                 }
             }

@@ -23,7 +23,7 @@ import nozama.f00_Login.LoginPage;
 import nozama.f00_Login.UserData;
 import nozama.f01_FrontPage.adminPanel.AdminPanel;
 import nozama.f01_FrontPage.adminPanel.ticketPanel.TicketData;
-import nozama.f01_FrontPage.controllersForTemplatesFP.TicketTemplateCLLR;
+import nozama.f01_FrontPage.adminPanel.ticketPanel.TicketTemplateCLLR;
 import nozama_database.sendRequest.DatabaseRequestManagment;
 
 public class FrontPage {

@@ -6,33 +6,35 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import nozama.f00_Login.UserData;
 
 public class AdminMessageBox {
     private Pane adminBox;
-    private final String username;
     private final String message;
+    private final UserData userData;
 
     @FXML
     private Text fxid_adminResponse;
     @FXML
     private Text fxid_userFieldOnChat;
 
-    public AdminMessageBox (String userName, String message) {
+    public AdminMessageBox (UserData userData, String message) {
+        this.userData = userData;
+        
         FXMLLoader adminMessage = new FXMLLoader();
         adminMessage.setController(this);
         adminMessage.setLocation(getClass().getResource("/nozama/virtualChat/adminRespondContainer.fxml"));
         try {
             adminBox = adminMessage.load();
         } catch (IOException ioe) {
-
+            
         }
-
-        this.username = userName;
+        
         this.message = message;
     }
 
     public Pane getAdminPane () {
-        this.fxid_userFieldOnChat.setText(username);
+        this.fxid_userFieldOnChat.setText(userData.getName());
         this.fxid_adminResponse.setText(message);
         return this.adminBox;
     }
