@@ -4,14 +4,14 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class ChatUserListener {
-    public ChatUserListener (String content) {
+public class AdminSocket {
+    public AdminSocket (String content) {
         try {
             Socket s = new Socket("127.0.0.1", 25567);
             PrintWriter out = new PrintWriter(s.getOutputStream(), true);
-            out.println("{user}" + content + "\n");
+            out.println("{admin}" + content + "\n");
             s.close();
-    } catch (IOException e) {
+        } catch (IOException e) {
         
         }
     }

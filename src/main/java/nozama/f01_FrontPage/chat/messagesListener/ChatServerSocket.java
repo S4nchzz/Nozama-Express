@@ -9,19 +9,32 @@ import java.net.Socket;
 import nozama.f01_FrontPage.chat.ChatBoxController;
 
 public class ChatServerSocket {
+    private ServerSocket s;
     public ChatServerSocket (ChatBoxController c) {
         try {
-            ServerSocket s = new ServerSocket(25567);
+            s = new ServerSocket(25567);
             Socket clientSocket = s.accept();
 
             BufferedReader input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             String clientInput = input.readLine();
 
-            c.addMessage(messageFromAdmin(clientInput), clientInput);
+            c.addMessage(messageFromAdmin(clientInput), substractPrefix(clientInput));
             
         } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
+            
         }
+    }
+
+    private String substractPrefix(String message) {
+        StringBuilder sb = new StringBuilder();
+
+        int firstBraket = 7;
+
+        for (; firstBraket < message.length(); firstBraket++) {
+            sb.append(message.charAt(firstBraket));
+        }
+
+        return sb.toString();
     }
 
     private boolean messageFromAdmin(String clientInput) {
@@ -43,5 +56,9 @@ public class ChatServerSocket {
         }
 
         return false;
+    }
+
+    public void stop() {
+        try {s.close();} catch (IOException e) {}
     }
 }

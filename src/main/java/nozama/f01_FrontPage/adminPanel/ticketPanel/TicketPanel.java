@@ -114,7 +114,7 @@ public class TicketPanel {
     private void liveChatAction () {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/nozama/virtualChat/chatBox.fxml"));
-        loader.setController(new ChatBoxController(ticketData, userData));
+        loader.setController(new ChatBoxController(ticketData, userData, true));
         try {
             Parent p = loader.load();
             Scene s = new Scene(p);

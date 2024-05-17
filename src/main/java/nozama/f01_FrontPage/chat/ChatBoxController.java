@@ -1,32 +1,38 @@
 package nozama.f01_FrontPage.chat;
 
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import nozama.f00_Login.UserData;
 import nozama.f01_FrontPage.adminPanel.ticketPanel.TicketData;
 import nozama.f01_FrontPage.chat.messageBox.AdminMessageBox;
 import nozama.f01_FrontPage.chat.messageBox.UserMessageBox;
-import nozama.f01_FrontPage.chat.messagesListener.ChatAdminListener;
+import nozama.f01_FrontPage.chat.messagesListener.AdminSocket;
 import nozama.f01_FrontPage.chat.messagesListener.ChatServerSocket;
+import nozama.f01_FrontPage.chat.messagesListener.UserSocket;
 import nozama_database.sendRequest.DatabaseRequestManagment;
 
 public class ChatBoxController {
+    private static final EventHandler<WindowEvent> WindowEvent = null;
     private final TicketData td;
     private final UserData userData;
     private int messageAmount;
-    private ChatServerSocket chatServerManager;
+    private final boolean chatInstanceFromAdmin;
 
     @FXML
     private VBox fxid_chatVbox;
     @FXML
     private TextField fxid_sendMessage;
 
-    public ChatBoxController (TicketData td, UserData userData) {
+    public ChatBoxController (TicketData td, UserData userData, boolean chatInstanceFromAdmin) {
         this.td = td;
         this.userData = userData;
         this.messageAmount = DatabaseRequestManagment.getMessageAmount(td.getTicket_id());
+        this.chatInstanceFromAdmin = chatInstanceFromAdmin;
     }
 
     @FXML
@@ -43,7 +49,11 @@ public class ChatBoxController {
         // DatabaseRequestManagment dbr = new DatabaseRequestManagment();
         // dbr.sendMessage(td.getTicket_id(), userData.getUser_id(), admin, message);
 
-        ChatAdminListener c = new ChatAdminListener("Asd");
+        if (this.chatInstanceFromAdmin) {
+            new AdminSocket(fxid_sendMessage.getText());
+        } else {
+            new UserSocket(fxid_sendMessage.getText());
+        }
     }
     
     public void addMessage(boolean fromAdmin, String input) {
@@ -66,7 +76,7 @@ public class ChatBoxController {
     @FXML
     private void initialize() {
         new Thread(() -> {
-            chatServerManager = new ChatServerSocket(this);
+            new ChatServerSocket(this);
         }).start();
     }
 }
