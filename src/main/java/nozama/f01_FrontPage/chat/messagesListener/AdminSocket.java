@@ -5,11 +5,11 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class AdminSocket {
-    public AdminSocket (String content) {
+    public AdminSocket (String content, int ticketID) {
         try {
             Socket s = new Socket("127.0.0.1", 25567);
             PrintWriter out = new PrintWriter(s.getOutputStream(), true);
-            out.println("{admin}" + content + "\n");
+            out.println("{admin:" + ticketID + "}" + content + "\n");
             s.close();
         } catch (IOException e) {
         

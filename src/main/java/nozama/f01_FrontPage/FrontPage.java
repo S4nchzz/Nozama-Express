@@ -22,6 +22,7 @@ import nozama.NozamaWindowApp;
 import nozama.f00_Login.LoginPage;
 import nozama.f00_Login.UserData;
 import nozama.f01_FrontPage.adminPanel.AdminPanel;
+import nozama.f01_FrontPage.adminPanel.ticketPanel.TicketData;
 import nozama.f01_FrontPage.controllersForTemplatesFP.TicketTemplateCLLR;
 import nozama_database.sendRequest.DatabaseRequestManagment;
 
@@ -73,54 +74,56 @@ public class FrontPage {
     private ToggleButton fxid_Other;
     @FXML
     private Text fxid_ticketResult;
-    @FXML   
+    @FXML
     private Text fxid_ticketsCreatedNum;
     @FXML
     private Pane fxid_ticketGraphicPane;
 
-    private void checkBanned () throws BannedException {
-        if (DatabaseRequestManagment.isBanned (dataLoggedUser.getUser_id()) && DatabaseRequestManagment.isLoggedIn(dataLoggedUser.getUser_id())) {
+    private void checkBanned() throws BannedException {
+        if (DatabaseRequestManagment.isBanned(dataLoggedUser.getUser_id())
+                && DatabaseRequestManagment.isLoggedIn(dataLoggedUser.getUser_id())) {
             throw new BannedException("El usuario ha sido baneado");
         }
     }
 
-    public FrontPage (UserData dataLoggedUser, Stage s, boolean isAdmin) {
+    public FrontPage(UserData dataLoggedUser, Stage s, boolean isAdmin) {
         this.dataLoggedUser = dataLoggedUser;
         this.stage = s;
         this.isAdmin = isAdmin;
         this.visibleSupport = true;
-        
-        this.ticketAmount = 0;
 
+        this.ticketAmount = 0;
 
         this.ticketResultQuery = DatabaseRequestManagment.getAllTrueTicketsFromUser(dataLoggedUser.getUser_id());
 
-        
-        // Runtime que crea un hilo antes de cerrar el programa para enviar por ultimo estas instrucciones
+        // Runtime que crea un hilo antes de cerrar el programa para enviar por ultimo
+        // estas instrucciones
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             dbr = new DatabaseRequestManagment();
 
-            dbr.injectCustomQuery("UPDATE USER SET LOGIN_STATUS = FALSE WHERE USER_ID = " + dataLoggedUser.getUser_id());
+            dbr.injectCustomQuery(
+                    "UPDATE USER SET LOGIN_STATUS = FALSE WHERE USER_ID = " + dataLoggedUser.getUser_id());
 
         }));
-        
-        // Establece el booleano de login_status a true refiriendose a que el usuario tiene la sesion iniciada
+
+        // Establece el booleano de login_status a true refiriendose a que el usuario
+        // tiene la sesion iniciada
         dbr = new DatabaseRequestManagment();
 
         dbr.injectCustomQuery("UPDATE USER SET LOGIN_STATUS = TRUE WHERE USER_ID = " + dataLoggedUser.getUser_id());
     }
 
     /**
-     * Cuando el usuario le da al boton de logOf establece para 
+     * Cuando el usuario le da al boton de logOf establece para
      * ese usuario el parametro de login_status a false
      */
     @FXML
-    private void handleLogof () throws BannedException {
-        checkBanned ();
+    private void handleLogof() throws BannedException {
+        checkBanned();
         dbr = new DatabaseRequestManagment();
         dbr.injectCustomQuery(
-                "UPDATE USER SET LOGIN_STATUS = FALSE WHERE USERNAME = \"" + dataLoggedUser.getUser_id());;
-
+                "UPDATE USER SET LOGIN_STATUS = FALSE WHERE USERNAME = \"" + dataLoggedUser.getUser_id());
+        ;
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/nozama/login/login.fxml"));
@@ -135,12 +138,12 @@ public class FrontPage {
 
             stage.show();
         } catch (IOException e) {
-            
+
         }
     }
 
     @FXML
-    private void handleEnterAdminPanel () throws BannedException {
+    private void handleEnterAdminPanel() throws BannedException {
         checkBanned();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/nozama/frontPage/adminPanel.fxml"));
@@ -152,7 +155,7 @@ public class FrontPage {
             stage.setTitle("Nozama Express");
             stage.setScene(s);
             stage.setResizable(false);
-            stage.centerOnScreen(); 
+            stage.centerOnScreen();
             stage.show();
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -160,30 +163,30 @@ public class FrontPage {
     }
 
     @FXML
-    private void handleShowStore () {
-        
+    private void handleShowStore() {
+
     }
 
     @FXML
-    private void handleSupportAction () throws SQLException, IOException, BannedException {
+    private void handleSupportAction() throws SQLException, IOException, BannedException {
         checkBanned();
         fxid_supportPane.setVisible(visibleSupport);
 
         ticketAmount = ticketLimitReached(dataLoggedUser.getUser_id());
-        
+
         if (fxid_supportPane.isVisible()) {
             fxid_ticketGraphicPane.getChildren().clear();
             ticketResultQuery = DatabaseRequestManagment.getAllTrueTicketsFromUser(dataLoggedUser.getUser_id());
             setGraphicTicketsOnShow();
         }
-        
+
         fxid_ticketsCreatedNum.setText("Tickets: " + String.valueOf(ticketAmount) + "/3");
 
         visibleSupport = !visibleSupport;
     }
 
     @FXML
-    private void handleToggleSupport () throws BannedException {
+    private void handleToggleSupport() throws BannedException {
         checkBanned();
         for (Toggle toggle : fxid_supportToggleButtons.getToggles()) {
             if (toggle.isSelected()) {
@@ -196,12 +199,13 @@ public class FrontPage {
     }
 
     @FXML
-    private void handleSendTicket () throws BannedException {
+    private void handleSendTicket() throws BannedException {
         checkBanned();
         int ticketAmount = ticketLimitReached(dataLoggedUser.getUser_id());
         if (ticketAmount >= 3) {
             fxid_ticketResult.setFill(Color.RED);
-            fxid_ticketResult.setText("Ya ha creado 3 tickets, no podra crear mas hasta que un adminsitrador cierre uno de estos");
+            fxid_ticketResult.setText(
+                    "Ya ha creado 3 tickets, no podra crear mas hasta que un adminsitrador cierre uno de estos");
         } else {
             if (!fxid_problemField.getText().isEmpty() || !fxid_problemField.getText().isBlank()) {
                 String problemDesc = fxid_problemField.getText();
@@ -211,23 +215,24 @@ public class FrontPage {
                 } else if (checkIfButtonStillSelected(nameIDSupportButton)) {
                     dbr = new DatabaseRequestManagment();
                     Object obj = dbr.injectCustomQuery(
-                        "INSERT INTO SUPPORT_TICKET (STATUS, TICKET_TYPE, SOLICITANTE_ID, PROBLEM_DESC) VALUES (true, \""
-                        + nameIDSupportButton + "\", \"" + dataLoggedUser.getUser_id() + "\", \""
-                        + problemDesc + "\");");
+                            "INSERT INTO SUPPORT_TICKET (STATUS, TICKET_TYPE, SOLICITANTE_ID, PROBLEM_DESC) VALUES (true, \""
+                                    + nameIDSupportButton + "\", \"" + dataLoggedUser.getUser_id() + "\", \""
+                                    + problemDesc + "\");");
 
-                        // ReChecking if the ticket was created
-                        if (obj instanceof ResultSet) {
-                            fxid_ticketResult.setFill(Color.GREEN);
-                            fxid_ticketResult.setText("Ticket abierto correctamente, espere a que un administrador le responda");
-                            
-                            this.ticketAmount = ticketLimitReached(dataLoggedUser.getUser_id());
-                            setGraphicTicketsOnCreate();
+                    // ReChecking if the ticket was created
+                    if (obj instanceof ResultSet) {
+                        fxid_ticketResult.setFill(Color.GREEN);
+                        fxid_ticketResult
+                                .setText("Ticket abierto correctamente, espere a que un administrador le responda");
 
-                            fxid_ticketsCreatedNum.setText("Tickets: " + String.valueOf(ticketAmount + 1) + "/3");
-                        } else {
-                            fxid_ticketResult.setFill(Color.RED);
-                            fxid_ticketResult.setText("Hubo un problema al enviar el ticket");
-                        }
+                        this.ticketAmount = ticketLimitReached(dataLoggedUser.getUser_id());
+                        setGraphicTicketsOnCreate();
+
+                        fxid_ticketsCreatedNum.setText("Tickets: " + String.valueOf(ticketAmount + 1) + "/3");
+                    } else {
+                        fxid_ticketResult.setFill(Color.RED);
+                        fxid_ticketResult.setText("Hubo un problema al enviar el ticket");
+                    }
                 } else {
                     fxid_ticketResult.setFill(Color.RED);
                     fxid_ticketResult.setText("Elija una de las opciones");
@@ -241,13 +246,16 @@ public class FrontPage {
         }
     }
 
-    private void setGraphicTicketsOnShow () throws BannedException {
+    private void setGraphicTicketsOnShow() throws BannedException {
         checkBanned();
         try {
             if (ticketAmount <= 3 && ticketAmount >= 1) {
                 for (int i = 0; i < ticketAmount; i++) {
                     ticketResultQuery.next();
-                    TicketTemplateCLLR tt = new TicketTemplateCLLR(ticketResultQuery);
+                    TicketData t = new TicketData(ticketResultQuery.getInt(1), ticketResultQuery.getBoolean(2),
+                            ticketResultQuery.getString(3), ticketResultQuery.getInt(4), ticketResultQuery.getInt(5),
+                            ticketResultQuery.getString(6), ticketResultQuery.getString(7));
+                    TicketTemplateCLLR tt = new TicketTemplateCLLR(t , this.dataLoggedUser);
                     fxid_ticketGraphicPane.getChildren().add(tt.getProcessedTicket());
                 }
             }
@@ -256,7 +264,7 @@ public class FrontPage {
         }
     }
 
-    private void setGraphicTicketsOnCreate () throws BannedException {
+    private void setGraphicTicketsOnCreate() throws BannedException {
         checkBanned();
         fxid_ticketGraphicPane.getChildren().clear();
         ticketResultQuery = DatabaseRequestManagment.getAllTrueTicketsFromUser(dataLoggedUser.getUser_id());
@@ -277,21 +285,22 @@ public class FrontPage {
     private int ticketLimitReached(int id) throws BannedException {
         checkBanned();
         dbr = new DatabaseRequestManagment();
-        Object obj = dbr.injectCustomQuery("SELECT COUNT(TICKET_ID) FROM SUPPORT_TICKET WHERE SOLICITANTE_ID = \"" + id + "\" AND STATUS = TRUE");
-        
+        Object obj = dbr.injectCustomQuery(
+                "SELECT COUNT(TICKET_ID) FROM SUPPORT_TICKET WHERE SOLICITANTE_ID = \"" + id + "\" AND STATUS = TRUE");
+
         ResultSet ticketCount = null;
         if (obj instanceof ResultSet) {
-            ticketCount = (ResultSet)obj;
+            ticketCount = (ResultSet) obj;
         } else {
-            System.out.println((String)obj);
+            System.out.println((String) obj);
         }
- 
+
         try {
-            while(ticketCount != null && ticketCount.next()) {
+            while (ticketCount != null && ticketCount.next()) {
                 return ticketCount.getInt(1);
             }
         } catch (SQLException sqle) {
-        
+
         }
         return -999;
     }
@@ -299,12 +308,12 @@ public class FrontPage {
     /**
      * Metodo que cuando se ejecuta el controlador y se cargan todos
      * los componentes de la clase con la anotacion @FXML, busca
-     * initialize() para cargar el siguiente conteindo para que no 
+     * initialize() para cargar el siguiente conteindo para que no
      * de errores null o distintos
      * 
      * Cambiara el contenido del elemento Text al lado de avatar
      * con el nombre del usuario
-     *  */ 
+     */
     @FXML
     private void initialize() {
         fxid_usernameAv.setText(dataLoggedUser.getName());

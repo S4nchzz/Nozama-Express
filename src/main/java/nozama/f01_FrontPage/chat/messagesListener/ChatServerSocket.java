@@ -6,56 +6,84 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import nozama.f01_FrontPage.chat.CentralizedChats;
 import nozama.f01_FrontPage.chat.ChatBoxController;
 
 public class ChatServerSocket {
     private ServerSocket s;
+    private int ticketID; 
+
     public ChatServerSocket (ChatBoxController c) {
         try {
             s = new ServerSocket(25567);
             Socket clientSocket = s.accept();
 
-            BufferedReader input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            String clientInput = input.readLine();
+            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            String clientInput = in.readLine();
 
-            c.addMessage(messageFromAdmin(clientInput), substractPrefix(clientInput));
+            replicateMessageToChats(messageFromAdmin(clientInput), substractPrefix(clientInput));
             
         } catch (IOException e) {
-            
+            System.out.println(e.getMessage());
         }
     }
 
     private String substractPrefix(String message) {
         StringBuilder sb = new StringBuilder();
 
-        int firstBraket = 7;
+        boolean closedBraket = false;
 
-        for (; firstBraket < message.length(); firstBraket++) {
-            sb.append(message.charAt(firstBraket));
+        for (int i = 0; i < message.length(); i++) {
+            if (closedBraket) {
+                sb.append(message.charAt(i));
+            }
+
+            if (message.charAt(i) == '}') {
+                closedBraket = true;
+            }
         }
 
         return sb.toString();
+        
     }
-
     private boolean messageFromAdmin(String clientInput) {
         StringBuilder sb = new StringBuilder();
         
-        int firstBraket = 1;
-        int finalBraket = 5;
-        
-        for (; firstBraket <= finalBraket; firstBraket++) {
-            sb.append(clientInput.charAt(firstBraket));
-        }
-        
-        String prefix = sb.toString();
+        int finalBracket = 0;
 
-        if (prefix != null && prefix.equals("user")) {
-            return false;
-        } else if (prefix != null && prefix.equals("admin")) {
+        for (int i = 0; i < clientInput.length(); i++) {
+            if (clientInput.charAt(i) == '}') {
+                finalBracket = i;
+                break;
+            }
+        }
+
+        String entirePrefix = clientInput.substring(0, finalBracket + 1);
+
+        if (entirePrefix.contains("admin")) {
+            for (int i = 7; i < finalBracket; i++) {
+                sb.append(clientInput.charAt(i));
+            }
+
+            this.ticketID = Integer.valueOf(sb.toString());
             return true;
-        }
+        } else if (entirePrefix.contains("user")) {
+            for (int i = 6; i < finalBracket; i++) {
+                sb.append(clientInput.charAt(i));                
+            }
 
+            this.ticketID = Integer.valueOf(sb.toString());
+            return false;
+        }
         return false;
+    }
+
+    private void replicateMessageToChats(boolean fromAdmin, String message) {
+        for (ChatBoxController chat : CentralizedChats.getInstance().getChats()) {
+            if (chat.getTicketData().getTicket_id() == ticketID) {
+                chat.addMessage(fromAdmin, message);
+            }
+        }
     }
 
     public void stop() {

@@ -5,3 +5,7 @@
 #fxid_contentPane {
     -fx-background-color: white;
 }
+
+#fxid_ticketGraphicTemplate {
+    -fx-cursor: hand;
+}
