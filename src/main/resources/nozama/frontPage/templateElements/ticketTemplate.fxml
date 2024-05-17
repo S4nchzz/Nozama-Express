@@ -6,7 +6,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Text?>
 
-<Pane fx:id="fxid_ticketGraphicTemplate" prefHeight="81.333" prefWidth="377.0" stylesheets="@../css/ticketTemplate.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="fxid_ticketGraphicTemplate" onMouseClicked="#openTicketAction" prefHeight="81.333" prefWidth="377.0" stylesheets="@../css/ticketTemplate.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane fx:id="fxid_shadowTemplate" prefHeight="81.0" prefWidth="75.0" />
       <ImageView fitHeight="34.0" fitWidth="34.0" layoutX="21.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">

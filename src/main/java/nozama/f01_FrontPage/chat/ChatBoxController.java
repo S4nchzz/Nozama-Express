@@ -1,12 +1,9 @@
 package nozama.f01_FrontPage.chat;
 
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import nozama.f00_Login.UserData;
 import nozama.f01_FrontPage.adminPanel.ticketPanel.TicketData;
 import nozama.f01_FrontPage.chat.messageBox.AdminMessageBox;
@@ -17,11 +14,9 @@ import nozama.f01_FrontPage.chat.messagesListener.UserSocket;
 import nozama_database.sendRequest.DatabaseRequestManagment;
 
 public class ChatBoxController {
-    private static final EventHandler<WindowEvent> WindowEvent = null;
     private final TicketData td;
     private final UserData userData;
-    private int messageAmount;
-    private final boolean chatInstanceFromAdmin;
+    private boolean chatInstanceFromAdmin;
 
     @FXML
     private VBox fxid_chatVbox;
@@ -31,10 +26,9 @@ public class ChatBoxController {
     public ChatBoxController (TicketData td, UserData userData, boolean chatInstanceFromAdmin) {
         this.td = td;
         this.userData = userData;
-        this.messageAmount = DatabaseRequestManagment.getMessageAmount(td.getTicket_id());
         this.chatInstanceFromAdmin = chatInstanceFromAdmin;
 
-        CentralizedChats c = new CentralizedChats();
+        CentralizedChats c = CentralizedChats.getInstance();
         c.addChat(this);
     }
 
@@ -66,6 +60,10 @@ public class ChatBoxController {
                 }
             }
         });
+    }
+
+    public void sendedFromAdmin (boolean isAdmin) {
+        this.chatInstanceFromAdmin = isAdmin;
     }
 
     @FXML

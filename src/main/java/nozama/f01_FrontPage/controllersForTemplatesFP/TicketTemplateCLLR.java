@@ -1,35 +1,39 @@
 package nozama.f01_FrontPage.controllersForTemplatesFP;
 
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import nozama.f01_FrontPage.adminPanel.ticketPanel.TicketData;
+import nozama.f01_FrontPage.chat.CentralizedChats;
+import nozama.f01_FrontPage.chat.ChatBoxController;
 
 public class TicketTemplateCLLR {
-    Pane graphicTicket;
+    private Pane graphicTicket;
+    private final TicketData ticketData;
+    private ChatBoxController chatToOpen;
 
     @FXML
     private Text fxid_type;
     @FXML
     private Text fxid_prob;
 
-    public TicketTemplateCLLR(ResultSet ticketData) {
+    public TicketTemplateCLLR(TicketData ticketData) {
+        this.ticketData = ticketData;
         try {
             FXMLLoader ticket = new FXMLLoader();
             ticket.setLocation(getClass().getResource("/nozama/frontPage/templateElements/ticketTemplate.fxml"));
             ticket.setController(this);
             graphicTicket = ticket.load();
 
-            try {
-                fxid_prob.setText(ticketData.getString(6));
-                fxid_type.setText(ticketData.getString(3));
-            } catch (SQLException sqle) {
-                
-            }
+            fxid_prob.setText(ticketData.getProblem_desc());
+            fxid_type.setText(ticketData.getTicket_type());
+            
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Failed to load FXML file.");
@@ -42,6 +46,33 @@ public class TicketTemplateCLLR {
 
     @FXML
     private void openTicketAction () {
-        System.out.println("ASDasdasdsda");
+        CentralizedChats c = CentralizedChats.getInstance();
+        
+        if (c.getChats().size() == 0 || c.getChats() == null || this.chatToOpen != null) {
+            return;
+        }
+
+        for (ChatBoxController chat : c.getChats()) {
+            if (chat.getTicketData().getTicket_id() == ticketData.getTicket_id()) {
+                chatToOpen = chat;
+            }
+        }
+
+        chatToOpen.sendedFromAdmin(false);
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/nozama/virtualChat/chatBox.fxml"));
+        loader.setController(chatToOpen);
+        try {
+            Parent p = loader.load();
+            Scene s = new Scene(p);
+            Stage ss = new Stage();
+            ss.setScene(s);
+            ss.centerOnScreen();
+            ss.setTitle("Online Chat");
+            ss.setResizable(false);
+            ss.show();
+        } catch (IOException e) {
+
+        }
     }
 }
