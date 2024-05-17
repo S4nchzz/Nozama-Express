@@ -33,31 +33,27 @@ public class ChatBoxController {
         this.userData = userData;
         this.messageAmount = DatabaseRequestManagment.getMessageAmount(td.getTicket_id());
         this.chatInstanceFromAdmin = chatInstanceFromAdmin;
+
+        CentralizedChats c = new CentralizedChats();
+        c.addChat(this);
     }
 
     @FXML
     private void sendMessageAction () {
-        // String message = fxid_sendMessage.getText();
-        // String admin = "";
-
-        // if (DatabaseRequestManagment.isAdmin(userData.getUser_id())) {
-        //     admin = "admin";
-        // } else {
-        //     admin = "user";
-        // }
-
-        // DatabaseRequestManagment dbr = new DatabaseRequestManagment();
-        // dbr.sendMessage(td.getTicket_id(), userData.getUser_id(), admin, message);
+        String message = fxid_sendMessage.getText();
+        DatabaseRequestManagment dbr = new DatabaseRequestManagment();
 
         if (this.chatInstanceFromAdmin) {
             new AdminSocket(fxid_sendMessage.getText());
+            dbr.sendMessage(td.getTicket_id(), userData.getUser_id(), "Admin", message);
         } else {
             new UserSocket(fxid_sendMessage.getText());
+            dbr.sendMessage(td.getTicket_id(), userData.getUser_id(), "User", message);
         }
     }
     
     public void addMessage(boolean fromAdmin, String input) {
-        String fromWho = fromAdmin ? "admin" : "user";
+        String fromWho = fromAdmin ? "Admin" : "User";
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -70,7 +66,6 @@ public class ChatBoxController {
                 }
             }
         });
-        
     }
 
     @FXML
@@ -78,5 +73,9 @@ public class ChatBoxController {
         new Thread(() -> {
             new ChatServerSocket(this);
         }).start();
+    }
+
+    public TicketData getTicketData() {
+        return this.td;
     }
 }
