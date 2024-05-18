@@ -124,7 +124,7 @@ public class TicketPanel {
             } 
         }
 
-        if (countInstancesCurrentTicket < 2) {
+        if (countInstancesCurrentTicket < 2 && !currentChatBoxAdminOpened()) {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/nozama/virtualChat/chatBox.fxml"));
             loader.setController(new ChatBoxController(ticketData, userData, true));
@@ -140,10 +140,17 @@ public class TicketPanel {
             } catch (IOException e) {
     
             }
-        } else {
-            // ya hay 2 isntancias de ese ticket abiertas
+        }
+    }
+
+    private boolean currentChatBoxAdminOpened() {
+        for (ChatBoxController chat : CentralizedChats.getChats()) {
+            if (chat.getTicketData().getTicket_id() == this.ticketData.getTicket_id() && chat.chatInstanceFromAdmin()) {
+                return true;
+            }
         }
 
+        return false;
     }
 
     @FXML

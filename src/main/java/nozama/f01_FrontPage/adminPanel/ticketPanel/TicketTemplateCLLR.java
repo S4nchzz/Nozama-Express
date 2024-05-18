@@ -18,6 +18,7 @@ public class TicketTemplateCLLR {
     private final TicketData ticketData;
     private ChatBoxController chatToOpen;
     private final UserData userData;
+    private static boolean currentChatBoxFromTicketInstance;
 
     @FXML
     private Text fxid_type;
@@ -60,27 +61,41 @@ public class TicketTemplateCLLR {
             }
         }
 
-        if (chatFounded) {
+        if (chatFounded && !currentChatBoxAdminOpened()) {
+            currentChatBoxFromTicketInstance = true;
             chatToOpen = new ChatBoxController(ticketData, this.userData, false);
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/nozama/virtualChat/chatBox.fxml"));
+            loader.setController(chatToOpen);
+            try {
+                Parent p = loader.load();
+                Scene s = new Scene(p);
+                Stage ss = new Stage();
+                ss.setScene(s);
+                ss.centerOnScreen();
+                ss.setTitle("Online Chat");
+                ss.setResizable(false);
+                ss.show();
+            } catch (IOException e) {
+    
+            }
         } else {
             return;
         }
+    }
 
-        chatToOpen.sendedFromAdmin(false);
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/nozama/virtualChat/chatBox.fxml"));
-        loader.setController(chatToOpen);
-        try {
-            Parent p = loader.load();
-            Scene s = new Scene(p);
-            Stage ss = new Stage();
-            ss.setScene(s);
-            ss.centerOnScreen();
-            ss.setTitle("Online Chat");
-            ss.setResizable(false);
-            ss.show();
-        } catch (IOException e) {
-
+    private boolean currentChatBoxAdminOpened() {
+        for (ChatBoxController chat : CentralizedChats.getChats()) {
+            if (chat.getTicketData().getTicket_id() == this.ticketData.getTicket_id() && !chat.chatInstanceFromAdmin()) {
+                return true;
+            }
         }
+
+        return false;
+    }
+
+    public static void setCurrentChatBoxFromTicketInstance(boolean newState) {
+        currentChatBoxFromTicketInstance = newState;
     }
 }

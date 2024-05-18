@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import nozama.f00_Login.UserData;
 import nozama.f01_FrontPage.adminPanel.ticketPanel.TicketData;
+import nozama.f01_FrontPage.adminPanel.ticketPanel.TicketTemplateCLLR;
 import nozama.f01_FrontPage.ticketChat.messageBox.AdminMessageBox;
 import nozama.f01_FrontPage.ticketChat.messageBox.UserMessageBox;
 import nozama.f01_FrontPage.ticketChat.messagesListener.AdminSocket;
@@ -58,6 +59,8 @@ public class ChatBoxController {
                     return;
                 }
 
+                TicketTemplateCLLR.setCurrentChatBoxFromTicketInstance(false); // NULL MEANS THE TICKET WAS OPENED FROM TICKET PANEL INSTEAD OF SUPPORT PANE
+                
                 CentralizedChats.delChat(chatToDelete);
             });
 
@@ -84,7 +87,7 @@ public class ChatBoxController {
         String message = fxid_sendMessage.getText();
         DatabaseRequestManagment dbr = new DatabaseRequestManagment();
         
-        if (!message.equals("")) {
+        if (!message.equals("")) { 
             if (this.chatInstanceFromAdmin) {
                 new AdminSocket(fxid_sendMessage.getText(), this.td.getTicket_id());
                 dbr.sendMessage(td.getTicket_id(), userData.getUser_id(), "Admin", message);
@@ -172,10 +175,6 @@ public class ChatBoxController {
             
     }
 
-    public void sendedFromAdmin(boolean isAdmin) {
-        this.chatInstanceFromAdmin = isAdmin;
-    }
-
     public TicketData getTicketData() {
         return this.td;
     }
@@ -186,6 +185,10 @@ public class ChatBoxController {
 
     protected void modifyAnchorPane(double width, double heigth) {
         fxid_anchorPaneResizeable.setPrefHeight(heigth);
+    }
+
+    public boolean chatInstanceFromAdmin () {
+        return this.chatInstanceFromAdmin;
     }
 
     @FXML
