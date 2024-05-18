@@ -72,7 +72,7 @@ public class ChatBoxController {
     @FXML
     private void sendMessageAction() {
         checkBothUsersConnected();
-        if (this.fxid_chatVbox.getChildren().size() > 5) {
+        if (this.fxid_chatVbox.getChildren().size() > 5 && !fxid_sendMessage.getText().equals("")) {
             // Ancho del AnchorPane lleno, aumentando tamaño en todos los chatBox con ese ID
             for (ChatBoxController chat : CentralizedChats.getChats()) {
                 if (chat.getTicketData().getTicket_id() == this.getTicketData().getTicket_id()) {

@@ -1,11 +1,8 @@
 #fxid_shadowTemplate {
     -fx-background-color: antiquewhite;
+    -fx-cursor: hand;
 }
 
 #fxid_contentPane {
     -fx-background-color: white;
-}
-
-#fxid_ticketGraphicTemplate {
-    -fx-cursor: hand;
 }

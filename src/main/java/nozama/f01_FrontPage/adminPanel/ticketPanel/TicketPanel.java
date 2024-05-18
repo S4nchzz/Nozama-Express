@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -126,8 +125,6 @@ public class TicketPanel {
         }
 
         if (countInstancesCurrentTicket < 2) {
-            fxid_liveChatAction.setDisable(true);;
-
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/nozama/virtualChat/chatBox.fxml"));
             loader.setController(new ChatBoxController(ticketData, userData, true));
@@ -148,6 +145,7 @@ public class TicketPanel {
         }
 
     }
+
     @FXML
     private void initialize () {
         fxid_textTicketId.setText("");

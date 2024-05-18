@@ -27,6 +27,7 @@ public class TicketTemplateCLLR {
     public TicketTemplateCLLR(TicketData ticketData, UserData userData) {
         this.ticketData = ticketData;
         this.userData = userData;
+
         try {
             FXMLLoader ticket = new FXMLLoader();
             ticket.setLocation(getClass().getResource("/nozama/frontPage/templateElements/ticketTemplate.fxml"));
