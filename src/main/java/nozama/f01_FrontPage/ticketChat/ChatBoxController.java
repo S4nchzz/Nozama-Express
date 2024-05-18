@@ -93,6 +93,8 @@ public class ChatBoxController {
                 dbr.sendMessage(td.getTicket_id(), userData.getUser_id(), "User", message);
             }
         }
+
+        this.fxid_sendMessage.clear();
     }
     
     public void addMessage(boolean fromAdmin, String input) {
@@ -191,7 +193,7 @@ public class ChatBoxController {
         if (!ServerThreadInfo.getServerThreadRunning()) {
             new Thread(() -> {
                 ServerThreadInfo.setServerThreadRunning(true);
-                new ChatServerSocket(this);
+                new ChatServerSocket();
             }).start();
         }
     }

@@ -13,9 +13,8 @@ public class ChatServerSocket {
     private ServerSocket s;
     private int ticketID; 
 
-    public ChatServerSocket (ChatBoxController c) {
+    public ChatServerSocket () {
         try {
-
             s = new ServerSocket(25567);
 
             while (true) {
