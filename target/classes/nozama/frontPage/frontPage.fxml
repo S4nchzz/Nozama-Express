@@ -97,6 +97,11 @@
                               <Image url="@src/frontPageIcons/tech-support.png" />
                            </image>
                         </ImageView>
+                        <ImageView fx:id="fxid_supportNotification" fitHeight="25.0" fitWidth="25.0" layoutX="225.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                           <image>
+                              <Image url="@src/frontPageIcons/notificaciones.png" />
+                           </image>
+                        </ImageView>
                      </children>
                   </Pane>
                </children></VBox>

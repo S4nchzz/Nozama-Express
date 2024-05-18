@@ -23,7 +23,7 @@ import nozama.f00_Login.LoginPage;
 import nozama.f00_Login.UserData;
 import nozama.f01_FrontPage.adminPanel.AdminPanel;
 import nozama.f01_FrontPage.adminPanel.ticketPanel.TicketData;
-import nozama.f01_FrontPage.adminPanel.ticketPanel.TicketTemplateCLLR;
+import nozama.f01_FrontPage.adminPanel.ticketPanel.TicketElement;
 import nozama_database.sendRequest.DatabaseRequestManagment;
 
 public class FrontPage {
@@ -79,6 +79,9 @@ public class FrontPage {
     @FXML
     private Pane fxid_ticketGraphicPane;
 
+    @FXML
+    private ImageView fxid_supportNotification;
+
     private void checkBanned() throws BannedException {
         if (DatabaseRequestManagment.isBanned(dataLoggedUser.getUser_id())
                 && DatabaseRequestManagment.isLoggedIn(dataLoggedUser.getUser_id())) {
@@ -96,6 +99,9 @@ public class FrontPage {
 
         this.ticketResultQuery = DatabaseRequestManagment.getAllTrueTicketsFromUser(dataLoggedUser.getUser_id());
 
+        CentralizeFrontPage centralizeFrontPageAdd = CentralizeFrontPage.getInstance();
+        centralizeFrontPageAdd.addFrontPage(this);
+
         // Runtime que crea un hilo antes de cerrar el programa para enviar por ultimo
         // estas instrucciones
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
@@ -104,7 +110,10 @@ public class FrontPage {
             dbr.injectCustomQuery(
                     "UPDATE USER SET LOGIN_STATUS = FALSE WHERE USER_ID = " + dataLoggedUser.getUser_id());
 
+            CentralizeFrontPage centralizeFrontPageRemove = CentralizeFrontPage.getInstance();
+            centralizeFrontPageRemove.delFrontPage(this);
         }));
+
 
         // Establece el booleano de login_status a true refiriendose a que el usuario
         // tiene la sesion iniciada
@@ -170,6 +179,7 @@ public class FrontPage {
     @FXML
     private void handleSupportAction() throws SQLException, IOException, BannedException {
         checkBanned();
+        setVisibleNotification(false);
         fxid_supportPane.setVisible(visibleSupport);
 
         ticketAmount = ticketLimitReached(dataLoggedUser.getUser_id());
@@ -255,7 +265,7 @@ public class FrontPage {
                     TicketData t = new TicketData(ticketResultQuery.getInt(1), ticketResultQuery.getBoolean(2),
                             ticketResultQuery.getString(3), ticketResultQuery.getInt(4), ticketResultQuery.getInt(5),
                             ticketResultQuery.getString(6), ticketResultQuery.getString(7));
-                    TicketTemplateCLLR tt = new TicketTemplateCLLR(t , this.dataLoggedUser);
+                    TicketElement tt = new TicketElement(t , this.dataLoggedUser, this);
                     fxid_ticketGraphicPane.getChildren().add(tt.getProcessedTicket());
                 }
             }
@@ -303,6 +313,14 @@ public class FrontPage {
 
         }
         return -999;
+    }
+
+    public void setVisibleNotification(boolean status) {
+        this.fxid_supportNotification.setVisible(status);
+    }
+
+    public UserData getDataLoggedUser() {
+        return this.dataLoggedUser;
     }
 
     /**

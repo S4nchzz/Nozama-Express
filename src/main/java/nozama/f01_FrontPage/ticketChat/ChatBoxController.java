@@ -12,11 +12,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import nozama.f00_Login.UserData;
 import nozama.f01_FrontPage.adminPanel.ticketPanel.TicketData;
-import nozama.f01_FrontPage.adminPanel.ticketPanel.TicketTemplateCLLR;
 import nozama.f01_FrontPage.ticketChat.messageBox.AdminMessageBox;
 import nozama.f01_FrontPage.ticketChat.messageBox.UserMessageBox;
 import nozama.f01_FrontPage.ticketChat.messagesListener.AdminSocket;
 import nozama.f01_FrontPage.ticketChat.messagesListener.ChatServerSocket;
+import nozama.f01_FrontPage.ticketChat.messagesListener.PopupMessageShower;
 import nozama.f01_FrontPage.ticketChat.messagesListener.ServerThreadInfo;
 import nozama.f01_FrontPage.ticketChat.messagesListener.UserSocket;
 import nozama_database.sendRequest.DatabaseRequestManagment;
@@ -60,14 +60,32 @@ public class ChatBoxController {
                 }
  
                 CentralizedChats.delChat(chatToDelete);
+                if (chatInstanceFromAdmin) {
+                    new PopupMessageShower(this.td.getTicket_id(), true);
+                }
             });
-
         });
+
+        if (!ServerThreadInfo.getServerThreadRunning()) {
+            new Thread(() -> {
+                ServerThreadInfo.setServerThreadRunning(true);
+                new ChatServerSocket();
+            }).start();
+        }
+
         // Verify amount of instances of ChatBoxController, if there is 1 the user
         // cannot send messages whereas if there is 2 he would
         checkBothUsersConnected();
         checkTicketOpened();
         reWriteMessages(DatabaseRequestManagment.getMessageDataByTicket(this.td.getTicket_id()));
+        
+        // Aplicated because when the user create a instance of this() it will call a popupMessageShower setting visible the chat
+        // and sending TCP request to the serverSocket
+        // Not necesary because the popup will only show at the first creation of the instance of this() maded by an administrator
+        // a user cannot open a ticketChat himself
+        if (chatInstanceFromAdmin) {
+            new PopupMessageShower(this.td.getTicket_id(), false);
+        }
     }
     
     @FXML
@@ -187,15 +205,5 @@ public class ChatBoxController {
 
     public boolean chatInstanceFromAdmin () {
         return this.chatInstanceFromAdmin;
-    }
-
-    @FXML
-    private void initialize() {
-        if (!ServerThreadInfo.getServerThreadRunning()) {
-            new Thread(() -> {
-                ServerThreadInfo.setServerThreadRunning(true);
-                new ChatServerSocket();
-            }).start();
-        }
     }
 }

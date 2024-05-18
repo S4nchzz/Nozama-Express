@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import nozama.f01_FrontPage.adminPanel.ticketPanel.CentralizedTicketTemplates;
+import nozama.f01_FrontPage.adminPanel.ticketPanel.TicketElement;
 import nozama.f01_FrontPage.ticketChat.CentralizedChats;
 import nozama.f01_FrontPage.ticketChat.ChatBoxController;
 
@@ -22,12 +24,42 @@ public class ChatServerSocket {
     
                 BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 String clientInput = in.readLine();
-    
-                replicateMessageToChats(messageFromAdmin(clientInput), substractPrefix(clientInput));
+                
+                decrypt(clientInput);
             }
             
         } catch (IOException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    private void decrypt(String in) {
+        if (in != null) {
+            StringBuilder sb = new StringBuilder();
+            
+            if (in.contains("popUpTicket")) {
+                sb.delete(0, sb.length());
+    
+                int doubleDot = 13;
+                for (int i = doubleDot; i < in.length(); i++) {
+                    if (in.charAt(i) != '}') {
+                        sb.append(in.charAt(i));
+                    } else {
+                        break;
+                    }
+                }
+                int ticket = Integer.valueOf(sb.toString());
+
+                if (in.contains("close")) {
+                    noticeChats(ticket, false);
+                } else {
+                    noticeChats(ticket, true);
+                }
+    
+            } else if (in.contains("user") || in.contains("admin")) {
+                sb.delete(0, sb.length());
+                replicateMessageToChats(messageFromAdmin(in), substractPrefix(in));
+            }
         }
     }
 
@@ -47,8 +79,8 @@ public class ChatServerSocket {
         }
 
         return sb.toString();
-        
     }
+
     private boolean messageFromAdmin(String clientInput) {
         StringBuilder sb = new StringBuilder();
         
@@ -85,6 +117,14 @@ public class ChatServerSocket {
         for (ChatBoxController chat : CentralizedChats.getChats()) {
             if (chat.getTicketData().getTicket_id() == ticketID) {
                 chat.addMessage(fromAdmin, message);
+            }
+        }
+    }
+    
+    private void noticeChats(int ticket_id, boolean notifyStatus) {
+        for (TicketElement ticket : CentralizedTicketTemplates.getChats()) {
+            if (ticket.getTicketData().getTicket_id() == ticket_id) {
+                ticket.popUpNotice(notifyStatus);
             }
         }
     }

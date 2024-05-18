@@ -2,18 +2,21 @@ package nozama.f01_FrontPage.adminPanel.ticketPanel;
 
 import java.io.IOException;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import nozama.f00_Login.UserData;
+import nozama.f01_FrontPage.FrontPage;
 import nozama.f01_FrontPage.ticketChat.CentralizedChats;
 import nozama.f01_FrontPage.ticketChat.ChatBoxController;
 
-public class TicketTemplateCLLR {
+public class TicketElement {
     private Pane graphicTicket;
     private final TicketData ticketData;
     private ChatBoxController chatToOpen;
@@ -23,10 +26,20 @@ public class TicketTemplateCLLR {
     private Text fxid_type;
     @FXML
     private Text fxid_prob;
+    @FXML
+    private ImageView fxid_chatNotice;
+    
 
-    public TicketTemplateCLLR(TicketData ticketData, UserData userData) {
+    public TicketElement(TicketData ticketData, UserData userData, FrontPage frontPage) {
         this.ticketData = ticketData;
         this.userData = userData;
+
+        Platform.runLater(() -> {
+            hasActiveNotification();
+
+        });
+        
+        CentralizedTicketTemplates.addTicketTemplate(this);
 
         try {
             FXMLLoader ticket = new FXMLLoader();
@@ -45,6 +58,14 @@ public class TicketTemplateCLLR {
 
     public Pane getProcessedTicket () {
         return this.graphicTicket;
+    }
+
+    private void hasActiveNotification() {
+        for (ChatBoxController chat : CentralizedChats.getChats()) {
+            if (chat.getTicketData().getTicket_id() == this.ticketData.getTicket_id() && chat.chatInstanceFromAdmin()) {
+                popUpNotice(true);
+            }
+        }
     }
 
     @FXML
@@ -83,6 +104,10 @@ public class TicketTemplateCLLR {
         }
     }
 
+    public void popUpNotice (boolean status) {
+        fxid_chatNotice.setVisible(status);
+    }
+
     private boolean currentChatBoxAdminOpened() {
         for (ChatBoxController chat : CentralizedChats.getChats()) {
             if (chat.getTicketData().getTicket_id() == this.ticketData.getTicket_id() && !chat.chatInstanceFromAdmin()) {
@@ -91,5 +116,9 @@ public class TicketTemplateCLLR {
         }
 
         return false;
+    }
+
+    public TicketData getTicketData () {
+        return this.ticketData;
     }
 }

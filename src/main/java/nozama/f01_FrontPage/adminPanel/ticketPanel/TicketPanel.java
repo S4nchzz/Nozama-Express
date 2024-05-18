@@ -16,6 +16,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import nozama.f00_Login.UserData;
+import nozama.f01_FrontPage.CentralizeFrontPage;
+import nozama.f01_FrontPage.FrontPage;
 import nozama.f01_FrontPage.ticketChat.CentralizedChats;
 import nozama.f01_FrontPage.ticketChat.ChatBoxController;
 import nozama_database.sendRequest.DatabaseRequestManagment;
@@ -63,8 +65,10 @@ public class TicketPanel {
     @FXML
     private void sendResponse () {
         DatabaseRequestManagment sendResponse = new DatabaseRequestManagment();
-        if (sendResponse.updateTicket(adminID, fxid_responseArea.getText(), ticketData.getTicket_id())) {
+        if (sendResponse.updateTicket(adminID, fxid_responseArea.getText(), ticketData.getTicket_id()) && sendResponse.closeTicket(ticketData.getTicket_id())) {
             this.ticketData = updateTicketDataContent();
+            CentralizedTicketTemplates.delTicketTemplate(ticketData.getTicket_id());
+
             if (ticketData != null) {
                 initialize();
             }
@@ -137,8 +141,21 @@ public class TicketPanel {
                 ss.setTitle("Online Chat");
                 ss.setResizable(false);
                 ss.show();
+
+                if (DatabaseRequestManagment.isTicketOpen(ticketData.getTicket_id())) {
+                    sendNotificationToUser(ticketData.getSolicitante_id());
+                }
             } catch (IOException e) {
     
+            }
+        }
+    }
+
+    private void sendNotificationToUser(int userID) {
+        CentralizeFrontPage centralizeFrontPage = CentralizeFrontPage.getInstance();
+        for (FrontPage frontPage : centralizeFrontPage.getFrontPageElements()) {
+            if (frontPage.getDataLoggedUser().getUser_id() == userID) {
+                frontPage.setVisibleNotification(true);
             }
         }
     }

@@ -11,7 +11,7 @@ public class UserSocket {
             PrintWriter out = new PrintWriter(s.getOutputStream(), true);
             out.println("{user:" + ticketID + "}" + content + "\n");
             s.close();
-    } catch (IOException e) {
+        } catch (IOException e) {
         
         }
     }
