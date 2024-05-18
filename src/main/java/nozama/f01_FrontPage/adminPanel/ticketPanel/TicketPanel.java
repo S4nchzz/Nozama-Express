@@ -10,12 +10,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import nozama.f00_Login.UserData;
+import nozama.f01_FrontPage.ticketChat.CentralizedChats;
 import nozama.f01_FrontPage.ticketChat.ChatBoxController;
 import nozama_database.sendRequest.DatabaseRequestManagment;
 
@@ -47,6 +49,10 @@ public class TicketPanel {
     private Pane fxid_closedResponse;
     @FXML
     private Text fxid_responseIfClosed;
+
+    // Already opened chat
+    @FXML
+    private Button fxid_liveChatAction;
 
     public TicketPanel (TicketData ticketData, UserData userData, int adminID) {
         this.ticketData = ticketData;
@@ -112,21 +118,35 @@ public class TicketPanel {
 
     @FXML
     private void liveChatAction () {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/nozama/virtualChat/chatBox.fxml"));
-        loader.setController(new ChatBoxController(ticketData, userData, true));
-        try {
-            Parent p = loader.load();
-            Scene s = new Scene(p);
-            Stage ss = new Stage();
-            ss.setScene(s);
-            ss.centerOnScreen();
-            ss.setTitle("Online Chat");
-            ss.setResizable(false);
-            ss.show();
-        } catch (IOException e) {
-
+        int countInstancesCurrentTicket = 0;
+        for (ChatBoxController chat : CentralizedChats.getChats()) {
+            if (chat.getTicketData().getTicket_id() == this.ticketData.getTicket_id()) {
+                countInstancesCurrentTicket++;
+            } 
         }
+
+        if (countInstancesCurrentTicket < 2) {
+            fxid_liveChatAction.setDisable(true);;
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/nozama/virtualChat/chatBox.fxml"));
+            loader.setController(new ChatBoxController(ticketData, userData, true));
+            try {
+                Parent p = loader.load();
+                Scene s = new Scene(p);
+                Stage ss = new Stage();
+                ss.setScene(s);
+                ss.centerOnScreen();
+                ss.setTitle("Online Chat");
+                ss.setResizable(false);
+                ss.show();
+            } catch (IOException e) {
+    
+            }
+        } else {
+            // ya hay 2 isntancias de ese ticket abiertas
+        }
+
     }
     @FXML
     private void initialize () {

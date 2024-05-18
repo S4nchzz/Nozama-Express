@@ -52,14 +52,14 @@ public class TicketTemplateCLLR {
             return;
         }
 
-        TicketData data = null;
+        boolean chatFounded = false;
         for (ChatBoxController chat : CentralizedChats.getChats()) {
             if (chat.getTicketData().getTicket_id() == ticketData.getTicket_id()) {
-                data = chat.getTicketData();
+                chatFounded = true;
             }
         }
 
-        if (data != null) {
+        if (chatFounded) {
             chatToOpen = new ChatBoxController(ticketData, this.userData, false);
         } else {
             return;

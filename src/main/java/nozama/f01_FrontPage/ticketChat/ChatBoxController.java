@@ -10,7 +10,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import nozama.f00_Login.UserData;
 import nozama.f01_FrontPage.adminPanel.ticketPanel.TicketData;
 import nozama.f01_FrontPage.ticketChat.messageBox.AdminMessageBox;
@@ -35,7 +34,7 @@ public class ChatBoxController {
     @FXML
     private AnchorPane fxid_anchorPaneResizeable;
 
-    public ChatBoxController (TicketData td, UserData userData, boolean chatInstanceFromAdmin) {
+    public ChatBoxController(TicketData td, UserData userData, boolean chatInstanceFromAdmin) {
         this.token = generateToken();
         this.td = td;
         this.userData = userData;
@@ -45,8 +44,8 @@ public class ChatBoxController {
 
         Platform.runLater(() -> {
             Scene scene = fxid_chatVbox.getScene();
-            Stage stage = (Stage)scene.getWindow();
-            
+            Stage stage = (Stage) scene.getWindow();
+
             stage.setOnHidden(event -> {
                 ChatBoxController chatToDelete = null;
                 for (ChatBoxController chat : CentralizedChats.getChats()) {
@@ -61,28 +60,29 @@ public class ChatBoxController {
 
                 CentralizedChats.delChat(chatToDelete);
             });
-            
-        });
 
-        // Verify amount of instances of ChatBoxController, if there is 1 the user cannot send messages whereas if there is 2 he would
+        });
+        // Verify amount of instances of ChatBoxController, if there is 1 the user
+        // cannot send messages whereas if there is 2 he would
         checkBothUsersConnected();
     }
-
+    
     @FXML
-    private void sendMessageAction () { 
+    private void sendMessageAction() {
         checkBothUsersConnected();
         if (this.fxid_chatVbox.getChildren().size() > 5) {
             // Ancho del AnchorPane lleno, aumentando tamaño en todos los chatBox con ese ID
             for (ChatBoxController chat : CentralizedChats.getChats()) {
                 if (chat.getTicketData().getTicket_id() == this.getTicketData().getTicket_id()) {
-                    chat.modifyAnchorPane(fxid_anchorPaneResizeable.getWidth(), fxid_anchorPaneResizeable.getHeight() + 69);
+                    chat.modifyAnchorPane(fxid_anchorPaneResizeable.getWidth(),
+                    fxid_anchorPaneResizeable.getHeight() + 69);
                 }
             }
         }
-
+        
         String message = fxid_sendMessage.getText();
         DatabaseRequestManagment dbr = new DatabaseRequestManagment();
-
+        
         if (!message.equals("")) {
             if (this.chatInstanceFromAdmin) {
                 new AdminSocket(fxid_sendMessage.getText(), this.td.getTicket_id());
@@ -93,17 +93,32 @@ public class ChatBoxController {
             }
         }
     }
+    
+    public void addMessage(boolean fromAdmin, String input) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                if (fromAdmin) {
+                    AdminMessageBox admin = new AdminMessageBox(userData, input);
+                    fxid_chatVbox.getChildren().add(admin.getAdminPane());
+                } else {
+                    UserMessageBox user = new UserMessageBox(userData, input);
+                    fxid_chatVbox.getChildren().add(user.getUserPane());
+                }
+            }
+        });
+    }
 
-    private int generateToken () {
+    private int generateToken() {
         Random rm = new Random();
-        return rm.nextInt(10);
+        return rm.nextInt(999999999);
     }
 
     public int getToken() {
         return this.token;
     }
 
-    private void checkBothUsersConnected () {
+    private void checkBothUsersConnected() {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -131,21 +146,7 @@ public class ChatBoxController {
             }
         });
     }
-    
-    public void addMessage(boolean fromAdmin, String input) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                if (fromAdmin) {
-                    AdminMessageBox admin = new AdminMessageBox(userData, input);
-                    fxid_chatVbox.getChildren().add(admin.getAdminPane());
-                } else {
-                    UserMessageBox user = new UserMessageBox(userData, input);
-                    fxid_chatVbox.getChildren().add(user.getUserPane());
-                }
-            }
-        });
-    }
+
 
     public void sendedFromAdmin(boolean isAdmin) {
         this.chatInstanceFromAdmin = isAdmin;
@@ -159,7 +160,7 @@ public class ChatBoxController {
         this.fxid_sendMessage.setDisable(status);
     }
 
-    protected void modifyAnchorPane (double width, double heigth) {
+    protected void modifyAnchorPane(double width, double heigth) {
         fxid_anchorPaneResizeable.setPrefHeight(heigth);
     }
 
