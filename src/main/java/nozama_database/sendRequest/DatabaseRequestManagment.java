@@ -6,7 +6,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
+import nozama.f01_FrontPage.ticketChat.MessageData;
 import nozama_database.credentials.PasswordComplexity;
 import nozama_database.setttingUp.DatabaseLinkTest;
 
@@ -583,6 +585,28 @@ public class DatabaseRequestManagment {
         }
 
         return false;
+    }
+
+    public static ArrayList<MessageData> getMessageDataByTicket(int ticketID) {
+        try {
+            Connection conn = DriverManager.getConnection(url, "root", "");
+            PreparedStatement st = conn.prepareStatement("SELECT * FROM CHAT_MESSAGES WHERE TICKET_ID = ? ORDER BY DATE ASC");
+            st.setInt(1, ticketID);
+            ResultSet rs = st.executeQuery();
+
+            ArrayList<MessageData> messageList = new ArrayList<>();
+            while (rs.next()) {
+                messageList.add(new MessageData(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getString(6)));
+            }
+
+            rs.close();
+            st.close();
+            conn.close();
+            return messageList;
+        } catch (SQLException sqle) {
+
+        }
+        return null;
     }
 
     public String getTicketResponse(int ticketID) {

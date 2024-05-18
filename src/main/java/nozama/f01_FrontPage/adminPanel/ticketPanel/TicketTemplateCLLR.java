@@ -48,7 +48,7 @@ public class TicketTemplateCLLR {
 
     @FXML
     private void openTicketAction () {
-        if (CentralizedChats.getChats().size() == 0 || CentralizedChats.getChats() == null || this.chatToOpen != null) {
+        if (CentralizedChats.getChats().size() == 0 || CentralizedChats.getChats() == null) {
             return;
         }
 

@@ -65,6 +65,7 @@ public class ChatBoxController {
         // Verify amount of instances of ChatBoxController, if there is 1 the user
         // cannot send messages whereas if there is 2 he would
         checkBothUsersConnected();
+        reWriteMessages(DatabaseRequestManagment.getMessageDataByTicket(this.td.getTicket_id()));
     }
     
     @FXML
@@ -107,6 +108,21 @@ public class ChatBoxController {
                 }
             }
         });
+    }
+
+    private void reWriteMessages(ArrayList<MessageData> messageList) {
+        if (messageList != null) {
+            Platform.runLater(() -> {
+                modifyAnchorPane(fxid_anchorPaneResizeable.getWidth(), (messageList.size() + 1) * 69);
+            });
+            for (MessageData message : messageList) {
+                if (message.getSender_Role().equalsIgnoreCase("admin")) {
+                    addMessage(true, message.getMessage());
+                } else if (message.getSender_Role().equalsIgnoreCase("user")) {
+                    addMessage(false, message.getMessage());
+                }
+            }
+        }
     }
 
     private int generateToken() {
