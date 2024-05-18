@@ -18,7 +18,6 @@ public class TicketTemplateCLLR {
     private final TicketData ticketData;
     private ChatBoxController chatToOpen;
     private final UserData userData;
-    private static boolean currentChatBoxFromTicketInstance;
 
     @FXML
     private Text fxid_type;
@@ -62,7 +61,6 @@ public class TicketTemplateCLLR {
         }
 
         if (chatFounded && !currentChatBoxAdminOpened()) {
-            currentChatBoxFromTicketInstance = true;
             chatToOpen = new ChatBoxController(ticketData, this.userData, false);
 
             FXMLLoader loader = new FXMLLoader();
@@ -93,9 +91,5 @@ public class TicketTemplateCLLR {
         }
 
         return false;
-    }
-
-    public static void setCurrentChatBoxFromTicketInstance(boolean newState) {
-        currentChatBoxFromTicketInstance = newState;
     }
 }

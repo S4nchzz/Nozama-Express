@@ -58,9 +58,7 @@ public class ChatBoxController {
                 if (chatToDelete == null) {
                     return;
                 }
-
-                TicketTemplateCLLR.setCurrentChatBoxFromTicketInstance(false); // NULL MEANS THE TICKET WAS OPENED FROM TICKET PANEL INSTEAD OF SUPPORT PANE
-                
+ 
                 CentralizedChats.delChat(chatToDelete);
             });
 
