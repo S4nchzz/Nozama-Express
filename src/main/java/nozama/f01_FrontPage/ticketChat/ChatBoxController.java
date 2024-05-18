@@ -65,6 +65,7 @@ public class ChatBoxController {
         // Verify amount of instances of ChatBoxController, if there is 1 the user
         // cannot send messages whereas if there is 2 he would
         checkBothUsersConnected();
+        checkTicketOpened();
         reWriteMessages(DatabaseRequestManagment.getMessageDataByTicket(this.td.getTicket_id()));
     }
     
@@ -75,8 +76,7 @@ public class ChatBoxController {
             // Ancho del AnchorPane lleno, aumentando tamaño en todos los chatBox con ese ID
             for (ChatBoxController chat : CentralizedChats.getChats()) {
                 if (chat.getTicketData().getTicket_id() == this.getTicketData().getTicket_id()) {
-                    chat.modifyAnchorPane(fxid_anchorPaneResizeable.getWidth(),
-                    fxid_anchorPaneResizeable.getHeight() + 69);
+                    chat.modifyAnchorPane(fxid_anchorPaneResizeable.getWidth(), fxid_anchorPaneResizeable.getHeight() + 69);
                 }
             }
         }
@@ -113,7 +113,9 @@ public class ChatBoxController {
     private void reWriteMessages(ArrayList<MessageData> messageList) {
         if (messageList != null) {
             Platform.runLater(() -> {
-                modifyAnchorPane(fxid_anchorPaneResizeable.getWidth(), (messageList.size() + 1) * 69);
+                if (messageList.size() > 5) {
+                    modifyAnchorPane(fxid_anchorPaneResizeable.getWidth(), (messageList.size() + 1) * 69);
+                }
             });
             for (MessageData message : messageList) {
                 if (message.getSender_Role().equalsIgnoreCase("admin")) {
@@ -163,6 +165,10 @@ public class ChatBoxController {
         });
     }
 
+    private boolean checkTicketOpened() {
+        return DatabaseRequestManagment.isTicketOpen(this.td.getTicket_id());
+            
+    }
 
     public void sendedFromAdmin(boolean isAdmin) {
         this.chatInstanceFromAdmin = isAdmin;

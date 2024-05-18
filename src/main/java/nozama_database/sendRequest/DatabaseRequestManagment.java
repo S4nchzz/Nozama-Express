@@ -632,4 +632,30 @@ public class DatabaseRequestManagment {
 
         return null;
     }
+
+    public static boolean isTicketOpen(int ticketid) {
+        try {
+            Connection conn = DriverManager.getConnection(url, "root", "");
+            PreparedStatement st1 = conn
+                    .prepareStatement("SELECT * FROM SUPPORT_TICKET WHERE TICKET_ID = ?");
+            st1.setInt(1, ticketid);
+            ResultSet rs = st1.executeQuery();
+
+            boolean ticketStatus = false;
+
+            if (rs.next()) {
+                ticketStatus = rs.getBoolean(2);
+            }
+
+            st1.close();
+            rs.close();
+            conn.close();
+
+            return ticketStatus;
+        } catch (SQLException sqle) {
+
+        }
+
+        return false;
+    }
 }
