@@ -9,7 +9,7 @@ import java.sql.SQLException;
  * Esta clase sirve para ver si el servidor se encuentra activo
  * y si se encuentra la base de datos nozama_ex, si no esta la crea
  */
-public class DatabaseLinkTest {
+public class DatabaseLink {
     public static String url = "jdbc:mariadb://127.0.0.1"; // URL estatica para poder se accesible desde otros metodos
 
     /**
@@ -22,12 +22,12 @@ public class DatabaseLinkTest {
      * @return
      */
     public static boolean createDBandTB(int port) {
-        url += ":" + port + "/";
+        url += ":" + port;
         try {
             // Prueba de conexion al SERVIDOR
             Connection dbServer = DriverManager.getConnection(url, "root", "");
 
-            url += "nozama_ex";
+            url += "/nozama_ex";
 
             try {
                 // Prueba de conexion a la base de datos
@@ -54,6 +54,12 @@ public class DatabaseLinkTest {
 
                 PreparedStatement chatMessage = dbServer.prepareStatement("CREATE TABLE chat_messages (MESSAGE_ID INTEGER PRIMARY KEY AUTO_INCREMENT, TICKET_ID INTEGER REFERENCES SUPPORT_TICKET(TICKET_ID), SENDER_ID INTEGER REFERENCES USER(USER_ID), SENDER_ROLE VARCHAR(5) NOT NULL, MESSAGE VARCHAR(100) NOT NULL, DATE TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP)");
                 
+                PreparedStatement userProfile = dbServer.prepareStatement("CREATE TABLE USER_PROFILE (ID INTEGER PRIMARY KEY, PROFILE_PICTURE MEDIUMBLOB, FULL_NAME VARCHAR(20), PUBLIC_EMAIL VARCHAR(50), LOCATION VARCHAR(50), FOREIGN KEY (ID) REFERENCES USER(USER_ID))");
+                
+                PreparedStatement social_Platforms = dbServer.prepareStatement("CREATE TABLE SOCIAL_PLATFORMS (ID INTEGER PRIMARY KEY, NETWORK VARCHAR(200) NOT NULL UNIQUE)");
+                
+                PreparedStatement social_user_links = dbServer.prepareStatement("CREATE TABLE SOCIAL_USER_LINKS (ID INTEGER PRIMARY KEY, NETWORK_ID INTEGER NOT NULL, URL VARCHAR(255) NOT NULL, FOREIGN KEY (ID) REFERENCES USER_PROFILE(ID), FOREIGN KEY (NETWORK_ID) REFERENCES SOCIAL_PLATFORMS(ID))");
+                
                 setUpDatabase.executeUpdate();
                 useDatabase.executeUpdate();
                 createTableUser.executeUpdate();
@@ -61,7 +67,13 @@ public class DatabaseLinkTest {
                 itemStock.executeUpdate();
                 supportTickets.executeUpdate();
                 chatMessage.executeUpdate();
-                
+                userProfile.executeUpdate();
+                social_Platforms.executeUpdate();
+                social_user_links.executeUpdate();
+
+                social_user_links.close();
+                social_Platforms.close();
+                userProfile.close();
                 supportTickets.close();
                 itemStock.close();
                 itemtype.close();

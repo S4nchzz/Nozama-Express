@@ -21,6 +21,7 @@ public class TicketElement {
     private final TicketData ticketData;
     private ChatBoxController chatToOpen;
     private final UserData userData;
+    private final FrontPage frontpage;
 
     @FXML
     private Text fxid_type;
@@ -33,6 +34,7 @@ public class TicketElement {
     public TicketElement(TicketData ticketData, UserData userData, FrontPage frontPage) {
         this.ticketData = ticketData;
         this.userData = userData;
+        this.frontpage = frontPage;
 
         Platform.runLater(() -> {
             hasActiveNotification();
@@ -106,6 +108,8 @@ public class TicketElement {
 
     public void popUpNotice (boolean status) {
         fxid_chatNotice.setVisible(status);
+        frontpage.setVisibleNotification(status);
+        
     }
 
     private boolean currentChatBoxAdminOpened() {

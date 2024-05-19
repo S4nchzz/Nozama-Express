@@ -1,8 +1,12 @@
 package nozama.f01_FrontPage;
-
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
+
 import javafx.scene.control.TextArea;
 import com.gluonhq.charm.glisten.control.ToggleButtonGroup;
 
@@ -10,7 +14,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import java.awt.Desktop;
+
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
@@ -24,6 +31,7 @@ import nozama.f00_Login.UserData;
 import nozama.f01_FrontPage.adminPanel.AdminPanel;
 import nozama.f01_FrontPage.adminPanel.ticketPanel.TicketData;
 import nozama.f01_FrontPage.adminPanel.ticketPanel.TicketElement;
+import nozama.f01_FrontPage.user_profile.UserProfileData;
 import nozama_database.sendRequest.DatabaseRequestManagment;
 
 public class FrontPage {
@@ -35,9 +43,6 @@ public class FrontPage {
     private DatabaseRequestManagment dbr;
     private int ticketAmount;
     private ResultSet ticketResultQuery;
-
-    @FXML
-    private Text fxid_usernameAv;
 
     @FXML
     private ImageView fxid_adminElement;
@@ -78,9 +83,20 @@ public class FrontPage {
     private Text fxid_ticketsCreatedNum;
     @FXML
     private Pane fxid_ticketGraphicPane;
-
     @FXML
     private ImageView fxid_supportNotification;
+
+    // Profile elements
+    @FXML
+    private ImageView fxid_profileImage;
+    @FXML
+    private Pane fxid_userProfilePane;
+    @FXML
+    private Text fxid_profileName;
+    @FXML
+    private Hyperlink fxid_profileEmail;
+    @FXML
+    private Text fxid_ProfileUserName;
 
     private void checkBanned() throws BannedException {
         if (DatabaseRequestManagment.isBanned(dataLoggedUser.getUser_id())
@@ -105,10 +121,7 @@ public class FrontPage {
         // Runtime que crea un hilo antes de cerrar el programa para enviar por ultimo
         // estas instrucciones
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            dbr = new DatabaseRequestManagment();
-
-            dbr.injectCustomQuery(
-                    "UPDATE USER SET LOGIN_STATUS = FALSE WHERE USER_ID = " + dataLoggedUser.getUser_id());
+            DatabaseRequestManagment.modifyLoginStatus(this.dataLoggedUser.getUser_id(), false);
 
             CentralizeFrontPage centralizeFrontPageRemove = CentralizeFrontPage.getInstance();
             centralizeFrontPageRemove.delFrontPage(this);
@@ -117,9 +130,31 @@ public class FrontPage {
 
         // Establece el booleano de login_status a true refiriendose a que el usuario
         // tiene la sesion iniciada
-        dbr = new DatabaseRequestManagment();
+        DatabaseRequestManagment.modifyLoginStatus(this.dataLoggedUser.getUser_id(), true);
+    }
 
-        dbr.injectCustomQuery("UPDATE USER SET LOGIN_STATUS = TRUE WHERE USER_ID = " + dataLoggedUser.getUser_id());
+    @FXML
+    private void openProfileAction () {
+        setVisiblePanes(false);
+        this.fxid_userProfilePane.setVisible(true);
+
+        byte [] picture = DatabaseRequestManagment.getProfilePicture(dataLoggedUser.getUser_id());
+        String profileName = DatabaseRequestManagment.getProfileName(dataLoggedUser.getUser_id());
+        String publicEmail = DatabaseRequestManagment.getProfilePublicEmail(dataLoggedUser.getUser_id());
+        String location = DatabaseRequestManagment.getProfileLocation(dataLoggedUser.getUser_id());
+
+        setProfileInfo(new UserProfileData(dataLoggedUser.getUser_id(), picture, profileName, publicEmail, location));
+    }
+
+    private void setProfileInfo (UserProfileData profile) {
+        this.fxid_profileName.setText(profile.getFullName());
+        this.fxid_profileEmail.setText(profile.getPublicEmail());
+
+        this.fxid_profileEmail.setOnAction(event -> {
+            try {Desktop.getDesktop().mail(new URI("mailto:" + profile.getPublicEmail()));} catch (URISyntaxException | IOException e) {}
+        });
+
+        this.fxid_ProfileUserName.setText(dataLoggedUser.getUsername());
     }
 
     /**
@@ -129,10 +164,7 @@ public class FrontPage {
     @FXML
     private void handleLogof() throws BannedException {
         checkBanned();
-        dbr = new DatabaseRequestManagment();
-        dbr.injectCustomQuery(
-                "UPDATE USER SET LOGIN_STATUS = FALSE WHERE USERNAME = \"" + dataLoggedUser.getUser_id());
-        ;
+        DatabaseRequestManagment.modifyLoginStatus(this.dataLoggedUser.getUser_id(), false);
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/nozama/login/login.fxml"));
@@ -146,8 +178,25 @@ public class FrontPage {
             stage.centerOnScreen();
 
             stage.show();
+
+            CentralizeFrontPage centralizeFrontPageRemove = CentralizeFrontPage.getInstance();
+            centralizeFrontPageRemove.delFrontPage(this);
         } catch (IOException e) {
 
+        }
+    }
+
+    private ArrayList<Pane> getFrontPagePanes() {
+        ArrayList<Pane> elementList = new ArrayList<>();
+        elementList.add(this.fxid_supportPane);
+        elementList.add(this.fxid_userProfilePane);
+
+        return elementList;
+    }
+
+    private void setVisiblePanes (boolean status) {
+        for (Pane pane : getFrontPagePanes()) {
+            pane.setVisible(status);
         }
     }
 
@@ -172,15 +221,12 @@ public class FrontPage {
     }
 
     @FXML
-    private void handleShowStore() {
-
-    }
-
-    @FXML
     private void handleSupportAction() throws SQLException, IOException, BannedException {
         checkBanned();
         setVisibleNotification(false);
-        fxid_supportPane.setVisible(visibleSupport);
+
+        setVisiblePanes(false);
+        this.fxid_supportPane.setVisible(true);
 
         ticketAmount = ticketLimitReached(dataLoggedUser.getUser_id());
 
@@ -193,6 +239,11 @@ public class FrontPage {
         fxid_ticketsCreatedNum.setText("Tickets: " + String.valueOf(ticketAmount) + "/3");
 
         visibleSupport = !visibleSupport;
+    }
+
+    @FXML
+    private void goHomeLogo () {
+        setVisiblePanes(false);
     }
 
     @FXML
@@ -334,8 +385,6 @@ public class FrontPage {
      */
     @FXML
     private void initialize() {
-        fxid_usernameAv.setText(dataLoggedUser.getName());
-
         if (isAdmin) {
             fxid_adminElement.setVisible(true);
         }

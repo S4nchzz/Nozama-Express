@@ -8,9 +8,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import nozama.f00_Login.ObtainIDFromUsername;
 import nozama.f01_FrontPage.ticketChat.MessageData;
 import nozama_database.credentials.PasswordComplexity;
-import nozama_database.setttingUp.DatabaseLinkTest;
+import nozama_database.setttingUp.DatabaseLink;
 
 /**
  * Clase que gestiona todo el control de la base de datos, metodos (anadir(),
@@ -18,7 +19,7 @@ import nozama_database.setttingUp.DatabaseLinkTest;
  */
 public class DatabaseRequestManagment {
     // URL global de la base de datos obtenido del String estatico de DatabaseRequestManagment
-    final static String url = DatabaseLinkTest.url;
+    final static String url = DatabaseLink.url;
 
     /**
      * Este metodo iniciara una conexion con la base de datos y creara un objeto de
@@ -48,13 +49,18 @@ public class DatabaseRequestManagment {
             // de SHA-356
             st.setBytes(4, PasswordComplexity.sha256(passwordAndSalt));
             st.setBoolean(5, isAdmin);
-
+            
             st.setString(6, fullName);
             st.setString(7, telf);
             st.setString(8, gender);
-            
+                    
             st.executeUpdate();
             st.close();
+
+            PreparedStatement createProfile = conn.prepareStatement("INSERT INTO USER_PROFILE (ID) VALUES (?)");
+            createProfile.setInt(1, ObtainIDFromUsername.getID(name));
+            createProfile.executeUpdate();
+            createProfile.close();
             
             return true;
         } catch (SQLException sqle) {
@@ -456,7 +462,7 @@ public class DatabaseRequestManagment {
 
             rs = st.executeQuery();
 
-            if (! rs.next ()) {
+            if (!rs.next ()) {
                 sesion = false;
             } else {
                 sesion = rs.getBoolean(1);
@@ -602,6 +608,21 @@ public class DatabaseRequestManagment {
         return false;
     }
 
+    public static void modifyLoginStatus (int userID, boolean loginStatus) {
+        try {
+            Connection conn = DriverManager.getConnection(url, "root", "");
+            PreparedStatement st = conn.prepareStatement("UPDATE USER SET LOGIN_STATUS = ? WHERE USER_ID = ?");
+            st.setBoolean(1, loginStatus);
+            st.setInt(2, userID);
+
+            st.executeUpdate();
+            st.close();
+            conn.close();
+        } catch (SQLException sqle) {
+
+        }
+    }
+
     public static ArrayList<MessageData> getMessageDataByTicket(int ticketID) {
         try {
             Connection conn = DriverManager.getConnection(url, "root", "");
@@ -672,5 +693,105 @@ public class DatabaseRequestManagment {
         }
 
         return false;
+    }
+
+    public static String getProfileName (int userID) {
+        try {
+            Connection conn = DriverManager.getConnection(url, "root", "");
+            PreparedStatement st = conn.prepareStatement("SELECT FULL_NAME FROM USER_PROFILE WHERE ID = ?");
+            st.setInt(1, userID);
+
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString(1);
+            }
+
+            st.close();
+            conn.close();
+        } catch (SQLException sqle) {
+
+        }
+
+        return null;
+    }
+
+    public static byte [] getProfilePicture (int userID) {
+        try {
+            Connection conn = DriverManager.getConnection(url, "root", "");
+            PreparedStatement st = conn.prepareStatement("SELECT PROFILE_PICTURE FROM USER_PROFILE WHERE ID = ?");
+            st.setInt(1, userID);
+
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                return rs.getBytes(1);
+            }
+
+            st.close();
+            conn.close();
+        } catch (SQLException sqle) {
+
+        }
+
+        return null;
+    }
+
+    public static String getProfilePublicEmail (int userID) {
+        try {
+            Connection conn = DriverManager.getConnection(url, "root", "");
+            PreparedStatement st = conn.prepareStatement("SELECT PUBLIC_EMAIL FROM USER_PROFILE WHERE ID = ?");
+            st.setInt(1, userID);
+
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString(1);
+            }
+
+            st.close();
+            conn.close();
+        } catch (SQLException sqle) {
+
+        }
+
+        return null;
+    }
+
+    public static String getProfileLocation(int userID) {
+        try {
+            Connection conn = DriverManager.getConnection(url, "root", "");
+            PreparedStatement st = conn.prepareStatement("SELECT LOCATION FROM USER_PROFILE WHERE ID = ?");
+            st.setInt(1, userID);
+
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString(1);
+            }
+
+            st.close();
+            conn.close();
+        } catch (SQLException sqle) {
+
+        }
+
+        return null;
+    }
+
+    public static void setPro (byte [] a, int userID) {
+        try {
+            Connection conn = DriverManager.getConnection(url, "root", "");
+            PreparedStatement st = conn.prepareStatement("UPDATE USER_PROFILE SET PROFILE_PICTURE WHERE ID = ?");
+            st.setInt(1, userID);
+
+            st.executeUpdate();
+            st.close();
+            conn.close();
+        } catch (SQLException sqle) {
+
+        }
+
+
     }
 }

@@ -2,6 +2,7 @@
 
 <?import com.gluonhq.charm.glisten.control.ToggleButtonGroup?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
@@ -9,20 +10,20 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <Pane fx:id="fxid_mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="755.0" prefWidth="1251.0" stylesheets="@css/frontPage.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <TextField fx:id="fxid_searchField" layoutX="342.0" layoutY="31.0" prefHeight="37.0" prefWidth="246.0" promptText="              Search" />
-      <Pane layoutX="1083.0" layoutY="14.0" prefHeight="58.0" prefWidth="154.0">
+      <Pane layoutX="1172.0" layoutY="8.0" prefHeight="58.0" prefWidth="65.0">
          <children>
-            <ImageView fx:id="fxid_avatarIcon" fitHeight="37.0" fitWidth="39.0" layoutX="14.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="fxid_avatarIcon" fitHeight="37.0" fitWidth="39.0" layoutX="14.0" layoutY="11.0" onMouseClicked="#openProfileAction" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
                <image>
                   <Image url="@src/frontPageIcons/avatar-icon.png" />
                </image>
             </ImageView>
-            <Text fx:id="fxid_usernameAv" layoutX="63.0" layoutY="34.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="USERNAME" wrappingWidth="76.98307228088379" />
          </children>
       </Pane>
       <Pane fx:id="fxid_leftPane" prefHeight="755.0" prefWidth="296.0" stylesheets="@css/frontPage.css">
@@ -43,7 +44,7 @@
                         </ImageView>
                      </children>
                   </Pane>
-                  <Pane fx:id="fxid_paneB" onMouseClicked="#handleShowStore" prefHeight="60.6" prefWidth="189.0">
+                  <Pane fx:id="fxid_paneB" prefHeight="60.6" prefWidth="189.0">
                      <children>
                         <ImageView fitHeight="37.0" fitWidth="37.0" layoutX="8.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -115,7 +116,7 @@
                   <Image url="@src/frontPageIcons/adminConfig-icon.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="fxid_logoIcon" fitHeight="174.0" fitWidth="252.0" layoutX="22.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="fxid_logoIcon" fitHeight="174.0" fitWidth="252.0" layoutX="22.0" layoutY="45.0" onMouseClicked="#goHomeLogo" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
                <image>
                   <Image url="@../nozamaIcons/logo-icon-all.png" />
                </image>
@@ -174,6 +175,55 @@
             <Text fx:id="fxid_ticketResult" layoutX="14.0" layoutY="452.0" strokeType="OUTSIDE" strokeWidth="0.0" />
             <Text fx:id="fxid_ticketsCreatedNum" layoutX="79.0" layoutY="423.0" strokeType="OUTSIDE" strokeWidth="0.0" />
             <VBox fx:id="fxid_ticketGraphicPane" layoutX="503.0" layoutY="142.0" prefHeight="244.0" prefWidth="377.0" style="-fx-border-color: #CFCFCF;" />
+         </children>
+      </Pane>
+      <Pane fx:id="fxid_userProfilePane" layoutX="321.0" layoutY="106.0" prefHeight="601.0" prefWidth="900.0">
+         <children>
+            <Text layoutX="35.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Public Profile">
+               <font>
+                  <Font name="Poppins Italic" size="23.0" />
+               </font></Text>
+            <Line endX="759.0" layoutX="123.0" layoutY="74.0" startX="-100.0" />
+            <Text fx:id="fxid_ProfileUserName" fill="#9a9a9a" layoutX="31.0" layoutY="330.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{username}">
+               <font>
+                  <Font size="16.0" />
+               </font></Text>
+            <Text fx:id="fxid_profileName" layoutX="31.0" layoutY="306.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{fullName}">
+               <font>
+                  <Font name="Poppins Italic" size="18.0" />
+               </font>
+            </Text>
+            <ImageView fx:id="fxid_profileImage" fitHeight="178.0" fitWidth="178.0" layoutX="35.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" />
+            <Hyperlink fx:id="fxid_socialAccount1" layoutX="42.0" layoutY="440.0" text="Hyperlink" />
+            <Text layoutX="23.0" layoutY="434.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Social accounts:">
+               <font>
+                  <Font name="Poppins Regular" size="16.0" />
+               </font>
+            </Text>
+            <Hyperlink fx:id="fxid_socialAccount2" layoutX="42.0" layoutY="462.0" text="Hyperlink" />
+            <Hyperlink fx:id="fxid_socialAccount3" layoutX="42.0" layoutY="484.0" text="Hyperlink" />
+            <Line endX="-100.0" endY="282.0" layoutX="344.0" layoutY="91.0" startX="-100.0" startY="-4.0" />
+            <Button fx:id="fxid_editProfile" layoutX="80.0" layoutY="374.0" mnemonicParsing="false" style="-fx-cursor: hand;" text="Edit profile" />
+            <Hyperlink fx:id="fxid_profileEmail" layoutX="27.0" layoutY="334.0" prefHeight="29.0" prefWidth="206.0" text="{mail}" textFill="#9a9a9a">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Hyperlink>
+            <ImageView fx:id="fxid_platformLinkImage1" fitHeight="16.0" fitWidth="16.0" layoutX="23.0" layoutY="444.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@src/profileIcons/enlace.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="fxid_platformLinkImage2" fitHeight="16.0" fitWidth="16.0" layoutX="23.0" layoutY="466.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@src/profileIcons/enlace.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="fxid_platformLinkImage3" fitHeight="16.0" fitWidth="16.0" layoutX="23.0" layoutY="487.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@src/profileIcons/enlace.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
    </children>
