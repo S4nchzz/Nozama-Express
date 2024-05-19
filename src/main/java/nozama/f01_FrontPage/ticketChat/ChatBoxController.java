@@ -105,10 +105,10 @@ public class ChatBoxController {
         
         if (!message.equals("")) { 
             if (this.chatInstanceFromAdmin) {
-                new AdminSocket(fxid_sendMessage.getText(), this.td.getTicket_id());
+                new AdminSocket(fxid_sendMessage.getText(), this.td.getTicket_id(), userData.getUser_id());
                 dbr.sendMessage(td.getTicket_id(), userData.getUser_id(), "Admin", message);
             } else {
-                new UserSocket(fxid_sendMessage.getText(), this.td.getTicket_id());
+                new UserSocket(fxid_sendMessage.getText(), this.td.getTicket_id(), userData.getUser_id());
                 dbr.sendMessage(td.getTicket_id(), userData.getUser_id(), "User", message);
             }
         }
@@ -116,15 +116,15 @@ public class ChatBoxController {
         this.fxid_sendMessage.clear();
     }
     
-    public void addMessage(boolean fromAdmin, String input) {
+    public void addMessage(boolean fromAdmin, String input, int userIDforName) {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
                 if (fromAdmin) {
-                    AdminMessageBox admin = new AdminMessageBox(userData, input);
+                    AdminMessageBox admin = new AdminMessageBox(userIDforName, input);
                     fxid_chatVbox.getChildren().add(admin.getAdminPane());
                 } else {
-                    UserMessageBox user = new UserMessageBox(userData, input);
+                    UserMessageBox user = new UserMessageBox(userIDforName, input);
                     fxid_chatVbox.getChildren().add(user.getUserPane());
                 }
             }
@@ -140,9 +140,9 @@ public class ChatBoxController {
             });
             for (MessageData message : messageList) {
                 if (message.getSender_Role().equalsIgnoreCase("admin")) {
-                    addMessage(true, message.getMessage());
+                    addMessage(true, message.getMessage(), message.getSender_id());
                 } else if (message.getSender_Role().equalsIgnoreCase("user")) {
-                    addMessage(false, message.getMessage());
+                    addMessage(false, message.getMessage(), message.getSender_id());
                 }
             }
         }

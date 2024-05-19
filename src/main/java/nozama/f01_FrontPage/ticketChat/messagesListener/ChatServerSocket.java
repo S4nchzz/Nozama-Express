@@ -13,7 +13,8 @@ import nozama.f01_FrontPage.ticketChat.ChatBoxController;
 
 public class ChatServerSocket {
     private ServerSocket s;
-    private int ticketID; 
+    private int ticketID;
+    private int userID; 
 
     public ChatServerSocket () {
         try {
@@ -25,6 +26,10 @@ public class ChatServerSocket {
                 BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 String clientInput = in.readLine();
                 
+                if (clientInput.contains("admin") || clientInput.contains("user")) {
+                    this.ticketID = substractTicketID(clientInput);
+                    this.userID = substractUserID(clientInput);
+                }
                 decrypt(clientInput);
             }
             
@@ -57,10 +62,50 @@ public class ChatServerSocket {
                 }
     
             } else if (in.contains("user") || in.contains("admin")) {
-                sb.delete(0, sb.length());
-                replicateMessageToChats(messageFromAdmin(in), substractPrefix(in));
+                boolean messageFromAdmin = false;
+                if (in.contains("admin")) {
+                    messageFromAdmin = true;
+                }
+
+                replicateMessageToChats(messageFromAdmin, substractPrefix(in), userID);
             }
         }
+    }
+
+    private int substractUserID(String in) {
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 1; i < in.length(); i++) {
+            if (in.charAt(i) != ':') {
+                sb.append(in.charAt(i));
+            } else {
+                break;
+            }
+        }
+
+        return Integer.valueOf(sb.toString());
+    }
+
+    private int substractTicketID(String in) {
+        StringBuilder sb = new StringBuilder();
+
+        int countDoubleDot = 0;
+        for (int i = 0; i < in.length(); i++) {
+            if (in.charAt(i) == ':') {
+                countDoubleDot++;
+            }
+
+            if (countDoubleDot == 2) {
+                if (in.charAt(i) != '}') {
+                    i++;
+                    sb.append(in.charAt(i));
+                } else {
+                    break;
+                }
+            }
+        }
+
+        return Integer.valueOf(sb.toString());
     }
 
     private String substractPrefix(String message) {
@@ -81,42 +126,10 @@ public class ChatServerSocket {
         return sb.toString();
     }
 
-    private boolean messageFromAdmin(String clientInput) {
-        StringBuilder sb = new StringBuilder();
-        
-        int finalBracket = 0;
-
-        for (int i = 0; i < clientInput.length(); i++) {
-            if (clientInput.charAt(i) == '}') {
-                finalBracket = i;
-                break;
-            }
-        }
-
-        String entirePrefix = clientInput.substring(0, finalBracket + 1);
-
-        if (entirePrefix.contains("admin")) {
-            for (int i = 7; i < finalBracket; i++) {
-                sb.append(clientInput.charAt(i));
-            }
-
-            this.ticketID = Integer.valueOf(sb.toString());
-            return true;
-        } else if (entirePrefix.contains("user")) {
-            for (int i = 6; i < finalBracket; i++) {
-                sb.append(clientInput.charAt(i));                
-            }
-
-            this.ticketID = Integer.valueOf(sb.toString());
-            return false;
-        }
-        return false;
-    }
-
-    private void replicateMessageToChats(boolean fromAdmin, String message) {
+    private void replicateMessageToChats(boolean fromAdmin, String message, int userID) {
         for (ChatBoxController chat : CentralizedChats.getChats()) {
             if (chat.getTicketData().getTicket_id() == ticketID) {
-                chat.addMessage(fromAdmin, message);
+                chat.addMessage(fromAdmin, message, userID);
             }
         }
     }

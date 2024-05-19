@@ -7,19 +7,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import nozama.f00_Login.UserData;
+import nozama_database.sendRequest.DatabaseRequestManagment;
 
 public class UserMessageBox {
     private Pane userBox;
     private final String message;
-    private final UserData userData;
+    private final int userID;
 
     @FXML
     private Text fxid_userResponse;
     @FXML
     private Text fxid_userFieldOnChat;
 
-    public UserMessageBox (UserData userData, String message) {
-        this.userData = userData;
+    public UserMessageBox (int userID, String message) {
+        this.userID = userID;
         
         FXMLLoader userMessage = new FXMLLoader();
         userMessage.setController(this);
@@ -34,7 +35,7 @@ public class UserMessageBox {
     }
 
     public Pane getUserPane() {
-        this.fxid_userFieldOnChat.setText(userData.getName());
+        this.fxid_userFieldOnChat.setText(DatabaseRequestManagment.getName(userID));
         this.fxid_userResponse.setText(message);
         return this.userBox;
     }
