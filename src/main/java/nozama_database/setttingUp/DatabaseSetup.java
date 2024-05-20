@@ -9,7 +9,7 @@ import java.sql.SQLException;
  * Esta clase sirve para ver si el servidor se encuentra activo
  * y si se encuentra la base de datos nozama_ex, si no esta la crea
  */
-public class DatabaseLink {
+public class DatabaseSetup {
     public static String url = "jdbc:mariadb://127.0.0.1"; // URL estatica para poder se accesible desde otros metodos
 
     /**
@@ -58,7 +58,7 @@ public class DatabaseLink {
                 
                 PreparedStatement social_Platforms = dbServer.prepareStatement("CREATE TABLE SOCIAL_PLATFORMS (ID INTEGER PRIMARY KEY, NETWORK VARCHAR(200) NOT NULL UNIQUE)");
                 
-                PreparedStatement social_user_links = dbServer.prepareStatement("CREATE TABLE SOCIAL_USER_LINKS (ID INTEGER PRIMARY KEY, NETWORK_ID INTEGER NOT NULL, URL VARCHAR(255) NOT NULL, FOREIGN KEY (ID) REFERENCES USER_PROFILE(ID), FOREIGN KEY (NETWORK_ID) REFERENCES SOCIAL_PLATFORMS(ID))");
+                PreparedStatement social_user_links = dbServer.prepareStatement("CREATE TABLE SOCIAL_USER_LINKS (ID INTEGER PRIMARY KEY, NETWORK_ID INTEGER NOT NULL, URL VARCHAR(255) NOT NULL, USER_ID INTEGER NOT NULL, FOREIGN KEY (USER_ID) REFERENCES USER_PROFILE(ID), FOREIGN KEY (NETWORK_ID) REFERENCES SOCIAL_PLATFORMS(ID))");
                 
                 setUpDatabase.executeUpdate();
                 useDatabase.executeUpdate();

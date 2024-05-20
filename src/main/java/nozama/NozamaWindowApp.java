@@ -9,7 +9,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import nozama.f00_Login.LoginPage;
 import nozama_database.sendRequest.DatabaseRequestManagment;
-import nozama_database.setttingUp.DatabaseLink;
+import nozama_database.setttingUp.DatabaseSetup;
 
 public class NozamaWindowApp extends Application {
     public static double LOGIN_WIDTH = 969;
@@ -18,7 +18,7 @@ public class NozamaWindowApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         // Check connectivity
-        if (DatabaseLink.createDBandTB(3306) || DatabaseLink.createDBandTB(3310)) {
+        if (DatabaseSetup.createDBandTB(3306) || DatabaseSetup.createDBandTB(3310)) {
             DatabaseRequestManagment.anadir("a", "a", true, "Iyan", "1", "M");
             DatabaseRequestManagment.anadir("b", "a", true, "Iyan", "1", "M");
             DatabaseRequestManagment.anadir("c", "a", true, "Iyan", "1", "M");

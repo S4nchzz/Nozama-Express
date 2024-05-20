@@ -198,7 +198,7 @@
                   <Image url="@src/frontPageIcons/avatar-icon.png" />
                </image></ImageView>
             <Hyperlink fx:id="fxid_socialAccount1" layoutX="42.0" layoutY="440.0" text="Hyperlink" />
-            <Text layoutX="23.0" layoutY="434.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Social accounts:">
+            <Text fx:id="fxid_socialAccountText" layoutX="23.0" layoutY="434.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Social accounts:">
                <font>
                   <Font name="Poppins Regular" size="16.0" />
                </font>
@@ -223,6 +223,12 @@
                </image>
             </ImageView>
             <ImageView fx:id="fxid_platformLinkImage3" fitHeight="16.0" fitWidth="16.0" layoutX="23.0" layoutY="487.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@src/profileIcons/enlace.png" />
+               </image>
+            </ImageView>
+            <Hyperlink fx:id="fxid_socialAccount4" layoutX="42.0" layoutY="507.0" text="Hyperlink" />
+            <ImageView fx:id="fxid_platformLinkImage4" fitHeight="16.0" fitWidth="16.0" layoutX="23.0" layoutY="510.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@src/profileIcons/enlace.png" />
                </image>

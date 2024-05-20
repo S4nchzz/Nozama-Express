@@ -7,8 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
-
 import javafx.scene.control.TextArea;
 import com.gluonhq.charm.glisten.control.ToggleButtonGroup;
 
@@ -17,7 +15,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import java.awt.Desktop;
-import java.awt.image.BufferedImage;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
@@ -35,6 +32,7 @@ import nozama.f00_Login.UserData;
 import nozama.f01_FrontPage.adminPanel.AdminPanel;
 import nozama.f01_FrontPage.adminPanel.ticketPanel.TicketData;
 import nozama.f01_FrontPage.adminPanel.ticketPanel.TicketElement;
+import nozama.f01_FrontPage.user_profile.SocialUserLinkData;
 import nozama.f01_FrontPage.user_profile.UserProfileData;
 import nozama_database.sendRequest.DatabaseRequestManagment;
 
@@ -101,6 +99,30 @@ public class FrontPage {
     private Hyperlink fxid_profileEmail;
     @FXML
     private Text fxid_ProfileUserName;
+    
+    // Social account elements
+    @FXML
+    private Hyperlink fxid_socialAccount1;
+    @FXML
+    private Hyperlink fxid_socialAccount2;
+    @FXML
+    private Hyperlink fxid_socialAccount3;
+    @FXML
+    private Hyperlink fxid_socialAccount4;
+    private ArrayList<Hyperlink> socialAccountList;
+
+    private ArrayList<SocialUserLinkData> socialData;
+
+    @FXML
+    private Text fxid_socialAccountText;
+    @FXML
+    private ImageView fxid_platformLinkImage1;
+    @FXML
+    private ImageView fxid_platformLinkImage2;
+    @FXML
+    private ImageView fxid_platformLinkImage3;
+    @FXML
+    private ImageView fxid_platformLinkImage4;
 
     private void checkBanned() throws BannedException {
         if (DatabaseRequestManagment.isBanned(dataLoggedUser.getUser_id())
@@ -131,7 +153,6 @@ public class FrontPage {
             centralizeFrontPageRemove.delFrontPage(this);
         }));
 
-
         // Establece el booleano de login_status a true refiriendose a que el usuario
         // tiene la sesion iniciada
         DatabaseRequestManagment.modifyLoginStatus(this.dataLoggedUser.getUser_id(), true);
@@ -151,9 +172,12 @@ public class FrontPage {
     }
 
     private void setProfileInfo (UserProfileData profile) {
-        ByteArrayInputStream arrBytes = new ByteArrayInputStream(profile.getProfilePicture());
+        if (profile.getProfilePicture() != null) {
+            ByteArrayInputStream arrBytes = new ByteArrayInputStream(profile.getProfilePicture());
 
-        this.fxid_profileImage.setImage(new Image(arrBytes));
+            this.fxid_profileImage.setImage(new Image(arrBytes));
+        }
+
         this.fxid_profileName.setText(profile.getFullName());
         this.fxid_ProfileUserName.setText(dataLoggedUser.getUsername());
         this.fxid_profileEmail.setText(profile.getPublicEmail());
@@ -162,6 +186,65 @@ public class FrontPage {
             try {Desktop.getDesktop().mail(new URI("mailto:" + profile.getPublicEmail()));} catch (URISyntaxException | IOException e) {}
         });
 
+        socialData = DatabaseRequestManagment.getSocialUserLinkData(dataLoggedUser.getUser_id());
+        if (socialData == null) {
+            return;
+        }
+
+        setSocialDataURL(true, socialData);
+
+
+    }
+
+    private void setSocialDataURL(boolean visibleStatus, ArrayList<SocialUserLinkData> socialData) {
+        int iterator = 0; // Positon to change visibilty to the link image
+        for (Hyperlink link : socialAccountList) {
+            if (iterator < socialData.size()) {
+                fxid_socialAccountText.setVisible(true);
+                link.setVisible(visibleStatus);
+                link.setText(socialData.get(iterator).getURL());
+    
+                switch (iterator) {
+                    case 0 -> {
+                        this.fxid_platformLinkImage1.setVisible(visibleStatus);
+                    }
+    
+                    case 1 -> {
+                        this.fxid_platformLinkImage2.setVisible(visibleStatus);
+                    }
+    
+                    case 2 -> {
+                        this.fxid_platformLinkImage3.setVisible(visibleStatus);
+                    }
+    
+                    case 3 -> {
+                        this.fxid_platformLinkImage4.setVisible(visibleStatus);
+                    }
+                }
+                iterator++;
+            }
+        }
+    }
+
+    private void generateArrayListSocialData() {
+        this.socialAccountList = new ArrayList<>();
+
+        this.fxid_socialAccountText.setVisible(false);
+        this.socialAccountList.add(fxid_socialAccount1);
+        fxid_socialAccount1.setVisible(false);
+        fxid_platformLinkImage1.setVisible(false);
+
+        this.socialAccountList.add(fxid_socialAccount2);
+        fxid_socialAccount2.setVisible(false);
+        fxid_platformLinkImage2.setVisible(false);
+
+        this.socialAccountList.add(fxid_socialAccount3);
+        fxid_socialAccount3.setVisible(false);
+        fxid_platformLinkImage3.setVisible(false);
+
+        this.socialAccountList.add(fxid_socialAccount4);
+        fxid_platformLinkImage4.setVisible(false);
+        fxid_socialAccount4.setVisible(false);
     }
 
     /**
@@ -395,5 +478,7 @@ public class FrontPage {
         if (isAdmin) {
             fxid_adminElement.setVisible(true);
         }
+
+        generateArrayListSocialData();
     }
 }

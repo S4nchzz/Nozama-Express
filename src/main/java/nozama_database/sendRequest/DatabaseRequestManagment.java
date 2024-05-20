@@ -10,8 +10,9 @@ import java.util.ArrayList;
 
 import nozama.f00_Login.ObtainIDFromUsername;
 import nozama.f01_FrontPage.ticketChat.MessageData;
+import nozama.f01_FrontPage.user_profile.SocialUserLinkData;
 import nozama_database.credentials.PasswordComplexity;
-import nozama_database.setttingUp.DatabaseLink;
+import nozama_database.setttingUp.DatabaseSetup;
 
 /**
  * Clase que gestiona todo el control de la base de datos, metodos (anadir(),
@@ -19,7 +20,7 @@ import nozama_database.setttingUp.DatabaseLink;
  */
 public class DatabaseRequestManagment {
     // URL global de la base de datos obtenido del String estatico de DatabaseRequestManagment
-    final static String url = DatabaseLink.url;
+    final static String url = DatabaseSetup.url;
 
     /**
      * Este metodo iniciara una conexion con la base de datos y creara un objeto de
@@ -791,7 +792,26 @@ public class DatabaseRequestManagment {
         } catch (SQLException sqle) {
 
         }
+    }
 
+    public static ArrayList<SocialUserLinkData> getSocialUserLinkData(int userID) {
+        try {
+            Connection conn = DriverManager.getConnection(url, "root", "");
+            PreparedStatement st = conn.prepareStatement("SELECT * FROM SOCIAL_USER_LINKS WHERE USER_ID = ?");
+            st.setInt(1, userID);
+            ResultSet rs = st.executeQuery();
 
+            ArrayList<SocialUserLinkData> linkData = new ArrayList<>();
+
+            while (rs.next()) {
+                linkData.add(new SocialUserLinkData(rs.getInt(1), rs.getInt(2), rs.getString(3)));
+            }
+
+            return linkData;
+        } catch (SQLException sqle) {
+
+        }
+
+        return null;
     }
 }
