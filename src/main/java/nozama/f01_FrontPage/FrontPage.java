@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.print.URIException;
+
 import javafx.scene.control.TextArea;
 import com.gluonhq.charm.glisten.control.ToggleButtonGroup;
 
@@ -199,10 +201,15 @@ public class FrontPage {
     private void setSocialDataURL(boolean visibleStatus, ArrayList<SocialUserLinkData> socialData) {
         int iterator = 0; // Positon to change visibilty to the link image
         for (Hyperlink link : socialAccountList) {
+            final int iteratorF = iterator;
             if (iterator < socialData.size()) {
                 fxid_socialAccountText.setVisible(true);
                 link.setVisible(visibleStatus);
                 link.setText(socialData.get(iterator).getURL());
+
+                link.setOnAction(event -> {
+                    try {Desktop.getDesktop().browse(new URI(socialData.get(iteratorF).getURL()));} catch (IOException |URISyntaxException e) {}
+                });
     
                 switch (iterator) {
                     case 0 -> {
