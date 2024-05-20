@@ -7,8 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.print.URIException;
-
 import javafx.scene.control.TextArea;
 import com.gluonhq.charm.glisten.control.ToggleButtonGroup;
 
@@ -101,6 +99,8 @@ public class FrontPage {
     private Hyperlink fxid_profileEmail;
     @FXML
     private Text fxid_ProfileUserName;
+    @FXML
+    private Text fxid_profileLocation;
     
     // Social account elements
     @FXML
@@ -183,6 +183,7 @@ public class FrontPage {
         this.fxid_profileName.setText(profile.getFullName());
         this.fxid_ProfileUserName.setText(dataLoggedUser.getUsername());
         this.fxid_profileEmail.setText(profile.getPublicEmail());
+        this.fxid_profileLocation.setText(profile.getLocation());
 
         this.fxid_profileEmail.setOnAction(event -> {
             try {Desktop.getDesktop().mail(new URI("mailto:" + profile.getPublicEmail()));} catch (URISyntaxException | IOException e) {}
@@ -205,7 +206,14 @@ public class FrontPage {
             if (iterator < socialData.size()) {
                 fxid_socialAccountText.setVisible(true);
                 link.setVisible(visibleStatus);
-                link.setText(socialData.get(iterator).getURL());
+
+                String networkDescribed = DatabaseRequestManagment.getNetWorkString(socialData.get(iterator).getNetworkId());
+
+                if (networkDescribed == null) {
+                    link.setText(socialData.get(iterator).getURL());
+                } else {
+                    link.setText(networkDescribed);
+                }
 
                 link.setOnAction(event -> {
                     try {Desktop.getDesktop().browse(new URI(socialData.get(iteratorF).getURL()));} catch (IOException |URISyntaxException e) {}

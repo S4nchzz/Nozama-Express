@@ -814,4 +814,23 @@ public class DatabaseRequestManagment {
 
         return null;
     }
+
+    public static String getNetWorkString(int networkID) {
+        try {
+            Connection conn = DriverManager.getConnection(url, "root", "");
+            PreparedStatement st = conn.prepareStatement("SELECT NETWORK FROM SOCIAL_PLATFORMS WHERE ID = ?");
+            st.setInt(1, networkID);
+
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString(1);
+            }
+        } catch (SQLException sqle) {
+
+        }
+
+        return null;
+    }
+
 }

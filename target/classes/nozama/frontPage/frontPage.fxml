@@ -177,14 +177,14 @@
             <VBox fx:id="fxid_ticketGraphicPane" layoutX="503.0" layoutY="142.0" prefHeight="244.0" prefWidth="377.0" style="-fx-border-color: #CFCFCF;" />
          </children>
       </Pane>
-      <Pane fx:id="fxid_userProfilePane" layoutX="321.0" layoutY="106.0" prefHeight="601.0" prefWidth="900.0" visible="false">
+      <Pane fx:id="fxid_userProfilePane" layoutX="321.0" layoutY="106.0" prefHeight="601.0" prefWidth="900.0">
          <children>
             <Text layoutX="35.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Public Profile">
                <font>
                   <Font name="Poppins Italic" size="23.0" />
                </font></Text>
             <Line endX="759.0" layoutX="123.0" layoutY="74.0" startX="-100.0" />
-            <Text fx:id="fxid_ProfileUserName" fill="#9a9a9a" layoutX="31.0" layoutY="330.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{username}">
+            <Text fx:id="fxid_ProfileUserName" fill="#9a9a9a" layoutX="29.0" layoutY="330.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{username}">
                <font>
                   <Font size="16.0" />
                </font></Text>
@@ -197,42 +197,47 @@
                <image>
                   <Image url="@src/frontPageIcons/avatar-icon.png" />
                </image></ImageView>
-            <Hyperlink fx:id="fxid_socialAccount1" layoutX="42.0" layoutY="440.0" text="Hyperlink" />
-            <Text fx:id="fxid_socialAccountText" layoutX="23.0" layoutY="434.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Social accounts:">
+            <Hyperlink fx:id="fxid_socialAccount1" layoutX="46.0" layoutY="458.0" text="Hyperlink" />
+            <Text fx:id="fxid_socialAccountText" layoutX="27.0" layoutY="452.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Found me:">
                <font>
                   <Font name="Poppins Regular" size="16.0" />
                </font>
             </Text>
-            <Hyperlink fx:id="fxid_socialAccount2" layoutX="42.0" layoutY="462.0" text="Hyperlink" />
-            <Hyperlink fx:id="fxid_socialAccount3" layoutX="42.0" layoutY="484.0" text="Hyperlink" />
-            <Line endX="-100.0" endY="282.0" layoutX="344.0" layoutY="91.0" startX="-100.0" startY="-4.0" />
-            <Button fx:id="fxid_editProfile" layoutX="80.0" layoutY="374.0" mnemonicParsing="false" style="-fx-cursor: hand;" text="Edit profile" />
-            <Hyperlink fx:id="fxid_profileEmail" layoutX="27.0" layoutY="334.0" prefHeight="29.0" prefWidth="206.0" text="{mail}" textFill="#9a9a9a">
+            <Hyperlink fx:id="fxid_socialAccount2" layoutX="46.0" layoutY="480.0" text="Hyperlink" />
+            <Hyperlink fx:id="fxid_socialAccount3" layoutX="46.0" layoutY="502.0" text="Hyperlink" />
+            <Line endX="-100.0" endY="323.0" layoutX="344.0" layoutY="91.0" startX="-100.0" startY="-4.0" />
+            <Button fx:id="fxid_editProfile" layoutX="84.0" layoutY="400.0" mnemonicParsing="false" style="-fx-cursor: hand;" text="Edit profile" />
+            <Hyperlink fx:id="fxid_profileEmail" layoutX="25.0" layoutY="334.0" prefHeight="29.0" prefWidth="206.0" text="{mail}" textFill="#9a9a9a">
                <font>
                   <Font size="16.0" />
                </font>
             </Hyperlink>
-            <ImageView fx:id="fxid_platformLinkImage1" fitHeight="16.0" fitWidth="16.0" layoutX="23.0" layoutY="444.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="fxid_platformLinkImage1" fitHeight="16.0" fitWidth="16.0" layoutX="27.0" layoutY="462.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@src/profileIcons/enlace.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="fxid_platformLinkImage2" fitHeight="16.0" fitWidth="16.0" layoutX="23.0" layoutY="466.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="fxid_platformLinkImage2" fitHeight="16.0" fitWidth="16.0" layoutX="27.0" layoutY="484.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@src/profileIcons/enlace.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="fxid_platformLinkImage3" fitHeight="16.0" fitWidth="16.0" layoutX="23.0" layoutY="487.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="fxid_platformLinkImage3" fitHeight="16.0" fitWidth="16.0" layoutX="27.0" layoutY="505.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@src/profileIcons/enlace.png" />
                </image>
             </ImageView>
-            <Hyperlink fx:id="fxid_socialAccount4" layoutX="42.0" layoutY="507.0" text="Hyperlink" />
-            <ImageView fx:id="fxid_platformLinkImage4" fitHeight="16.0" fitWidth="16.0" layoutX="23.0" layoutY="510.0" pickOnBounds="true" preserveRatio="true">
+            <Hyperlink fx:id="fxid_socialAccount4" layoutX="46.0" layoutY="525.0" text="Hyperlink" />
+            <ImageView fx:id="fxid_platformLinkImage4" fitHeight="16.0" fitWidth="16.0" layoutX="27.0" layoutY="528.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@src/profileIcons/enlace.png" />
                </image>
             </ImageView>
+            <Text fx:id="fxid_profileLocation" fill="#9a9a9a" layoutX="29.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{location}">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
          </children>
       </Pane>
    </children>
