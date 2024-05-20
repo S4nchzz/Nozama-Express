@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
-import nozama.f00_Login.UserData;
 import nozama_database.sendRequest.DatabaseRequestManagment;
 
 public class UserMessageBox {

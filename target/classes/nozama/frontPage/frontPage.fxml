@@ -193,7 +193,10 @@
                   <Font name="Poppins Italic" size="18.0" />
                </font>
             </Text>
-            <ImageView fx:id="fxid_profileImage" fitHeight="178.0" fitWidth="178.0" layoutX="35.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="fxid_profileImage" fitHeight="178.0" fitWidth="178.0" layoutX="35.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@src/frontPageIcons/avatar-icon.png" />
+               </image></ImageView>
             <Hyperlink fx:id="fxid_socialAccount1" layoutX="42.0" layoutY="440.0" text="Hyperlink" />
             <Text layoutX="23.0" layoutY="434.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Social accounts:">
                <font>
