@@ -11,11 +11,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import nozama.f00_Login.UserData;
+import nozama.f01_FrontPage.NozamaServerSocket;
 import nozama.f01_FrontPage.adminPanel.ticketPanel.TicketData;
 import nozama.f01_FrontPage.ticketChat.messageBox.AdminMessageBox;
 import nozama.f01_FrontPage.ticketChat.messageBox.UserMessageBox;
 import nozama.f01_FrontPage.ticketChat.messagesListener.AdminSocket;
-import nozama.f01_FrontPage.ticketChat.messagesListener.ChatServerSocket;
 import nozama.f01_FrontPage.ticketChat.messagesListener.PopupMessageShower;
 import nozama.f01_FrontPage.ticketChat.messagesListener.ServerThreadInfo;
 import nozama.f01_FrontPage.ticketChat.messagesListener.UserSocket;
@@ -35,13 +35,17 @@ public class ChatBoxController {
     @FXML
     private AnchorPane fxid_anchorPaneResizeable;
 
+    private final CentralizedChats centralizedChats;
+
     public ChatBoxController(TicketData td, UserData userData, boolean chatInstanceFromAdmin) {
         this.token = generateToken();
         this.td = td;
         this.userData = userData;
         this.chatInstanceFromAdmin = chatInstanceFromAdmin;
 
-        CentralizedChats.addChat(this);
+        this.centralizedChats = CentralizedChats.getInstance();
+
+        centralizedChats.addChat(this);
 
         Platform.runLater(() -> {
             Scene scene = fxid_chatVbox.getScene();
@@ -49,7 +53,7 @@ public class ChatBoxController {
 
             stage.setOnHidden(event -> {
                 ChatBoxController chatToDelete = null;
-                for (ChatBoxController chat : CentralizedChats.getChats()) {
+                for (ChatBoxController chat : centralizedChats.getChats()) {
                     if (chat.getToken() == token) {
                         chatToDelete = chat;
                     }
@@ -59,7 +63,7 @@ public class ChatBoxController {
                     return;
                 }
  
-                CentralizedChats.delChat(chatToDelete);
+                centralizedChats.delChat(chatToDelete);
                 if (chatInstanceFromAdmin) {
                     new PopupMessageShower(this.td.getTicket_id(), true);
                 }
@@ -69,7 +73,7 @@ public class ChatBoxController {
         if (!ServerThreadInfo.getServerThreadRunning()) {
             new Thread(() -> {
                 ServerThreadInfo.setServerThreadRunning(true);
-                new ChatServerSocket();
+                new NozamaServerSocket();
             }).start();
         }
 
@@ -93,7 +97,7 @@ public class ChatBoxController {
         checkBothUsersConnected();
         if (this.fxid_chatVbox.getChildren().size() > 5 && !fxid_sendMessage.getText().equals("")) {
             // Ancho del AnchorPane lleno, aumentando tamaño en todos los chatBox con ese ID
-            for (ChatBoxController chat : CentralizedChats.getChats()) {
+            for (ChatBoxController chat : centralizedChats.getChats()) {
                 if (chat.getTicketData().getTicket_id() == this.getTicketData().getTicket_id()) {
                     chat.modifyAnchorPane(fxid_anchorPaneResizeable.getWidth(), fxid_anchorPaneResizeable.getHeight() + 69);
                 }
@@ -164,7 +168,7 @@ public class ChatBoxController {
                 int countInstancesOfThisTicket = 0;
                 ArrayList<ChatBoxController> usedChatsWithSameTicket = new ArrayList<>();
 
-                for (ChatBoxController chat : CentralizedChats.getChats()) {
+                for (ChatBoxController chat : centralizedChats.getChats()) {
                     if (chat.getTicketData().getTicket_id() == td.getTicket_id()) {
                         countInstancesOfThisTicket++;
                         usedChatsWithSameTicket.add(chat);

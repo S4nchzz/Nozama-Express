@@ -55,11 +55,17 @@ public class TicketPanel {
     @FXML
     private Button fxid_liveChatAction;
 
+    private final CentralizedChats centralizedChats;
+    private final CentralizedTicketElements centralizedTicketElements;
+
     public TicketPanel (TicketData ticketData, UserData userData, int adminID) {
         this.ticketData = ticketData;
         this.dbr = new DatabaseRequestManagment();
         this.userData = userData;
         this.adminID = adminID;
+
+        this.centralizedChats = CentralizedChats.getInstance();
+        this.centralizedTicketElements = CentralizedTicketElements.getInstance();
     }
 
     @FXML
@@ -67,7 +73,7 @@ public class TicketPanel {
         DatabaseRequestManagment sendResponse = new DatabaseRequestManagment();
         if (sendResponse.updateTicket(adminID, fxid_responseArea.getText(), ticketData.getTicket_id()) && sendResponse.closeTicket(ticketData.getTicket_id())) {
             this.ticketData = updateTicketDataContent();
-            CentralizedTicketTemplates.delTicketTemplate(ticketData.getTicket_id());
+            centralizedTicketElements.delTicketTemplate(ticketData.getTicket_id());
 
             if (ticketData != null) {
                 initialize();
@@ -122,7 +128,7 @@ public class TicketPanel {
     @FXML
     private void liveChatAction () {
         int countInstancesCurrentTicket = 0;
-        for (ChatBoxController chat : CentralizedChats.getChats()) {
+        for (ChatBoxController chat : centralizedChats.getChats()) {
             if (chat.getTicketData().getTicket_id() == this.ticketData.getTicket_id()) {
                 countInstancesCurrentTicket++;
             } 
@@ -161,7 +167,7 @@ public class TicketPanel {
     }
 
     private boolean currentChatBoxAdminOpened() {
-        for (ChatBoxController chat : CentralizedChats.getChats()) {
+        for (ChatBoxController chat : centralizedChats.getChats()) {
             if (chat.getTicketData().getTicket_id() == this.ticketData.getTicket_id() && chat.chatInstanceFromAdmin()) {
                 return true;
             }

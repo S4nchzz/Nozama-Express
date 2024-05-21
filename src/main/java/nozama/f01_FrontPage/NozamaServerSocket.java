@@ -1,4 +1,4 @@
-package nozama.f01_FrontPage.ticketChat.messagesListener;
+package nozama.f01_FrontPage;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,17 +6,23 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import nozama.f01_FrontPage.adminPanel.ticketPanel.CentralizedTicketTemplates;
+import nozama.f01_FrontPage.adminPanel.ticketPanel.CentralizedTicketElements;
 import nozama.f01_FrontPage.adminPanel.ticketPanel.TicketElement;
 import nozama.f01_FrontPage.ticketChat.CentralizedChats;
 import nozama.f01_FrontPage.ticketChat.ChatBoxController;
 
-public class ChatServerSocket {
+public class NozamaServerSocket {
     private ServerSocket s;
     private int ticketID;
-    private int userID; 
+    private int userID;
 
-    public ChatServerSocket () {
+    private final CentralizedChats centralizedChats;
+    private final CentralizedTicketElements centralizedTicketElements;
+
+    public NozamaServerSocket () {
+        this.centralizedChats = CentralizedChats.getInstance();
+        this.centralizedTicketElements = CentralizedTicketElements.getInstance();
+        
         try {
             s = new ServerSocket(25567);
 
@@ -127,7 +133,7 @@ public class ChatServerSocket {
     }
 
     private void replicateMessageToChats(boolean fromAdmin, String message, int userID) {
-        for (ChatBoxController chat : CentralizedChats.getChats()) {
+        for (ChatBoxController chat : centralizedChats.getChats()) {
             if (chat.getTicketData().getTicket_id() == ticketID) {
                 chat.addMessage(fromAdmin, message, userID);
             }
@@ -135,7 +141,7 @@ public class ChatServerSocket {
     }
     
     private void noticeChats(int ticket_id, boolean notifyStatus) {
-        for (TicketElement ticket : CentralizedTicketTemplates.getChats()) {
+        for (TicketElement ticket : centralizedTicketElements.getChats()) {
             if (ticket.getTicketData().getTicket_id() == ticket_id) {
                 ticket.popUpNotice(notifyStatus);
             }

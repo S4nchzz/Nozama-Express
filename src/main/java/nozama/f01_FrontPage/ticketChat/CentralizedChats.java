@@ -14,15 +14,15 @@ public class CentralizedChats {
         return centralized;
     }
 
-    public static void addChat(ChatBoxController chat) {
+    public void addChat(ChatBoxController chat) {
         chats.add(chat);
     }
 
-    public static void delChat(ChatBoxController chat) {
+    public void delChat(ChatBoxController chat) {
         chats.remove(chat);
     }
 
-    public static ArrayList<ChatBoxController> getChats() {
+    public ArrayList<ChatBoxController> getChats() {
         return chats;
     }
 }
