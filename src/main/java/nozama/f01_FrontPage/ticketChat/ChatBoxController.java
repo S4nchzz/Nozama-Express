@@ -66,7 +66,7 @@ public class ChatBoxController {
  
                 centralizedChats.delChat(chatToDelete);
                 if (chatInstanceFromAdmin) {
-                    new PopupMessageShower(this.td.getTicket_id(), true);
+                    new PopupMessageShower(this.td.getTicket_id(), false);
                 }
             });
         });
@@ -89,7 +89,7 @@ public class ChatBoxController {
         // Not necesary because the popup will only show at the first creation of the instance of this() maded by an administrator
         // a user cannot open a ticketChat himself
         if (chatInstanceFromAdmin) {
-            new PopupMessageShower(this.td.getTicket_id(), false);
+            new PopupMessageShower(this.td.getTicket_id(), true);
         }
     }
     

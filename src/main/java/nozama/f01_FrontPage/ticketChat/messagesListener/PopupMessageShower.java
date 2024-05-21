@@ -7,11 +7,11 @@ import java.net.Socket;
 
 public class PopupMessageShower implements Serializable {
     private final int ticketID;
-    private final boolean closed;
+    private final boolean notif;
 
-    public PopupMessageShower (int ticketID, boolean close) {
+    public PopupMessageShower (int ticketID, boolean notify) {
         this.ticketID = ticketID;
-        this.closed = close;
+        this.notif = notify;
 
         try {
             Socket s = new Socket("127.0.0.1", 25566);
@@ -29,6 +29,6 @@ public class PopupMessageShower implements Serializable {
     }
 
     public boolean getClosed() {
-        return this.closed;
+        return this.notif;
     }
 }
