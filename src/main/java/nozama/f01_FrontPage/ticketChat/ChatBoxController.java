@@ -18,6 +18,7 @@ import nozama.f01_FrontPage.ticketChat.messageBox.UserMessageBox;
 import nozama.f01_FrontPage.ticketChat.messagesListener.AdminSocket;
 import nozama.f01_FrontPage.ticketChat.messagesListener.PopupMessageShower;
 import nozama.f01_FrontPage.ticketChat.messagesListener.ServerThreadInfo;
+import nozama.f01_FrontPage.ticketChat.messagesListener.SocketChatComunicationData;
 import nozama.f01_FrontPage.ticketChat.messagesListener.UserSocket;
 import nozama_database.sendRequest.DatabaseRequestManagment;
 
@@ -109,10 +110,11 @@ public class ChatBoxController {
         
         if (!message.equals("")) { 
             if (this.chatInstanceFromAdmin) {
-                new AdminSocket(fxid_sendMessage.getText(), this.td.getTicket_id(), userData.getUser_id());
+                new AdminSocket(new SocketChatComunicationData(this.chatInstanceFromAdmin,
+                        userData.getUser_id(), td.getTicket_id(), message));
                 dbr.sendMessage(td.getTicket_id(), userData.getUser_id(), "Admin", message);
             } else {
-                new UserSocket(fxid_sendMessage.getText(), this.td.getTicket_id(), userData.getUser_id());
+                new UserSocket(new SocketChatComunicationData(this.chatInstanceFromAdmin, userData.getUser_id(), td.getTicket_id(), message));
                 dbr.sendMessage(td.getTicket_id(), userData.getUser_id(), "User", message);
             }
         }

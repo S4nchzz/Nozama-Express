@@ -277,15 +277,22 @@ public class DatabaseRequestManagment {
      * @return true = admin; false = notAdmin
      */
     public static boolean isAdmin(int user_ID) {
-        ResultSet rs = getQueryResult(user_ID);
+        try {
+            Connection conn = DriverManager.getConnection(url, "root", "");
+            PreparedStatement st = conn.prepareStatement("SELECT ISADMIN FROM USER WHERE USER_ID = USER_ID");
+            ResultSet rs = st.executeQuery();
 
-        if (rs != null) {
-            try {
-                return rs.getBoolean(6);
-            } catch (SQLException sqle) {
-                System.out.println(sqle.getMessage());
+            if (rs.next()) {
+                return rs.getBoolean(1);
             }
+
+            rs.close();
+            st.close();
+            conn.close();
+        } catch (SQLException sqle) {
+
         }
+
         return false;
     }
 

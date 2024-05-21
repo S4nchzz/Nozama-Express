@@ -1,23 +1,34 @@
 package nozama.f01_FrontPage.ticketChat.messagesListener;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.Socket;
 
-public class PopupMessageShower {
-    public PopupMessageShower (int ticketID, boolean close) {
-        try {
-            Socket s = new Socket("127.0.0.1", 25567);
-            PrintWriter out = new PrintWriter(s.getOutputStream(), true);
-            if (close) {
-                out.println("{popUpTicket:" + ticketID + "}." + "close");
-            } else {
-                out.println("{popUpTicket:" + ticketID + "}");
-            }
+public class PopupMessageShower implements Serializable {
+    private final int ticketID;
+    private final boolean closed;
 
+    public PopupMessageShower (int ticketID, boolean close) {
+        this.ticketID = ticketID;
+        this.closed = close;
+
+        try {
+            Socket s = new Socket("127.0.0.1", 25566);
+            ObjectOutputStream out = new ObjectOutputStream(s.getOutputStream());
+            out.writeObject(this);
+            out.close();
             s.close();
         } catch (IOException ioe) {
 
         }
+    }
+
+    public int getTicketID() {
+        return this.ticketID;
+    }
+
+    public boolean getClosed() {
+        return this.closed;
     }
 }
