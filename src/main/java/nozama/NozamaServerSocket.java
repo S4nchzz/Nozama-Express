@@ -1,4 +1,4 @@
-package nozama.f01_FrontPage;
+package nozama;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -23,7 +23,7 @@ public class NozamaServerSocket {
         this.centralizedTicketElements = CentralizedTicketElements.getInstance();
 
         try {
-            s = new ServerSocket(25566);
+            s = new ServerSocket(ServerSocketData.PORT);
 
             while (true) {
                 Socket clientSocket = s.accept();

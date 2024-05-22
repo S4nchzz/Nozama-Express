@@ -25,6 +25,8 @@ public class NozamaWindowApp extends Application {
             DatabaseRequestManagment.anadir("d", "a", true, "Iyan", "1", "M");
             DatabaseRequestManagment.anadir("e", "a", true, "Iyan", "1", "M");
             DatabaseRequestManagment.anadir("f", "a", true, "Iyan", "1", "M");
+            ServerSocketData.setIp("127.0.0.1");
+            ServerSocketData.setPort(2552);
             // Link to the database    
             // Instancia de FXMLLoader
             FXMLLoader loader = new FXMLLoader();

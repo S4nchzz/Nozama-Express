@@ -5,10 +5,12 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
 
+import nozama.ServerSocketData;
+
 public class AdminSocket implements Serializable {
     public AdminSocket (SocketChatComunicationData socketMessageData) {
         try {
-            Socket s = new Socket("127.0.0.1", 25566);
+            Socket s = new Socket(ServerSocketData.IP, ServerSocketData.PORT);
             ObjectOutputStream out = new ObjectOutputStream(s.getOutputStream());
             out.writeObject(socketMessageData);
             out.close();
