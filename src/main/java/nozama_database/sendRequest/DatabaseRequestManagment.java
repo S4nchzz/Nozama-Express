@@ -845,7 +845,7 @@ public class DatabaseRequestManagment {
             Connection conn = DriverManager.getConnection(url, "root", "");
             PreparedStatement st = conn.prepareStatement("UPDATE USER_PROFILE SET PROFILE_PICTURE = ? WHERE ID = ?");
             st.setBytes(1, allBytes);
-            st.setInt(1, user_id);
+            st.setInt(2, user_id);
             st.executeUpdate();
             
             st.close();
