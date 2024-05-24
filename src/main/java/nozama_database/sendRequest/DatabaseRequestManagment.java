@@ -840,4 +840,18 @@ public class DatabaseRequestManagment {
         return null;
     }
 
+    public static void modifyProfilePicture(int user_id, byte[] allBytes) {
+        try {
+            Connection conn = DriverManager.getConnection(url, "root", "");
+            PreparedStatement st = conn.prepareStatement("UPDATE USER_PROFILE SET PROFILE_PICTURE = ? WHERE ID = ?");
+            st.setBytes(1, allBytes);
+            st.setInt(1, user_id);
+            st.executeUpdate();
+            
+            st.close();
+            conn.close();
+        } catch (SQLException sqle) {
+
+        }
+    }
 }

@@ -16,7 +16,7 @@ public class UserSocket implements Serializable {
             out.close();
             s.close();
         } catch (IOException e) {
-        
+            
         }
     }
 }

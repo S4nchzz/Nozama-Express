@@ -193,7 +193,7 @@
                   <Font name="Poppins Italic" size="18.0" />
                </font>
             </Text>
-            <ImageView fx:id="fxid_profileImage" fitHeight="178.0" fitWidth="178.0" layoutX="35.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="fxid_profileImage" fitHeight="178.0" fitWidth="178.0" layoutX="35.0" layoutY="95.0" onMouseClicked="#changeImageAction" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
                <image>
                   <Image url="@src/frontPageIcons/avatar-icon.png" />
                </image></ImageView>

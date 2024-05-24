@@ -1,11 +1,16 @@
 package nozama.f01_FrontPage;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import javax.imageio.stream.ImageInputStream;
 
 import javafx.scene.control.TextArea;
 import com.gluonhq.charm.glisten.control.ToggleButtonGroup;
@@ -25,6 +30,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import nozama.NozamaWindowApp;
 import nozama.f00_Login.LoginPage;
@@ -45,6 +51,8 @@ public class FrontPage {
     private DatabaseRequestManagment dbr;
     private int ticketAmount;
     private ResultSet ticketResultQuery;
+    
+    private final FileChooser fileChooser;
 
     @FXML
     private ImageView fxid_adminElement;
@@ -138,6 +146,8 @@ public class FrontPage {
         this.stage = s;
         this.isAdmin = isAdmin;
         this.visibleSupport = true;
+        this.fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File("C:/Users/" + System.getProperty("user.name") + "/Desktop"));
 
         this.ticketAmount = 0;
 
@@ -195,10 +205,25 @@ public class FrontPage {
         }
 
         setSocialDataURL(true, socialData);
-
-
     }
 
+    @FXML
+    private void changeImageAction() {
+        File f = fileChooser.showOpenDialog(new Stage());
+        if (f.isFile() && checkImageExtension(f.getName())) {
+            // añadir la foto a la base de datos y cambiarla segun se actualice
+            try {DatabaseRequestManagment.modifyProfilePicture(dataLoggedUser.getUser_id(), Files.readAllBytes(f.toPath()));} catch (IOException e) {}
+            openProfileAction();
+        }
+    }
+
+    private boolean checkImageExtension(String fileName) {
+        if (fileName.endsWith(".png") || fileName.endsWith(".jpg") || fileName.endsWith(".jpeg")) {
+            return true;
+        }
+        return false;
+    }
+    
     private void setSocialDataURL(boolean visibleStatus, ArrayList<SocialUserLinkData> socialData) {
         int iterator = 0; // Positon to change visibilty to the link image
         for (Hyperlink link : socialAccountList) {
