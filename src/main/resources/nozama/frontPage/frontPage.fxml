@@ -8,6 +8,7 @@
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
@@ -44,14 +45,14 @@
                         </ImageView>
                      </children>
                   </Pane>
-                  <Pane fx:id="fxid_paneB" prefHeight="60.6" prefWidth="189.0">
+                  <Pane fx:id="fxid_paneB" onMouseClicked="#showStoreAction" prefHeight="60.6" prefWidth="189.0">
                      <children>
-                        <ImageView fitHeight="37.0" fitWidth="37.0" layoutX="8.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="37.0" fitWidth="37.0" layoutX="8.0" layoutY="14.0" onMouseClicked="#showStoreAction" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@src/frontPageIcons/carrito-icon.png" />
                            </image>
                         </ImageView>
-                        <Text fill="#848608" layoutX="80.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Store" wrappingWidth="94.98307228088379">
+                        <Text fill="#848608" layoutX="80.0" layoutY="41.0" onMouseClicked="#showStoreAction" strokeType="OUTSIDE" strokeWidth="0.0" text="Store" wrappingWidth="94.98307228088379">
                            <font>
                               <Font name="Kollektif" size="25.0" />
                            </font>
@@ -177,7 +178,7 @@
             <VBox fx:id="fxid_ticketGraphicPane" layoutX="503.0" layoutY="142.0" prefHeight="244.0" prefWidth="377.0" style="-fx-border-color: #CFCFCF;" />
          </children>
       </Pane>
-      <Pane fx:id="fxid_userProfilePane" layoutX="321.0" layoutY="106.0" prefHeight="601.0" prefWidth="900.0">
+      <Pane fx:id="fxid_userProfilePane" layoutX="321.0" layoutY="106.0" prefHeight="601.0" prefWidth="900.0" visible="false">
          <children>
             <Text layoutX="35.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Public Profile">
                <font>
@@ -238,6 +239,15 @@
                   <Font size="16.0" />
                </font>
             </Text>
+         </children>
+      </Pane>
+      <Pane fx:id="fxid_communityPane" layoutX="342.0" layoutY="106.0" prefHeight="620.0" prefWidth="860.0" visible="false">
+         <children>
+            <VBox prefHeight="620.0" prefWidth="860.0">
+               <children>
+                  <AnchorPane fx:id="fxid_storeAnchor" prefHeight="624.0" prefWidth="860.0" />
+               </children>
+            </VBox>
          </children>
       </Pane>
    </children>

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import javafx.scene.control.TextArea;
 import com.gluonhq.charm.glisten.control.ToggleButtonGroup;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,6 +26,8 @@ import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -36,6 +39,8 @@ import nozama.f00_Login.UserData;
 import nozama.f01_FrontPage.adminPanel.AdminPanel;
 import nozama.f01_FrontPage.adminPanel.ticketPanel.TicketData;
 import nozama.f01_FrontPage.adminPanel.ticketPanel.TicketElement;
+import nozama.f01_FrontPage.storeData.ProductStoreTemplate;
+import nozama.f01_FrontPage.storeData.StoreProductData;
 import nozama.f01_FrontPage.user_profile.SocialUserLinkData;
 import nozama.f01_FrontPage.user_profile.UserProfileData;
 import nozama_database.sendRequest.DatabaseRequestManagment;
@@ -93,6 +98,8 @@ public class FrontPage {
     private Pane fxid_ticketGraphicPane;
     @FXML
     private ImageView fxid_supportNotification;
+    @FXML
+    private ImageView fxid_avatarIcon;
 
     // Profile elements
     @FXML
@@ -132,6 +139,12 @@ public class FrontPage {
     @FXML
     private ImageView fxid_platformLinkImage4;
 
+    // Store elements
+    @FXML
+    private Pane fxid_communityPane;
+    @FXML
+    private AnchorPane fxid_storeAnchor;
+
     private void checkBanned() throws BannedException {
         if (DatabaseRequestManagment.isBanned(dataLoggedUser.getUser_id())
                 && DatabaseRequestManagment.isLoggedIn(dataLoggedUser.getUser_id())) {
@@ -148,6 +161,11 @@ public class FrontPage {
         fileChooser.setInitialDirectory(new File("C:/Users/" + System.getProperty("user.name") + "/Desktop"));
 
         this.ticketAmount = 0;
+
+        Platform.runLater(() -> {
+            //Set profiule picture
+            modifyProfilePictureOnLeft();
+        });
 
         this.ticketResultQuery = DatabaseRequestManagment.getAllTrueTicketsFromUser(dataLoggedUser.getUser_id());
 
@@ -166,6 +184,40 @@ public class FrontPage {
         // Establece el booleano de login_status a true refiriendose a que el usuario
         // tiene la sesion iniciada
         DatabaseRequestManagment.modifyLoginStatus(this.dataLoggedUser.getUser_id(), true);
+    }
+
+    private void modifyProfilePictureOnLeft() {
+        if (DatabaseRequestManagment.getProfilePicture(dataLoggedUser.getUser_id()) != null) {
+            ByteArrayInputStream b = new ByteArrayInputStream(
+                    DatabaseRequestManagment.getProfilePicture(dataLoggedUser.getUser_id()));
+            this.fxid_avatarIcon.setImage(new Image(b));
+        }
+    }
+
+    @FXML
+    public void showStoreAction () {
+        setVisiblePanes(false);
+        this.fxid_communityPane.setVisible(true);
+
+        ArrayList<StoreProductData> products = DatabaseRequestManagment.getAmountOfProducts();
+        int numberOfHboxToCreate = products.size() / 4;
+
+        int arrPos = 0;
+        for (int i = 0; i <= numberOfHboxToCreate; i++) {
+            HBox hbox = new HBox();
+            hbox.setScaleX(this.fxid_storeAnchor.getLayoutX());
+            hbox.setScaleY(this.fxid_storeAnchor.getLayoutX() / 3);
+
+            for (int k = 0; k <= 4 && arrPos < products.size(); k++) {
+                ProductStoreTemplate p = new ProductStoreTemplate(products.get(arrPos));
+                
+                Pane pane = p.getProductPane();
+                pane.setVisible(true);
+                hbox.getChildren().add(pane);
+                arrPos++;
+            }
+            this.fxid_storeAnchor.getChildren().add(hbox);
+        }
     }
 
     @FXML
@@ -212,6 +264,7 @@ public class FrontPage {
             // añadir la foto a la base de datos y cambiarla segun se actualice
             try {DatabaseRequestManagment.modifyProfilePicture(dataLoggedUser.getUser_id(), Files.readAllBytes(f.toPath()));} catch (IOException e) {}
             openProfileAction();
+            modifyProfilePictureOnLeft();
         }
     }
 
@@ -318,6 +371,7 @@ public class FrontPage {
         ArrayList<Pane> elementList = new ArrayList<>();
         elementList.add(this.fxid_supportPane);
         elementList.add(this.fxid_userProfilePane);
+        elementList.add(this.fxid_communityPane);
 
         return elementList;
     }

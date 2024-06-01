@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import nozama.f00_Login.ObtainIDFromUsername;
+import nozama.f01_FrontPage.storeData.StoreProductData;
 import nozama.f01_FrontPage.ticketChat.MessageData;
 import nozama.f01_FrontPage.user_profile.SocialUserLinkData;
 import nozama_database.credentials.PasswordComplexity;
@@ -853,5 +854,56 @@ public class DatabaseRequestManagment {
         } catch (SQLException sqle) {
 
         }
+    }
+
+    public static ArrayList<StoreProductData> getAmountOfProducts() {
+        try {
+            Connection conn = DriverManager.getConnection(url, "root", "");
+            PreparedStatement st = conn.prepareStatement("SELECT * FROM STOCK");
+            ResultSet rs = st.executeQuery();
+
+            ArrayList<StoreProductData> products = new ArrayList<>();
+            while (rs.next()) {
+                products.add(new StoreProductData(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getString(7)));
+            }
+            
+            rs.close();
+            st.close();
+            conn.close();
+
+            return products;
+        } catch (SQLException sqle) {
+
+        }
+
+        return null;
+    }
+
+    public static byte[] getProductImage(int stock_ID) {
+        try {
+            Connection conn = DriverManager.getConnection(url, "root", "");
+            PreparedStatement st = conn.prepareStatement("SELECT PRODUCT_IMAGE FROM STOCK WHERE STOCK_ID = ?");
+            st.setInt(1, stock_ID);
+            ResultSet rs = st.executeQuery();
+
+            byte [] image = null;
+            if (rs.next()) {
+                image = rs.getBytes(1);
+            }
+
+            rs.close();
+            st.close();
+            conn.close();
+
+            if (image != null) {
+                return image;
+            }
+
+            new Exception("No image founded");
+        } catch (SQLException sqle) {
+
+        }
+
+        return null;
     }
 }
